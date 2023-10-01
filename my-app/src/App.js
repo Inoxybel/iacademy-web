@@ -9,6 +9,7 @@ import Conteudo from './pages/conteudo/Conteudo';
 import Feedback from "./pages/feedback/Feedback";
 import Pendencias from "./pages/exercicios/Pendencias";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
+import LandingPage from "./pages/LandingPage";
 
 const cookies = new Cookies(); // Crie uma instância de Cookies
 
@@ -36,7 +37,9 @@ function App() {
       <Flex minH="100vh" bg="#1A1922" color="white">
         <Router>
           <Routes>
-            <Route path="/" element={<Login setAuthenticated={setAuthenticated} />} />
+            <Route path={LandingPage ? "/" : "/login"} element={LandingPage ? <LandingPage/> : <Login/>} />
+            
+            <Route path="/login" element={<Login setAuthenticated={setAuthenticated} />} />
             <Route
               path="/perfil"
               element={<PrivateRoute element={<Perfil />} authenticated={authenticated} />}
