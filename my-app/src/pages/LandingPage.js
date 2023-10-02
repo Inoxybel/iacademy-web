@@ -14,14 +14,19 @@ import {
     Flex,
     Image,
     Text,
-    VStack,
+    HStack,
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbLink,
     color
 } from "@chakra-ui/react";
 import imagem_estudando from "../img/imagem-estudando.jpg"
+import like from '../img/like.png'
+import celular from '../img/celular.png'
+import feedback from '../img/feedback.png'
+import tarefas from '../img/tarefas.png'
 import styles from "./styles.js";
+import { MdFeedback } from "react-icons/md";
 
 
 export default function LandingPage() {
@@ -62,7 +67,7 @@ export default function LandingPage() {
                         <Box color="blue.900" textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={"10%"} top={"20%"} maxW={"55%"}>
                             <Text fontSize={"2.5vw"} position="relative" >Desenvolvendo habilidades da sua maneira</Text>
                             <Text fontSize={"1.4vw"} position="relative" top={5} left={"10%"} color={"gray.700"} textShadow="2px 2px 2px white">Na Iacademy, o aprendizado é flexível. Personalize seu caminho de aprendizado e peça para gerar explicações de curso sob medida para se adequar ao seu estilo.</Text>
-                            <Button w={"14vw"} h={"2vw"} fontSize={"1vw"} top={10} left={"90%"} backgroundColor={"blue.400" } color={"white" } _hover={{ backgroundColor:"whiteAlpha.700" , color: "blue.800"}}>Conheça nossa plataforma</Button>
+                            <Button w={"14vw"} h={"2vw"} fontSize={"0.9vw"} top={10} left={"90%"} backgroundColor={"blue.400"} color={"white"} _hover={{ backgroundColor: "whiteAlpha.700", color: "blue.800" }}>Conheça nossa plataforma</Button>
                         </Box>
                     </Flex>
                 </Container>
@@ -70,22 +75,34 @@ export default function LandingPage() {
 
 
             <Box py={10}>
-                <Container maxW="container.xl" color={"black"}>
-                    <VStack spacing={8}>
-                        <Box>
-                            <Image src="/path/to/your-image1.jpg" alt="Image 1" maxH={300}/>
-                            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
-                        </Box>
-                        <Box>
-                            <Image src="/path/to/your-image2.jpg" alt="Image 2" maxH={300} />
-                            <Text>Nulla facilisi. Etiam ultrices massa sit amet.</Text>
-                        </Box>
-                        <Box>
-                            <Image src="/path/to/your-image3.jpg" alt="Image 3" maxH={300} />
-                            <Text>Phasellus euismod augue nec est feugiat, nec tristique.</Text>
-                        </Box>
-                    </VStack>
-                </Container>
+                <Flex color={"black"} justifyContent={"space-around"} h={100} alignItems={"center"}>
+                    <Flex w={"20%"} h={"100%"}>
+                        <Image src={like} alt="Image 1" maxH={50} m={2}/>
+
+                        <Flex flexDir="column" >
+                            <Text><strong>Consuma o que você gostar</strong></Text>
+                            <Text>Aproveite a versatilidade de conteúdos que alteram conforme o seu comando</Text>
+                        </Flex>
+                    </Flex>
+                    <Flex w={"20%"}  h={"100%"}>
+                        <Image src={feedback} alt="Image 2" maxH={50} m={2}/>
+                        <Flex flexDir="column">
+                            <strong>
+                                <Text>Obtenha Feedback Instantâneo</Text>
+                            </strong>
+                            <Text>Obtenha avaliação imediata sobre sua atividade. Nossa plataforma utiliza IA para avaliar e ajudá-lo a melhorar continuamente.</Text>
+                        </Flex>
+                    </Flex>
+                    <Flex w={"20%"}  h={"100%"}>
+                        <Image src={tarefas} alt="Image 3" maxH={50} m={2}/>
+                        <Flex flexDir="column">
+                            <strong>
+                                <Text>Suas pendências organizadas</Text>
+                            </strong>
+                            <Text>Gerencie tarefas e acesse rapidamente seus objetivos com nossa lista de pendências, simplificando seu aprendizado.</Text>
+                        </Flex>
+                    </Flex>
+                </Flex>
             </Box>
         </Box>
     );
