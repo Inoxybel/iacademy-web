@@ -81,7 +81,7 @@ export default function LandingPage() {
 
                         <Flex flexDir="column" >
                             <Text><strong>Consuma o que você gostar</strong></Text>
-                            <Text>Aproveite a versatilidade de conteúdos que alteram conforme o seu comando</Text>
+                            <Text>Aproveite a versatilidade de conteúdos que alteram conforme a sua opção</Text>
                         </Flex>
                     </Flex>
                     <Flex w={"20%"}  h={"100%"}>
