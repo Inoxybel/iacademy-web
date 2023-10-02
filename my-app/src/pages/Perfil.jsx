@@ -12,7 +12,7 @@ import {
   theme,
   Container,
 } from "@chakra-ui/react";
-import styles from "./styles.js";
+import stylesForms from '../styles/stylesForms.js';
 import Menu from "./Menu.jsx";
 import axios from 'axios';
 
@@ -111,21 +111,21 @@ function Perfil() {
   return (
     <>
       <Menu />
-      <Box sx={{ ...styles.formFather }} >
-        <Menu sx={{ ...styles.menu }} />
+      <Box sx={{ ...stylesForms.formFather }} >
+        <Menu sx={{ ...stylesForms.menu }} />
 
-        <Heading sx={{ ...styles.header }} >Perfil do Usuário</Heading>
+        <Heading sx={{ ...stylesForms.header }} >Perfil do Usuário</Heading>
 
-        <Box sx={{ ...styles.formCadastro }} >
+        <Box sx={{ ...stylesForms.formCadastro }} >
           {erro && (
             <Alert status="error" mb="4" color={"brown"}>
               <AlertIcon />
               <AlertTitle >{erro}</AlertTitle>
             </Alert>
           )}
-          <FormControl id="nomeCompleto" sx={{ ...styles.formControl }}>
-            <FormLabel sx={{ ...styles.formLabel }}>Nome Completo</FormLabel>
-            <Input sx={{ ...styles.input }}
+          <FormControl id="nomeCompleto" sx={{ ...stylesForms.formControl }}>
+            <FormLabel sx={{ ...stylesForms.formLabel }}>Nome Completo</FormLabel>
+            <Input sx={{ ...stylesForms.input }}
               type="text"
               placeholder="Seu nome completo"
               value={nomeCompleto}
@@ -133,9 +133,9 @@ function Perfil() {
               variant="filled"
             />
           </FormControl>
-          <FormControl id="cnpj" sx={{ ...styles.formControl }}>
-            <FormLabel sx={{ ...styles.formLabel }}>CNPJ da Empresa</FormLabel>
-            <Input sx={{ ...styles.input }}
+          <FormControl id="cnpj" sx={{ ...stylesForms.formControl }}>
+            <FormLabel sx={{ ...stylesForms.formLabel }}>CNPJ da Empresa</FormLabel>
+            <Input sx={{ ...stylesForms.input }}
               type="text"
               placeholder="CNPJ da sua empresa"
               value={cnpj}
@@ -143,9 +143,9 @@ function Perfil() {
               variant="filled"
             />
           </FormControl>
-          <FormControl id="email" sx={{ ...styles.formControl }}>
-            <FormLabel sx={{ ...styles.formLabel }}>Email</FormLabel>
-            <Input sx={{ ...styles.input }}
+          <FormControl id="email" sx={{ ...stylesForms.formControl }}>
+            <FormLabel sx={{ ...stylesForms.formLabel }}>Email</FormLabel>
+            <Input sx={{ ...stylesForms.input }}
               type="email"
               placeholder="Seu e-mail"
               value={email}
@@ -153,9 +153,9 @@ function Perfil() {
               variant="filled"
             />
           </FormControl>
-          <FormControl id="password" sx={{ ...styles.formControl }}>
-            <FormLabel sx={{ ...styles.formLabel }}>Nova Senha</FormLabel>
-            <Input sx={{ ...styles.input }}
+          <FormControl id="password" sx={{ ...stylesForms.formControl }}>
+            <FormLabel sx={{ ...stylesForms.formLabel }}>Nova Senha</FormLabel>
+            <Input sx={{ ...stylesForms.input }}
               type="password"
               placeholder="Nova senha"
               value={senha}
@@ -163,9 +163,9 @@ function Perfil() {
               variant="filled"
             />
           </FormControl>
-          <FormControl id="confirmPassword" sx={{ ...styles.formControl }}>
-            <FormLabel sx={{ ...styles.formLabel }}>Confirmar Nova Senha</FormLabel>
-            <Input sx={{ ...styles.input }}
+          <FormControl id="confirmPassword" sx={{ ...stylesForms.formControl }}>
+            <FormLabel sx={{ ...stylesForms.formLabel }}>Confirmar Nova Senha</FormLabel>
+            <Input sx={{ ...stylesForms.input }}
               type="password"
               placeholder="Confirmar nova senha"
               value={confirmarSenha}
@@ -174,7 +174,7 @@ function Perfil() {
             />
           </FormControl>
           <Button
-            sx={{ ...styles.buttonEnviar }}
+            sx={{ ...stylesForms.buttonEnviar }}
             onClick={atualizarCadastroUsuario}
           >
             Salvar Alterações
