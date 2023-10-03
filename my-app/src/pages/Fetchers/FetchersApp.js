@@ -3,41 +3,40 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
+// Função para obter o token de forma assíncrona
+async function getTokenAsync() {
+   try {
+      const token = await cookies.get("token");
+      return token;
+   } catch (error) {
+      throw error;
+   }
+}
+
+// Função para adicionar o token ao cabeçalho de autorização
+async function setAuthorizationHeader(api) {
+   const token = await getTokenAsync();
+   if (token) {
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+   }
+}
+
+// Funções da API
+
 const api = axios.create({
-  baseURL: "https://iacademy-api.azurewebsites.net/api",
+   baseURL: "https://iacademy-api.azurewebsites.net/api",
 });
 
-function setAuthorizationHeader(token) {
-  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+const cursosDisponiveis = async () => {
+   await setAuthorizationHeader(api);
+   return api.get(`/summary/available`);
 }
 
-// Função para obter o token dos cookies
-function getTokenFromCookies() {
-  return cookies.get("token") || null;
+const cursosMatriculados = async () => {
+   await setAuthorizationHeader(api);
+   return api.get('/summary/enrolled');
 }
 
-// Configurar o cabeçalho de autorização ao inicializar
-async function initializeApi() {
-  const token = getTokenFromCookies();
-  if (token) {
-    setAuthorizationHeader(token);
-  }
-}
-
-// Chame esta função no ponto de inicialização do seu aplicativo
-async function setupApi() {
-  await initializeApi();
-}
-
-// Inicialize o API antes de usar qualquer função
-setupApi();
-const cursosDisponiveis= () =>{
-    return api.get(`/summary/available`);
- } 
-
- const cursosMatriculados= () =>{
-    return api.get('/summary/enrolled')
- } 
 
 const matricularEmCurso= (idSumario) =>{
    const obj = {
