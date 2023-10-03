@@ -4,10 +4,10 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Sidebar from "./SideBar";
+import Sidebar from "../conteudo/SideBar";
 import ContextProvider from '../context/ContextProvider';
 import { SelecaoProvider, useSelecaoContext } from './ConteudoContext';
-import Tela from "./Tela.jsx";
+import Tela from "./Tela.js";
 
 const App = () => {
     const { id } = useParams();
@@ -19,7 +19,7 @@ const App = () => {
     return (
         <ContextProvider>
             <SelecaoProvider>
-                <Flex w={"100%"} ml={aberto ? "19.8rem" : "0"}  >
+                <Flex w={"100%"} ml={aberto ?  "19.8rem" : "0"}  >
                     <Sidebar onSetAberto={setAberto} idSumario={id} onSetIdExercicioSelecionado={setIdExercicioSelecionado} />
                     <Tela idExercicioSelecionado={idExercicioSelecionado} />
                 </Flex>

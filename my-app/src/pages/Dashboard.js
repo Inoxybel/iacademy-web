@@ -25,7 +25,7 @@ import {
   Image,
   useMediaQuery,
 } from '@chakra-ui/react';
-import styles from '../styles/styles.js';
+import styles from './styles';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Menu from './Menu';
@@ -51,7 +51,7 @@ function DashboardProvider({ children }) {
   async function SolicitarListaCursosDisponiveis() {
     try {
       const response = await cursosDisponiveis();
-      if (response.status === 401) {
+      if(response.status===401){
         navigate("/")
       }
       if (response && response.data) {
@@ -62,16 +62,16 @@ function DashboardProvider({ children }) {
       }
     } catch (error) {
       console.log('Erro ao pegar cursos do banco');
-      if (error.response.status === 401) {
+      if(error.response.status===401){
         navigate("/")
-      }
+       }
     }
   }
 
   async function SolicitarListaCursosMatriculados() {
     try {
       const response = await cursosMatriculados();
-      if (response.status === 401) {
+      if(response.status===401){
         navigate("/")
       }
       if (response.status === 200 && response.data) {
@@ -81,9 +81,9 @@ function DashboardProvider({ children }) {
         return console.log('Devia retornar algo aqui');
       }
     } catch (error) {
-      if (error.response.status === 401) {
+      if(error.response.status===401){
         navigate("/")
-      }
+       }
     }
   }
 
@@ -100,9 +100,9 @@ function DashboardProvider({ children }) {
       }
     } catch (error) {
       console.error(error);
-      if (error.response.status === 401) {
+      if(error.response.status===401){
         navigate("/")
-      }
+       }
     }
   }
 
@@ -163,7 +163,7 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
   return (
     <Card
       flexDir={'row'}
-      bg="var(--background-black)"
+      bg="#1A1922"
       mb={5}
 
     >
@@ -174,12 +174,12 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
         h="130px"
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgIcon)}`}
         mr={isSmOrMd ? 0 : 4}
-        bg="var(--primary-white)"
+        bg="white"
         style={{ borderRadius: '5' }}
       />
       <Stack
-        bg="var(--background-color)"
-        color="var(--primary-white)"
+        bg="#262734"
+        color="white"
         direction="row"
         overflow={"hidden"}
         borderRadius={5}
@@ -198,10 +198,10 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
           mr={"1rem"}
           alignSelf={"flex-end"}
           variant="solid"
-          bg="var(--background-button)"
+          bg="#0880A2"
           colorScheme="blue"
           size={isSmOrMd ? "md" : "lg"}
-          fontSize={isSmOrMd ? 11 : 13}
+          fontSize={ isSmOrMd ? 11 : 13}
           fontWeight="bold"
           onClick={async () => {
             //No botão de cursos disponiveis, eu verifico o id do usuário criado atraves do login/cadsatro
@@ -223,10 +223,10 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
         <Button
           alignSelf={"flex-end"}
           variant="solid"
-          bg="var(--background-button)"
+          bg="#0880A2"
           colorScheme="blue"
           size={isSmOrMd ? "md" : "lg"}
-          fontSize={isSmOrMd ? 11 : 13}
+          fontSize={ isSmOrMd ? 11: 13}
           fontWeight="bold"
           onClick={() => {
             onOpen();
@@ -236,7 +236,7 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
         </Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent color="white" bg="var(--backgroud-form)">
+          <ModalContent color="white" bg="#262734">
             <ModalHeader>Detalhes do treinamento</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -271,7 +271,7 @@ const CardComponentCursoIniciado = ({ curso }) => {
     <Card
       flexDirection="row"
       overflow="hidden"
-      bg="var(--backgroud-form)"
+      bg="#262734"
       w={isSmOrMd ? "25rem" : "32rem"}
       h="8rem"
       color="white"
@@ -307,9 +307,9 @@ const CardComponentCursoIniciado = ({ curso }) => {
             ml={isSmOrMd ? "1rem" : "5rem"}
             p={2}
             variant="solid"
-            colorScheme="var(--backgroud-button)"
+            colorScheme="#0880A2;"
             size={isSmOrMd ? "sm" : "lg"}
-            fontSize={isSmOrMd ? 10 : 13}
+            fontSize={ isSmOrMd ? 10 : 13}
             onClick={() => {
               RedirecionaParaConteudoPorIdSumarioMatriculado(curso.id);
             }}
@@ -392,7 +392,7 @@ const PaginationComponent = ({ items }) => {
 };
 
 function DashboardBody() {
-  const [isSmOrMd] = useMediaQuery('(max-width: 880px)');
+  const [isSmOrMd] = useMediaQuery('(max-width: 55em)');
   const [isMobile] = useMediaQuery('(max-width: 440px)');
 
 
@@ -454,7 +454,7 @@ function DashboardBody() {
     listaCursosMatriculadosParaRenderizar.length === 0
   ) {
     return (
-      <Container w={'100%'}>
+      <Container maxWidth="10rem" >
         <Center>
           <Heading as="h1" size="lg" fontSize={"38px"}>
             Dashboard
@@ -485,7 +485,7 @@ function DashboardBody() {
   return (
     <Container overflow={isSmOrMd ? "auto" : "none"} justifyContent={'center'}>
       <Center>
-        <Heading sx={{ ...styles.header }}>
+        <Heading sx={{...styles.header}}>
           Dashboard
         </Heading>
 
@@ -509,7 +509,7 @@ function DashboardBody() {
               <CardComponentCursoIniciado key={index} curso={curso} />
             ))
           ) : (
-            <Text>Você ainda não esta matriculado em nenhum treinamento</Text>
+            <Text>Você ainda não esta matriculado em algum treinamento</Text>
           )}
         </VStack>
 
@@ -529,12 +529,12 @@ function DashboardBody() {
                 size={isSmOrMd ? "md" : "lg"}
                 border="none"
                 borderRadius={5}
-                borderColor="var(--backgroud-button)"
+                borderColor="#0880A2"
                 mb="1rem"
                 mr={2}
                 w={isSmOrMd ? "19rem" : "27rem"}
               />
-              <Button bg="var(--background-button)" color="var(--primary-white)" size={isSmOrMd ? "md" : "lg"} borderRadius={12}>
+              <Button bg="#0880A2" color="white" size={isSmOrMd ? "md" : "lg"} borderRadius={12}>
                 Pesquisar
               </Button>
             </Flex>
@@ -557,11 +557,9 @@ function DashboardBody() {
 function Dashboard() {
   return (
     <DashboardProvider>
-      <Flex sx={{ w: '100%' }}>
-        <Menu />
-        <DashboardBody />
-      </Flex>
-    </DashboardProvider >
+      <Menu />
+      <DashboardBody />
+    </DashboardProvider>
   );
 }
 

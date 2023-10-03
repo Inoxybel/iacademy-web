@@ -7,15 +7,14 @@ import {
   Heading
 } from '@chakra-ui/react';
 import { RiArrowGoBackLine } from 'react-icons/ri';
-import styles from '../../styles/styles.js';
-import stylesFeedback, { botaoVoltarFeedback } from '../../styles/stylesFeedback.js';
+import styles, { botaoVoltarFeedback} from '../styles';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ContextProvider, { useGeralContext } from '../context/ContextProvider';
 import ExercicioDescritivo from './ExercicioDescritivo';
 import ExercicioUmaRespostas from './ExercicioUmaResposta';
 import ReactMarkdown
-  from 'react-markdown';
+ from 'react-markdown';
 const Feedback = ({ idFeedback }) => {
   const { CorrecaoPorCorrectionId } = useGeralContext(ContextProvider);
   const [feedback, setFeedback] = useState();
@@ -31,8 +30,8 @@ const Feedback = ({ idFeedback }) => {
       try {
         const feedbackRetornado = await CorrecaoPorCorrectionId(idFeedback);
         setFeedback(feedbackRetornado);
-        console.log("Feedback:", feedbackRetornado)
-
+        console.log("Feedback:",feedbackRetornado)
+        
       } catch (error) {
         console.error("Erro ao buscar feedback:", error);
       }
@@ -49,25 +48,25 @@ const Feedback = ({ idFeedback }) => {
   }
 
   return (
-    <Flex sx={{ ...stylesFeedback.flexFather }}>
-      <Box style={botaoVoltarFeedback} >
-        <RiArrowGoBackLine onClick={() => Redirecionar()} />
-      </Box>
+    <Flex sx={{...styles.flexFather}}>
+      <Box style={botaoVoltarFeedback} > 
+          <RiArrowGoBackLine onClick={() => Redirecionar()}/>
+          </Box>
 
-      <Text sx={{ ...styles.header }}>Feedback</Text>
+      <Text sx={{...styles.header}}>Feedback</Text>
 
       <Flex w="70rem" flexDir='column'>
         <Flex h="3rem" bg="#262734" flexDir="row" w="100%" alignItems="center" justifyContent='flex-start'>
           <Text ml="20px">Correção:</Text>
         </Flex>
         <Flex flexDir="column" padding="20px" bg="#2F3142" fontSize={"14px"} fontWeight={"bold"}>
-          {feedback.corrections.map((correcao) => {
-            if (correcao.complementation.length > 0) {
-              return <ExercicioUmaRespostas exercicio={correcao} />
-            } else {
+            {feedback.corrections.map((correcao) => {
+             if(correcao.complementation.length>0){
+              return <ExercicioUmaRespostas exercicio={correcao}/>
+             }else{
               return <ExercicioDescritivo exercicio={correcao} />
-            }
-          })}
+             }    
+            })}
         </Flex>
       </Flex>
     </Flex>
@@ -80,7 +79,7 @@ const App = () => {
   return (
     <ContextProvider>
       <Flex direction={'row'} style={{ width: '100%' }} >
-        <Feedback idFeedback={id} />
+        <Feedback idFeedback={id}/>
       </Flex>
     </ContextProvider>
   );
