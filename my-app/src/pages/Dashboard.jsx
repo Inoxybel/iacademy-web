@@ -392,7 +392,7 @@ const PaginationComponent = ({ items }) => {
 };
 
 function DashboardBody() {
-  const [isSmOrMd] = useMediaQuery('(max-width: 55em)');
+  const [isSmOrMd] = useMediaQuery('(max-width: 880px)');
   const [isMobile] = useMediaQuery('(max-width: 440px)');
 
 
@@ -454,7 +454,7 @@ function DashboardBody() {
     listaCursosMatriculadosParaRenderizar.length === 0
   ) {
     return (
-      <Container maxWidth="10rem" >
+      <Container w={'100%'}>
         <Center>
           <Heading as="h1" size="lg" fontSize={"38px"}>
             Dashboard
@@ -509,7 +509,7 @@ function DashboardBody() {
               <CardComponentCursoIniciado key={index} curso={curso} />
             ))
           ) : (
-            <Text>Você ainda não esta matriculado em algum treinamento</Text>
+            <Text>Você ainda não esta matriculado em nenhum treinamento</Text>
           )}
         </VStack>
 
@@ -557,9 +557,11 @@ function DashboardBody() {
 function Dashboard() {
   return (
     <DashboardProvider>
-      <Menu />
-      <DashboardBody />
-    </DashboardProvider>
+      <Flex sx={{ w: '100%' }}>
+        <Menu />
+        <DashboardBody />
+      </Flex>
+    </DashboardProvider >
   );
 }
 
