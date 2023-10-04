@@ -33,6 +33,7 @@ import axios from 'axios';
 import { AddIcon } from "@chakra-ui/icons";
 
 function Treinamento() {
+  const [activeIndex, setActiveIndex] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   let [value, setValue] = React.useState('')
 
@@ -41,6 +42,9 @@ function Treinamento() {
     setValue(inputValue)
   }
 
+  const handleButtonClick = (index) => {
+    setActiveIndex(index);
+  };
 
   return (
     <Flex maxW='vw' mx="auto" direction={"column"} gap="4rem" p={"1rem"}>
@@ -61,6 +65,8 @@ function Treinamento() {
         </Flex>
       </VStack>
       <Modal 
+        index={activeIndex} 
+        onChange={(index) => setActiveIndex(index)}
         closeOnOverlayClick={false}
         onClose={onClose} 
         isOpen={isOpen} 
@@ -100,6 +106,7 @@ function Treinamento() {
                   placeholder='Digite o input final'
                   size='md'
                 />
+                <Button onClick={() => handleButtonClick(1)}>Close</Button>
               </TabPanel>
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
@@ -201,7 +208,7 @@ function Treinamento() {
 
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            
           </ModalFooter>
         </ModalContent>
       </Modal>
