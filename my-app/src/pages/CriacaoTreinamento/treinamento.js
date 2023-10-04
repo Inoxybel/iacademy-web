@@ -121,10 +121,10 @@ function Treinamento() {
       <Heading>Criar novo Treinamento</Heading>
       <VStack alignItems={"center"} bg={"#3C485A"} p="4" gap="2rem" borderRadius={7}>
         <Heading size={12}>Configuração</Heading>      
-        <Select placeholder='Select option' spacing={3} icon={<ChevronDownIcon />}>
-          <option value='option1' variant='unstyled'>Option 1</option>
+        <Select placeholder='Select option' spacing={3} icon={<ChevronDownIcon />} bg="white" color="black">
+          <option value='option1'>Option 1</option>
           <option value='option2'>Option 2</option>
-          <option value='option3'>Option 3</option>
+          <option value='option3'>Option 3</option> 
         </Select>
         <Flex direction="row" p={0} w="100%" justifyContent="space-between" align={"center"}>
         <IconButton aria-label='Add to friends' icon={<AddIcon />} onClick={onOpen}/>
