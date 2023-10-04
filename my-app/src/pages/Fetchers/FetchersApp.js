@@ -39,6 +39,7 @@ const cursosMatriculados = async () => {
 
 
 const matricularEmCurso= (idSumario) =>{
+ 
    const obj = {
       summaryId: idSumario
     }
@@ -50,23 +51,28 @@ const matricularEmCurso= (idSumario) =>{
    })
 }
 
-const pegarSumario= (idSumario) =>{
+const pegarSumario=async (idSumario)=>{
+   await setAuthorizationHeader(api);
    return api.get(`/summary/${idSumario}`)
 }
 
-const pegarTodosConteudosPorSumario = (id) =>{
+const pegarTodosConteudosPorSumario =async (id) =>{
+   await setAuthorizationHeader(api);
    return api.get(`/content/summary/${id}`)
 }
 
-const pegarConteudoPorId= (idConteudo) =>{
+const pegarConteudoPorId= async (idConteudo) =>{
+   await setAuthorizationHeader(api);
    return api.get(`/content/${idConteudo}`)
 }
 
-const pegarExercicioPorId= (idExercicio)=>{
+const pegarExercicioPorId=async (idExercicio)=>{
+   await setAuthorizationHeader(api);
    return api.get(`/exercise/${idExercicio}`);
 }
 
-const corrigirExercicio= (idExercicio,respostas)=>{
+const corrigirExercicio=async (idExercicio,respostas)=>{
+   await setAuthorizationHeader(api);
    return api.post(`/ai/exercise/${idExercicio}/request-correction`,respostas,{
       headers: {
          'Content-Type': 'application/json',
@@ -76,7 +82,8 @@ const corrigirExercicio= (idExercicio,respostas)=>{
 }
 
 
-const atualizarConteudo= (idConteudo,indice)=>{
+const atualizarConteudo=async (idConteudo,indice)=>{
+   await setAuthorizationHeader(api);
    return api.post(`/ai/content/${idConteudo}/new-content`,
    {
       "subcontentIndex": indice
@@ -84,7 +91,8 @@ const atualizarConteudo= (idConteudo,indice)=>{
    )
 }
 
-const pegarFeedbackDeExercicio = (idCorrecao)=>{
+const pegarFeedbackDeExercicio =async (idCorrecao)=>{
+   await setAuthorizationHeader(api);
    return api.get(`/correction/${idCorrecao}`)
 }
 

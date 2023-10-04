@@ -7,7 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Perfil from './pages/Perfil';
 import Conteudo from './pages/conteudo/Conteudo';
 import Feedback from "./pages/feedback/Feedback";
-import Pendencias from "./pages/exercicios/Pendencias";
+import Questionario from "./pages/exercicios/questionario/Questionario";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
 
 const cookies = new Cookies(); // Crie uma instância de Cookies
@@ -20,12 +20,12 @@ function App() {
   const [authenticated, setAuthenticated] = useState(true);
 
   useEffect(() => {
-    const token = cookies.get("token"); // Obtenha o token dos cookies
+    const token = cookies.get("token"); 
 
     if (token) {
       const sessionDuration = 60 * 60;
       const tokenExpiration = Date.now() / 1000 + sessionDuration;
-      cookies.set("token", token, { expires: new Date(tokenExpiration * 1000) }); // Defina o cookie do token com expiração
+      cookies.set("token", token, { expires: new Date(tokenExpiration * 1000) });
       setAuthenticated(true);
     }
   }, []);
@@ -50,8 +50,8 @@ function App() {
               element={<PrivateRoute element={<Feedback />} authenticated={authenticated} />}
             />
             <Route
-              path="/pendencias/:id"
-              element={<PrivateRoute element={<Pendencias />} authenticated={authenticated} />}
+              path="/exercicios/:id"
+              element={<PrivateRoute element={<Questionario />} authenticated={authenticated} />}
             />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route

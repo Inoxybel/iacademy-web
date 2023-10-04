@@ -9,11 +9,10 @@ import React, { useState } from 'react';
 const ExercicioDescritivo = ({ question, identification, exercicioEntregado, mandarParaListaDeRespostas }) => {
 
     const [valor, setValor] = useState("")
-
+    
     if (exercicioEntregado) {
         mandarParaListaDeRespostas(identification, valor)
     }
-    console.log(exercicioEntregado)
 
     return (
         <Box style={{backgroundColor:"#2F3142",width:'100%',padding:'20px'}}>
