@@ -35,9 +35,20 @@ import { AddIcon } from "@chakra-ui/icons";
 function Treinamento() {
   const [activeIndex, setActiveIndex] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  let [value, setValue] = React.useState('');
   const [inputValue1, setInputValue1] = useState('');
   const [inputValue2, setInputValue2] = useState('');
+  const [inputValue3, setInputValue3] = useState('');
+  const [inputValue4, setInputValue4] = useState('');
+  const [inputValue5, setInputValue5] = useState('');
+  const [inputValue6, setInputValue6] = useState('');
+  const [inputValue7, setInputValue7] = useState('');
+  const [inputValue8, setInputValue8] = useState('');
+  const [inputValue9, setInputValue9] = useState('');
+  const [inputValue10, setInputValue10] = useState('');
+  const [inputValue11, setInputValue11] = useState('');
+  const [inputValue12, setInputValue12] = useState('');
+
+
 
   const handleInputChange = (e, identifier) => {
     const inputValue = e.target.value;
@@ -47,6 +58,36 @@ function Treinamento() {
         break;
       case 2:
         setInputValue2(inputValue);
+        break;
+      case 3:
+        setInputValue3(inputValue);
+        break;
+      case 4:
+        setInputValue4(inputValue);
+        break;
+      case 5:
+        setInputValue5(inputValue);
+        break;
+      case 6:
+        setInputValue6(inputValue);
+        break;
+      case 7:
+        setInputValue7(inputValue);
+        break;
+      case 8:
+        setInputValue8(inputValue);
+        break;
+      case 9:
+        setInputValue9(inputValue);
+        break;
+      case 10:
+        setInputValue10(inputValue);
+        break;
+      case 11:
+        setInputValue11(inputValue);
+        break;
+      case 12:
+        setInputValue12(inputValue);
         break;
       default:
         break;
@@ -64,8 +105,24 @@ function Treinamento() {
     setActiveIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
+  const limpaCampos=()=>{
+    setInputValue1("");
+    setInputValue2("");
+    setInputValue3("");
+    setInputValue4("");
+    setInputValue5("");
+    setInputValue6("");
+    setInputValue7("");
+    setInputValue8("");
+    setInputValue9("");
+    setInputValue10("");
+    setInputValue11("");
+    setInputValue12("");
+  }
+
   return (
     <Flex maxW='vw' mx="auto" direction={"column"} gap="4rem" p={"1rem"}>
+      <Menu/>
       <Heading>Criar novo Treinamento</Heading>
       <VStack alignItems={"center"} bg={"#3C485A"} p="4" gap="2rem" borderRadius={7}>
         <Heading size={12}>Configuração</Heading>      
@@ -76,10 +133,7 @@ function Treinamento() {
         </Select>
         <Flex direction="row" p={0} w="100%" justifyContent="space-between" align={"center"}>
         <IconButton aria-label='Add to friends' icon={<AddIcon />} onClick={onOpen}/>
-          <Button mb={"0.5rem"}
-          sx={{...styles.buttonEnviar}}>
-            Salvar Alterações
-          </Button>
+        <Button bg="#0880A2" color="white">Salvar Alterações</Button>
         </Flex>
       </VStack>
       <Modal 
@@ -92,7 +146,10 @@ function Treinamento() {
         <ModalOverlay />
         <ModalContent bg="#3C485A" color="white">
           <ModalHeader>Nome_Configuração_Atual</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton onClick={()=>{
+            setActiveIndex(0);
+            limpaCampos();
+          }}/>
           <ModalBody>
           <Tabs 
             isFitted variant='enclosed'         
@@ -110,18 +167,20 @@ function Treinamento() {
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
                 <Textarea
+                  color="black"
                   bg="white"
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue1}
+                  onChange={(e) => handleInputChange(e, 1)}
                   placeholder='Digite o input inicial'
                   size='md'
                   mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
-                <Textarea
+                <Textarea 
+                  color="black"
                   bg="white" 
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue2}
+                  onChange={(e) => handleInputChange(e, 2)}
                   placeholder='Digite o input final'
                   mb="1.5rem"
                   size='md'
@@ -133,18 +192,20 @@ function Treinamento() {
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
                 <Textarea
+                  color="black"
                   bg="white"
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue3}
+                  onChange={(e) => handleInputChange(e, 3)}
                   placeholder='Digite o input inicial'
                   size='md'
                   mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
+                  color="black"
                   bg="white" 
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue4}
+                  onChange={(e) => handleInputChange(e, 4)}
                   placeholder='Digite o input final'
                   size='md'
                   mb="1.5rem"
@@ -157,18 +218,20 @@ function Treinamento() {
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
                 <Textarea
+                  color="black"
                   bg="white"
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue5}
+                  onChange={(e) => handleInputChange(e, 5)}
                   placeholder='Digite o input inicial'
                   size='md'
                   mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
+                  color="black"
                   bg="white" 
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue6}
+                  onChange={(e) => handleInputChange(e, 6)}
                   placeholder='Digite o input final'
                   size='md'
                   mb="1.5rem"
@@ -181,18 +244,20 @@ function Treinamento() {
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
                 <Textarea
+                  color="black"
                   bg="white"
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue7}
+                  onChange={(e) => handleInputChange(e, 7)}
                   placeholder='Digite o input inicial'
                   size='md'
                   mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
+                  color="black"
                   bg="white" 
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue8}
+                  onChange={(e) => handleInputChange(e, 8)}
                   placeholder='Digite o input final'
                   size='md'
                   mb="1.5rem"
@@ -205,18 +270,20 @@ function Treinamento() {
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
                 <Textarea
+                  color="black"
                   bg="white"
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue9}
+                  onChange={(e) => handleInputChange(e, 9)}
                   placeholder='Digite o input inicial'
                   size='md'
                   mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
+                  color={"black"}
                   bg="white" 
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue10}
+                  onChange={(e) => handleInputChange(e, 10)}
                   placeholder='Digite o input final'
                   size='md'
                   mb="1.5rem"
@@ -229,18 +296,20 @@ function Treinamento() {
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
                 <Textarea
+                  color="black"
                   bg="white"
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue11}
+                  onChange={(e) => handleInputChange(e, 11)}
                   placeholder='Digite o input inicial'
                   size='md'
                   mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
+                  color="black"
                   bg="white" 
-                  value={value}
-                  onChange={handleInputChange}
+                  value={inputValue12}
+                  onChange={(e) => handleInputChange(e, 12)}
                   placeholder='Digite o input final'
                   size='md'
                   mb="1.5rem"
@@ -252,11 +321,7 @@ function Treinamento() {
               </TabPanel>
             </TabPanels>
           </Tabs>
-
           </ModalBody>
-          <ModalFooter>
-            
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </Flex>
