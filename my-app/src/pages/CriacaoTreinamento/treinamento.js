@@ -35,15 +35,33 @@ import { AddIcon } from "@chakra-ui/icons";
 function Treinamento() {
   const [activeIndex, setActiveIndex] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  let [value, setValue] = React.useState('')
+  let [value, setValue] = React.useState('');
+  const [inputValue1, setInputValue1] = useState('');
+  const [inputValue2, setInputValue2] = useState('');
 
-  let handleInputChange = (e) => {
-    let inputValue = e.target.value
-    setValue(inputValue)
-  }
-
-  const handleButtonClick = (index) => {
+  const handleInputChange = (e, identifier) => {
+    const inputValue = e.target.value;
+    switch (identifier) {
+      case 1:
+        setInputValue1(inputValue);
+        break;
+      case 2:
+        setInputValue2(inputValue);
+        break;
+      default:
+        break;
+    }
+  };
+  const handleTabChange = (index) => {
     setActiveIndex(index);
+  };
+
+  const handleNextTab = () => {
+    setActiveIndex((prevIndex) => Math.min(prevIndex + 1, 5));
+  };
+
+  const handlePreviousTab = () => {
+    setActiveIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
   return (
@@ -65,8 +83,6 @@ function Treinamento() {
         </Flex>
       </VStack>
       <Modal 
-        index={activeIndex} 
-        onChange={(index) => setActiveIndex(index)}
         closeOnOverlayClick={false}
         onClose={onClose} 
         isOpen={isOpen} 
@@ -78,7 +94,10 @@ function Treinamento() {
           <ModalHeader>Nome_Configuração_Atual</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-          <Tabs isFitted variant='enclosed'>
+          <Tabs 
+            isFitted variant='enclosed'         
+            index={activeIndex} 
+            onChange={handleTabChange}>
             <TabList mb='1em'>
               <Tab>Sumário</Tab>
               <Tab>Primeiro Conteúdo</Tab>
@@ -96,7 +115,7 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input inicial'
                   size='md'
-                  mb="2rem"
+                  mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
@@ -104,9 +123,12 @@ function Treinamento() {
                   value={value}
                   onChange={handleInputChange}
                   placeholder='Digite o input final'
+                  mb="1.5rem"
                   size='md'
                 />
-                <Button onClick={() => handleButtonClick(1)}>Close</Button>
+                <Flex justifyContent={"center"} alignItems={"center"}>
+                  <Button onClick={handleNextTab}>Proximo</Button>
+                </Flex>
               </TabPanel>
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
@@ -116,7 +138,7 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input inicial'
                   size='md'
-                  mb="2rem"
+                  mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
@@ -125,7 +147,12 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input final'
                   size='md'
+                  mb="1.5rem"
                 />
+                <Flex justifyContent={"space-evenly"} alignItems={"center"}>
+                  <Button onClick={handlePreviousTab}>Anterior</Button>
+                  <Button onClick={handleNextTab}>Próximo</Button>
+                </Flex>
               </TabPanel>
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
@@ -135,7 +162,7 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input inicial'
                   size='md'
-                  mb="2rem"
+                  mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
@@ -144,7 +171,12 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input final'
                   size='md'
+                  mb="1.5rem"
                 />
+                <Flex justifyContent={"space-evenly"} alignItems={"center"}>
+                  <Button onClick={handlePreviousTab}>Anterior</Button>
+                  <Button onClick={handleNextTab}>Próximo</Button>
+                </Flex>
               </TabPanel>
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
@@ -154,7 +186,7 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input inicial'
                   size='md'
-                  mb="2rem"
+                  mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
@@ -163,7 +195,12 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input final'
                   size='md'
+                  mb="1.5rem"
                 />
+                <Flex justifyContent={"space-evenly"} alignItems={"center"}>
+                  <Button onClick={handlePreviousTab}>Anterior</Button>
+                  <Button onClick={handleNextTab}>Próximo</Button>
+                </Flex>
               </TabPanel>
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
@@ -173,7 +210,7 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input inicial'
                   size='md'
-                  mb="2rem"
+                  mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
@@ -182,7 +219,12 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input final'
                   size='md'
+                  mb="1.5rem"
                 />
+                <Flex justifyContent={"space-evenly"} alignItems={"center"}>
+                  <Button onClick={handlePreviousTab}>Anterior</Button>
+                  <Button onClick={handleNextTab}>Próximo</Button>
+                </Flex>
               </TabPanel>
               <TabPanel >
                 <Text mb='8px'>Input Inicial</Text>
@@ -192,7 +234,7 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input inicial'
                   size='md'
-                  mb="2rem"
+                  mb="1.5rem"
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
@@ -201,7 +243,12 @@ function Treinamento() {
                   onChange={handleInputChange}
                   placeholder='Digite o input final'
                   size='md'
+                  mb="1.5rem"
                 />
+                <Flex justifyContent={"space-evenly"}>
+                <Button onClick={handlePreviousTab}>Anterior</Button>
+                <Button bg="#0880A2" color="white">Salvar Alterações</Button>
+                </Flex>
               </TabPanel>
             </TabPanels>
           </Tabs>
