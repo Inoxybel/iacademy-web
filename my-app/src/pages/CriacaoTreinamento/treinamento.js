@@ -2,22 +2,17 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Heading,
-  Input,
   Button,
   Flex,
-  AlertIcon,
-  AlertTitle,
   Select,
   VStack,
   IconButton,
-  Kbd,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  ModalFooter,
   useDisclosure,
   Tabs,
   TabList,
@@ -30,7 +25,7 @@ import {
 import styles from "../styles.js";
 import Menu from "../Menu";
 import axios from 'axios';
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 function Treinamento() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -126,8 +121,8 @@ function Treinamento() {
       <Heading>Criar novo Treinamento</Heading>
       <VStack alignItems={"center"} bg={"#3C485A"} p="4" gap="2rem" borderRadius={7}>
         <Heading size={12}>Configuração</Heading>      
-        <Select placeholder='Select option'>
-          <option value='option1'>Option 1</option>
+        <Select placeholder='Select option' spacing={3} icon={<ChevronDownIcon />}>
+          <option value='option1' variant='unstyled'>Option 1</option>
           <option value='option2'>Option 2</option>
           <option value='option3'>Option 3</option>
         </Select>
