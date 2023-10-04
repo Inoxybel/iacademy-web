@@ -6,6 +6,7 @@ import Cadastro from './pages/Cadastro';
 import Dashboard from "./pages/Dashboard";
 import Perfil from './pages/Perfil';
 import Conteudo from './pages/conteudo/Conteudo';
+import Treinamento from './pages/CriacaoTreinamento/treinamento';
 import Feedback from "./pages/feedback/Feedback";
 import Pendencias from "./pages/exercicios/Pendencias";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
@@ -36,7 +37,11 @@ function App() {
       <Flex minH="100vh" bg="#1A1922" color="white">
         <Router>
           <Routes>
-            <Route path="/" element={<Login setAuthenticated={setAuthenticated} />} />
+          <Route
+              path="/"
+              element={<PrivateRoute element={<Treinamento />} authenticated={authenticated} />}
+            />
+            <Route path="/Login" element={<Login setAuthenticated={setAuthenticated} />} />
             <Route
               path="/perfil"
               element={<PrivateRoute element={<Perfil />} authenticated={authenticated} />}
