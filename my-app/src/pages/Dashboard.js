@@ -287,6 +287,7 @@ const CardComponentCursoIniciado = ({ curso }) => {
         w="110px"
         mr="13px"
       />
+      
       <Stack flexDir="column" justifyContent="space-between">
         <Flex justifyContent="space-between" >
           <Flex flexDir="column" >
