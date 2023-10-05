@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
-const ExercicioMultiplasRespostas = ({ question, complementation, identification, exercicioEntregado,mandarParaListaDeRespostas }) => {
+const ExercicioMultiplasRespostas = ({ status,question, complementation, identification, exercicioEntregado,mandarParaListaDeRespostas }) => {
     const [respostasSelecionadas, setRespostasSelecionadas] = useState("");
 
     const handleCheckboxChange = (value) => {
@@ -33,6 +33,7 @@ const ExercicioMultiplasRespostas = ({ question, complementation, identification
             <VStack alignItems="flex-start" spacing="1rem">
                 {complementation.map((option, key) => (
                     <Checkbox
+                        isDisabled={status==='Finished'?true:false}
                         key={key}
                         isChecked={respostasSelecionadas.includes(option)}
                         onChange={() => handleCheckboxChange(option)}
