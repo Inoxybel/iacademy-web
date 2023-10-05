@@ -139,6 +139,7 @@ const Questionario = ({ idExercicio }) => {
                             case "Code":
                                 return (
                                     <ExercicioDescritivo
+                                        status={exercicioConteudoSelecionado.status}
                                         key={key}
                                         exercicioEntregado={exercicioEntregado}
                                         question={item.question}
@@ -149,6 +150,7 @@ const Questionario = ({ idExercicio }) => {
                             case "SingleChoice":
                                 return (
                                     <ExercicioUmaResposta
+                                       status={exercicioConteudoSelecionado.status}
                                         exercicioEntregado={exercicioEntregado}
                                         key={key}
                                         question={item.question}
@@ -160,6 +162,7 @@ const Questionario = ({ idExercicio }) => {
                             case "MultipleChoice":
                                 return (
                                     <ExercicioMultiplasRespostas
+                                        status={exercicioConteudoSelecionado.status}
                                         exercicioEntregado={exercicioEntregado}
                                         key={key}
                                         question={item.question}
