@@ -96,7 +96,13 @@ const pegarFeedbackDeExercicio =async (idCorrecao)=>{
    return api.get(`/correction/${idCorrecao}`)
 }
 
+const pegarExerciciosPendentes = async ()=>{
+   await setAuthorizationHeader(api);
+   return api.get('/exercise/type/Pendency')
+}
+
  export{
+   pegarExerciciosPendentes,
    cursosDisponiveis,
    cursosMatriculados,
    matricularEmCurso,
