@@ -3,6 +3,7 @@ const estilos = {
         alignItems: 'center',
         flexDirection: 'column',
         width: '100%'
+        
     },
     cabecalho: {
         backgroundColor: '#262734',
@@ -34,12 +35,13 @@ const estilos = {
         m: '0.5rem',
         size: 'xs'
     },
-
+   
     conjuntoExercicios:{
         alignItems:"center",
          w:"100%", 
          bg:'#474859',
          padding:'1%',
+         h:'100%'
     },
 
     texto: {

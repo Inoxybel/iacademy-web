@@ -3,7 +3,6 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-// Função para obter o token de forma assíncrona
 async function getTokenAsync() {
    try {
       const token = await cookies.get("token");
@@ -13,7 +12,6 @@ async function getTokenAsync() {
    }
 }
 
-// Função para adicionar o token ao cabeçalho de autorização
 async function setAuthorizationHeader(api) {
    const token = await getTokenAsync();
    if (token) {
@@ -21,7 +19,6 @@ async function setAuthorizationHeader(api) {
    }
 }
 
-// Funções da API
 
 const api = axios.create({
    baseURL: "https://iacademy-api.azurewebsites.net/api",
