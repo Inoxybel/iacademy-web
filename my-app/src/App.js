@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Perfil from './pages/Perfil';
 import Conteudo from './pages/conteudo/Conteudo';
 import Treinamento from './pages/CriacaoTreinamento/treinamento';
+import NextTreinamento from './pages/CriacaoTreinamento/nextTreinamento';
 import Feedback from "./pages/feedback/Feedback";
 import Pendencias from "./pages/exercicios/Pendencias";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
@@ -38,8 +39,12 @@ function App() {
         <Router>
           <Routes>
           <Route
-              path="/"
+              path="/Treinamento"
               element={<PrivateRoute element={<Treinamento />} authenticated={authenticated} />}
+            />
+            <Route
+              path="/"
+              element={<PrivateRoute element={<NextTreinamento />} authenticated={authenticated} />}
             />
             <Route path="/Login" element={<Login setAuthenticated={setAuthenticated} />} />
             <Route

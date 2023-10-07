@@ -119,7 +119,7 @@ function Treinamento() {
     <Flex maxW='vw' mx="auto" direction={"column"} gap="4rem" p={"1rem"}>
       <Menu/>
       <Heading>Criar novo Treinamento</Heading>
-      <VStack alignItems={"center"} bg={"#3C485A"} p="4" gap="2rem" borderRadius={7}>
+      <VStack alignItems={"center"} bg={"#282B38"} p="4" gap="2rem" borderRadius={7}>
         <Heading size={12}>Configuração</Heading>      
         <Select placeholder='Select option' spacing={3} icon={<ChevronDownIcon />} bg="white" color="black">
           <option value='option1'>Option 1</option>
@@ -139,7 +139,7 @@ function Treinamento() {
         size="3xl" 
         >
         <ModalOverlay />
-        <ModalContent bg="#3C485A" color="white">
+        <ModalContent bg="#282B38" color="white">
           <ModalHeader>Nome_Configuração_Atual</ModalHeader>
           <ModalCloseButton onClick={()=>{
             setActiveIndex(0);
