@@ -39,11 +39,11 @@ function App() {
         <Router>
           <Routes>
           <Route
-              path="/Treinamento"
+              path="/"
               element={<PrivateRoute element={<Treinamento />} authenticated={authenticated} />}
             />
             <Route
-              path="/"
+              path="/NextTreinamento"
               element={<PrivateRoute element={<NextTreinamento />} authenticated={authenticated} />}
             />
             <Route path="/Login" element={<Login setAuthenticated={setAuthenticated} />} />

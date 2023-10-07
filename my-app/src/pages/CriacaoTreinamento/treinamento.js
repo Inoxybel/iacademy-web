@@ -26,8 +26,11 @@ import styles from "../styles.js";
 import Menu from "../Menu";
 import axios from 'axios';
 import { AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+
 
 function Treinamento() {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [inputValue1, setInputValue1] = useState('');
@@ -127,8 +130,8 @@ function Treinamento() {
           <option value='option3'>Option 3</option> 
         </Select>
         <Flex direction="row" p={0} w="100%" justifyContent="space-between" align={"center"}>
-        <IconButton aria-label='Add to friends' icon={<AddIcon />} onClick={onOpen}/>
-        <Button bg="#0880A2" color="white">Salvar Alterações</Button>
+          <IconButton aria-label='Add to friends' icon={<AddIcon />} onClick={onOpen}/>
+          <Button bg="#0880A2" color="white" onClick={() => navigate("/NextTreinamento")}>Próximo</Button>
         </Flex>
       </VStack>
       <Modal 
