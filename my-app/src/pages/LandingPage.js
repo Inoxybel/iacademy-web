@@ -1,104 +1,110 @@
-import React, { useState, useEffect } from "react";
 import {
+    AspectRatio,
     Box,
-    Heading,
-    Input,
-    Button,
-    FormControl,
-    FormLabel,
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    theme,
-    Container,
-    Flex,
-    Image,
-    Text,
-    HStack,
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbLink,
+    Button,
+    Container,
+    Flex,
+    Image,
+    Text
 } from "@chakra-ui/react";
-import Footer from "./landingPage/FooterLP.js"
-import imagem_estudando from "../img/imagem-estudando.jpg"
-import like from '../img/like.png'
-import celular from '../img/celular.png'
-import feedback from '../img/feedback.png'
-import tarefas from '../img/tarefas.png'
-import styles from "./styles.js";
-import { MdFeedback } from "react-icons/md";
+import React, { useState } from "react";
+import feedback from '../img/feedback.png';
+import imagem_estudando from "../img/imagem-estudando.jpg";
+import like from '../img/like.png';
+import tarefas from '../img/tarefas.png';
+import video from '../video/Video_pitch_IAcademy.mp4';
+import Footer from "./landingPage/FooterLP.js";
+import MenuAction from './landingPage/menuAction.js';
+import TextoEImagem from "./landingPage/TextoEImagem";
+
+const breakpoints = {
+    base: "0em", // 0px
+    sm: "30em", // ~480px. 
+    md: "48em", // ~768px
+    lg: "62em", // ~992px
+    xl: "80em", // ~1280px
+    "2xl": "96em", // ~1536px
+  };
 
 
 export default function LandingPage() {
+    const [menuActionVisible, setMenuActionVisible] = useState(false)
+
     return (
         <Box backgroundColor={"white"}>
-            <Flex bg="blue.500" w="100vw" py={0} position="fixed" zIndex="1" h={20} alignItems="flex-end">
-                <Flex alignItems="center" justifyContent="space-between" px={20} w="100%">
-                    <Text color="white" fontSize={28} fontStyle="italic" pos={"relative"} bottom="5">Iacademy</Text>
+            <Flex bg="blue.500" w="100vw" position="fixed" zIndex="1" h={["4rem", "4rem", "4rem", "5.9rem", "5.9rem", "6rem" ]}>
+                <Flex alignItems="center" justifyContent="space-between" px={["5rem", "4rem"]} w="100%">
+                    <Text color="white" fontSize={["1.2rem", "1.3rem", "1.4rem", "1.5rem", "2rem"]} fontStyle="italic" pos={"relative"} alignSelf="center">Iacademy</Text>
 
-                    <Breadcrumb separator="" spacing={"3vw"}>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href='#'>Home</BreadcrumbLink>
+                    <Breadcrumb p={["0.8rem", "0.8rem","0.8rem", "0.8rem","1rem","1rem"]} separator="" spacing={["1.4rem", "1.8re","2.0rem", "2.2vw","2.8vw","3vw"]} alignSelf="flex-end" fontSize={["0.6rem","0.7rem","0.8rem","0.8rem","1vw","1vw"]}>
+                        <BreadcrumbItem onMouseEnter={() => {setMenuActionVisible(true)}} onMouseLeave={() => setMenuActionVisible(false)}>
+                          <MenuAction optionName={"Home"} isVisible={menuActionVisible}></MenuAction>
                         </BreadcrumbItem>
                         <BreadcrumbItem>
-                            <BreadcrumbLink href='#'>About</BreadcrumbLink>
+                            <MenuAction optionName={"About"} isVisible={menuActionVisible}></MenuAction>
                         </BreadcrumbItem>
                         <BreadcrumbItem>
-                            <BreadcrumbLink href='#'>Contact</BreadcrumbLink>
+                            <MenuAction optionName={"Contact"} isVisible={menuActionVisible}></MenuAction>
                         </BreadcrumbItem>
                     </Breadcrumb>
 
-                    <Breadcrumb separator="" spacing={"1.5vw"}>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href='/login'>Sign In</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href='/cadastro'>Sign Up</BreadcrumbLink>
-                        </BreadcrumbItem>
-                    </Breadcrumb>
+                    <Flex alignSelf="center">
+                        <Breadcrumb separator="" >
+                            <BreadcrumbItem>
+                                <BreadcrumbLink fontSize={["0.3rem","0.4rem","0.5rem","0.9vw","0.9vw","0.9vw"]} p={["1","1.6","0.2vw","0.2vw","0.2vw","0.2vw"]} px={["1vw","1vw","1vw","1vw","1vw","1vw"]} borderRadius={["1.2vw","0.8vw", "0.4vw"]} borderWidth={1} backgroundColor={"blue.600"} color={"blue.50"} _hover={{ backgroundColor: "blackAlpha.700", color: "white", textDecoration: "none", }} href='/login'>Sign in</BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink fontSize={["0.3rem","0.4rem","0.5rem","0.9vw","0.9vw","0.9vw"]} p={["1","1.6","0.2vw","0.2vw","0.2vw","0.2vw"]} px={["1vw","1vw","1vw","1vw","1vw","1vw"]} borderRadius={["1.2vw","0.8vw", "0.4vw"]} borderWidth={1} backgroundColor={"blue.300"} color={"white"} _hover={{ backgroundColor: "whiteAlpha.900" , color: "black", textDecoration: "none", borderColor: "blue.700"}} href='/cadastro'>Sign Up</BreadcrumbLink>
+                            </BreadcrumbItem>
+                        </Breadcrumb>
+                    </Flex>
                 </Flex>
             </Flex>
 
 
-            <Box bg="blue.100">
-                <Container maxW={"100%"} padding={0} pt={5}>
+            <Box bg="white">
+                <Container maxW={"100%"} p={0} pt={5}>
                     <Flex alignItems="center" justifyContent="center">
-                        <Image opacity={0.6} src={imagem_estudando} alt="mulher estudando com anotacoes no caderno" />
-                        <Box color="blue.900" textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={"10%"} top={"15%"} maxW={"55%"}>
+                        <Box h={["100vh"]} opacity={0.6}/>
+                        <Box color="blue.900" textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={"10%"} top={"10%"} maxW={"55%"}>
                             <Text fontSize={"2.5vw"} position="relative" >Desenvolvendo habilidades da sua maneira</Text>
-                            <Text fontSize={"1.4vw"} position="relative" top={5} left={"10%"} color={"gray.700"} textShadow="2px 2px 2px white">Na Iacademy, o aprendizado é flexível. Personalize seu caminho de aprendizado e peça para gerar explicações de curso sob medida para se adequar ao seu estilo.</Text>
+                            <Text fontSize={"1.4vw"} position="relative" top={5} left={"10%"} color={"gray.700"} textShadow="2px 2px 2px white">Na Iacademy, o aprendizado é flexível. Personalize seu caminho de aprendizado e gere explicações de curso para se adequar ao seu estilo.</Text>
                             <Button w={"14vw"} h={"2vw"} fontSize={"0.9vw"} top={10} left={"90%"} backgroundColor={"blue.400"} color={"white"} _hover={{ backgroundColor: "whiteAlpha.700", color: "blue.800" }}>Conheça nossa plataforma</Button>
                         </Box>
                     </Flex>
                 </Container>
             </Box>
 
+            <TextoEImagem titulo={"titulozinho aqui"} descricao={"descricao detalhes"} imagem={imagem_estudando} reverso={false}/>
+            <TextoEImagem titulo={"titulozinho aqui"} descricao={"descricao detalhes"} imagem={imagem_estudando} reverso={true}/>
+            <TextoEImagem titulo={"titulozinho aqui"} descricao={"descricao detalhes"} imagem={imagem_estudando} reverso={false}/>
+
+
 
             <Box py={10}>
-                <Flex color={"black"} justifyContent={"space-around"} h={150} alignItems={"center"}>
-                    <Flex w={"20%"} h={"100%"} alignItems="center">
-                        <Image src={like} alt="Image 1" maxH={50} m={2}/>
+                <Flex color={"black"} justifyContent={"space-around"} h={200} fontSize={["0.3rem","0.4rem","0.5rem","0.9vw","0.9vw","0.9vw"]}>
+                    <Flex w={"25%"} h={"100%"} alignItems="center">
+                        <Image src={like} alt="Image 1" maxH={["6vw","6vw","5vw","5vw","4vw","3.5vw"]} m={["0.6rem","0.8rem","1rem","1.4rem","1.4rem","1.4rem"]} />
 
                         <Flex flexDir="column" >
-                            <Text><strong>Consuma o que você gostar</strong></Text>
+                            <Text fontSize={["0.5rem","0.6rem","0.7rem","1.2vw","1.2vw","1.2vw"]} fontWeight={"bold"}>Consuma o que você gostar</Text>
                             <Text>Aproveite a versatilidade de conteúdos que alteram conforme a sua opção</Text>
                         </Flex>
                     </Flex>
-                    <Flex w={"20%"}  h={"100%"} alignItems="center">
-                        <Image src={feedback} alt="Image 2" maxH={50} m={2}/>
+                    <Flex w={"25%"} h={"100%"} alignItems="center">
+                        <Image src={feedback} alt="Image 2" maxH={["6vw","6vw","5vw","5vw","4vw","3.5vw"]}  m={["0.6rem","0.8rem","1rem","1.4rem","1.4rem","1.4rem"]} />
                         <Flex flexDir="column">
-                            <strong>
-                                <Text>Obtenha Feedback Instantâneo</Text>
-                            </strong>
+                            <Text fontSize={["0.5rem","0.6rem","0.7rem","1.2vw","1.2vw","1.2vw"]} fontWeight={"bold"}>Obtenha Feedback Instantâneo</Text>
                             <Text>Com auxilio de IA receba avaliação imediata sobre sua atividade para melhorar continuamente.</Text>
                         </Flex>
-                    </Flex> 
-                    <Flex w={"20%"}  h={"100%"} alignItems="center">
-                        <Image src={tarefas} alt="Image 3" maxH={50} m={2}/>
+                    </Flex>
+                    <Flex w={"25%"} h={"100%"} alignItems="center">
+                        <Image src={tarefas} alt="Image 3" maxH={["6vw","6vw","5vw","5vw","4vw","3.5vw"]}  m={["0.6rem","0.8rem","1rem","1.4rem","1.4rem","1.4rem"]} />
                         <Flex flexDir="column">
-                            <strong>
-                                <Text>Suas pendências organizadas</Text>
-                            </strong>
+                            <Text fontSize={["0.5rem","0.6rem","0.7rem","1.2vw","1.2vw","1.2vw"]} fontWeight={"bold"}>Suas pendências organizadas</Text>
                             <Text>Gerencie as suas tarefas e acesse rapidamente seus objetivos com nossa lista de pendências.</Text>
                         </Flex>
                     </Flex>
@@ -106,13 +112,22 @@ export default function LandingPage() {
             </Box>
 
 
-        <Flex backgroundColor={"yellow.200"} h={500} w={"100%"}>
-            
-        </Flex>
+            <Flex backgroundColor={"yellow.100"} h={500} w={"100%"} justifyContent={"center"} align={"center"}>
 
-        <Footer>
-            
-        </Footer>
+                <AspectRatio minW={['320px','480px','770px','770px','770px']} h={["181px","270px","435px","435px","435px"]} ratio={1}>
+                    <iframe
+                        title='VideoPitch'
+                        src={video}
+                        allowFullScreen
+                    />
+                </AspectRatio>
+
+
+            </Flex>
+
+            <Footer>
+
+            </Footer>
 
 
 
