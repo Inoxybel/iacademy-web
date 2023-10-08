@@ -76,6 +76,7 @@ export default function LandingPage() {
                         </Box>
                     </Flex>
                 </Container>
+                
             </Box>
 
             <TextoEImagem titulo={"titulozinho aqui"} descricao={"descricao detalhes"} imagem={imagem_estudando} reverso={false}/>
