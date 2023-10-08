@@ -10,7 +10,7 @@ import { useState } from 'react'
 
 const Item = ({itemName}) => {
     return(
-        <MenuItem backgroundColor={"blue.300"} _hover={{backgroundColor: "white", color: "black"}}>{itemName}</MenuItem>
+        <MenuItem backgroundColor={"blue.300"} borderRadius={0} _hover={{backgroundColor: "white", color: "black"}}>{itemName}</MenuItem>
     )
 }
 
@@ -20,7 +20,7 @@ export default function MenuAction( {optionName} ) {
     return (
 
         <Menu >
-            <MenuButton onMouseEnter={() => setIsVisible(true)}
+            <MenuButton borderRadius={0} onMouseEnter={() => setIsVisible(true) }
         onMouseLeave={() => setIsVisible(false)}>
                 {optionName}
             </MenuButton>

@@ -16,8 +16,8 @@ import imagem_estudando from "../img/imagem-estudando.jpg";
 import like from '../img/like.png';
 import tarefas from '../img/tarefas.png';
 import video from '../video/Video_pitch_IAcademy.mp4';
-import Footer from "./landingPage/FooterLP.js";
-import MenuAction from './landingPage/menuAction.js';
+import Footer from "./landingPage/FooterLP.jsx";
+import MenuAction from './landingPage/menuAction.jsx';
 import TextoEImagem from "./landingPage/TextoEImagem";
 
 const breakpoints = {
@@ -68,8 +68,8 @@ export default function LandingPage() {
             <Box bg="white">
                 <Container maxW={"100%"} p={0} pt={5}>
                     <Flex alignItems="center" justifyContent="center">
-                        <Box h={["100vh"]} opacity={0.6}/>
-                        <Box color="blue.900" textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={"10%"} top={"10%"} maxW={"55%"}>
+                        <Box h={["100vh"]}/>
+                        <Box color="blue.900" textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={"10%"} top={["5%","10%"]} maxW={"55%"}>
                             <Text fontSize={"2.5vw"} position="relative" >Desenvolvendo habilidades da sua maneira</Text>
                             <Text fontSize={"1.4vw"} position="relative" top={5} left={"10%"} color={"gray.700"} textShadow="2px 2px 2px white">Na Iacademy, o aprendizado é flexível. Personalize seu caminho de aprendizado e gere explicações de curso para se adequar ao seu estilo.</Text>
                             <Button w={"14vw"} h={"2vw"} fontSize={"0.9vw"} top={10} left={"90%"} backgroundColor={"blue.400"} color={"white"} _hover={{ backgroundColor: "whiteAlpha.700", color: "blue.800" }}>Conheça nossa plataforma</Button>
