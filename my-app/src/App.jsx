@@ -34,7 +34,7 @@ function App() {
   return (
     <ChakraProvider>
       <CSSReset />
-      <Flex minH="100vh" bg="#1A1922" color="white">
+      <Flex minW="100vw" minH="100vh" bg="#1A1922" color="white">
         <Router>
           <Routes>
             <Route path={LandingPage ? "/" : "/login"} element={LandingPage ? <LandingPage/> : <Login/>} />
