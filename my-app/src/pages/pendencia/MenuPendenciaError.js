@@ -1,8 +1,7 @@
 import {
-    Box,
-    Flex,
-    Heading,
-    Skeleton
+  Box,
+  Flex,
+  Heading
 } from "@chakra-ui/react";
 import React from "react";
 import { HiOutlineClipboardCheck, HiOutlineClipboardList } from "react-icons/hi";

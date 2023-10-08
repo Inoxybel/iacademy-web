@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { MdCheckCircle } from "react-icons/md";
-import ContextProvider from '../../context/ContextProvider';
+import ContextProvider from '../../../services/context/ContextProvider';
 import ExercicioDescritivo from "../tiposExercicios/ExercicioDescritivo";
 import ExercicioMultiplasRespostas from "../tiposExercicios/ExercicioMultiplasRespotas";
 import ExercicioUmaResposta from "../tiposExercicios/ExercicioUmaResposta";

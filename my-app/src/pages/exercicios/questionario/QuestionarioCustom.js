@@ -4,7 +4,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ContextProvider, { useGeralContext } from '../../context/ContextProvider';
+import ContextProvider, { useGeralContext } from '../../../services/context/ContextProvider';
 
 
 const useQuestionarioCustom = (idExercicio) => {

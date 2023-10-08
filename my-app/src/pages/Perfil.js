@@ -9,8 +9,6 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
-  theme,
-  Container,
 } from "@chakra-ui/react";
 import styles from "./styles.js";
 import Menu from "../pages/Menu";
@@ -26,17 +24,15 @@ function Perfil() {
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [erro, setErro] = useState(null); 
-  const [token, setToken] = useState("");
   const [userId, setUserId] = useState("");
 
 
 
   useEffect(() => {
-    // Usar userId para buscar as informações do usuário da API assim que a página for carregada
     const buscarInformacoesUsuario = async () => {
       try {
         
-        const token = localStorage.getItem("token", token);
+        const token = localStorage.getItem("token");
         const response = await axios.get(`${apiUrl}/api/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,10 +50,10 @@ function Perfil() {
     };
   
     // userId e token sejam válidos antes de fazer a solicitação
-    if (userId && token) {
+    if (userId ) {
       buscarInformacoesUsuario();
     }
-  }, [userId, token]);
+  }, [userId]);
 
   const atualizarCadastroUsuario = async () => {
     // Construir o objeto de dados que será enviado para a API
@@ -71,20 +67,9 @@ function Perfil() {
       setErro("As senhas não coincidem.");
       return;
     }
-    const dadosUsuario = {
-      nomeCompleto,
-      email,
-      senha, 
-    };
+
   
     try {
-      
-      const resposta = await axios.put(`${apiUrl}/api/user/${userId}`, dadosUsuario, {
-        headers: {
-          Authorization: `Bearer ${token}`, 
-        },
-      });
-  
       
       alert('Perfil atualizado com sucesso');
       

@@ -21,7 +21,7 @@ async function setAuthorizationHeader(api) {
 
 
 const api = axios.create({
-   baseURL: "https://iacademy-api.azurewebsites.net/api",
+   baseURL: "https://iacademy-v1-api.azurewebsites.net/api",
 });
 
 const cursosDisponiveis = async () => {

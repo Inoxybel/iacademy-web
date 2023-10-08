@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import styles from './styles.js';
-import { logar } from "./Fetchers/FetchersUsuario.js";
+import { logar } from "../services/Fetchers/FetchersUsuario.js";
 import Cookies from "universal-cookie"; // Importe a biblioteca Universal Cookie
 
 function Login({ setAuthenticated }) {

@@ -1,20 +1,16 @@
-import { CloseIcon } from '@chakra-ui/icons';
 import {
+  Box,
   Flex,
   Skeleton,
-  Text,
-  Box,
-  Heading
+  Text
 } from '@chakra-ui/react';
-import { RiArrowGoBackLine } from 'react-icons/ri';
-import styles, { botaoVoltarFeedback} from '../styles';
 import React, { useEffect, useState } from 'react';
+import { RiArrowGoBackLine } from 'react-icons/ri';
 import { useNavigate, useParams } from 'react-router-dom';
-import ContextProvider, { useGeralContext } from '../context/ContextProvider';
+import ContextProvider, { useGeralContext } from '../../services/context/ContextProvider';
+import styles, { botaoVoltarFeedback } from '../styles';
 import ExercicioDescritivo from './ExercicioDescritivo';
 import ExercicioUmaRespostas from './ExercicioUmaResposta';
-import ReactMarkdown
- from 'react-markdown';
 const Feedback = ({ idFeedback }) => {
   const { CorrecaoPorCorrectionId } = useGeralContext(ContextProvider);
   const [feedback, setFeedback] = useState();
