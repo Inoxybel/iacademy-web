@@ -236,7 +236,7 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
         </Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent color="white" bg="var(--backgroud-form)">
+          <ModalContent color="white" bg="var(--background-form)">
             <ModalHeader>Detalhes do treinamento</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -271,7 +271,7 @@ const CardComponentCursoIniciado = ({ curso }) => {
     <Card
       flexDirection="row"
       overflow="hidden"
-      bg="var(--backgroud-form)"
+      bg="var(--background-form)"
       w={isSmOrMd ? "25rem" : "32rem"}
       h="8rem"
       color="white"
@@ -307,7 +307,7 @@ const CardComponentCursoIniciado = ({ curso }) => {
             ml={isSmOrMd ? "1rem" : "5rem"}
             p={2}
             variant="solid"
-            colorScheme="var(--backgroud-button)"
+            colorScheme="var(--background-button)"
             size={isSmOrMd ? "sm" : "lg"}
             fontSize={isSmOrMd ? 10 : 13}
             onClick={() => {
@@ -529,7 +529,7 @@ function DashboardBody() {
                 size={isSmOrMd ? "md" : "lg"}
                 border="none"
                 borderRadius={5}
-                borderColor="var(--backgroud-button)"
+                borderColor="var(--background-button)"
                 mb="1rem"
                 mr={2}
                 w={isSmOrMd ? "19rem" : "27rem"}
