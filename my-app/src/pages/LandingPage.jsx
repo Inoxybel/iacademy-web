@@ -38,7 +38,7 @@ export default function LandingPage() {
 
     return (
         <Box backgroundColor={"white"}>
-            <Flex bg="blue.500" w="100vw" position="fixed" zIndex="1" h={["4rem", "4rem", "4rem", "5.9rem", "5.9rem", "6rem"]}>
+            <Flex bg="blue.500" w="100vw" position={"fixed"} zIndex="1" h={["4rem", "4rem", "4rem", "5.9rem", "5.9rem", "6rem"]}>
                 <Flex alignItems="center" justifyContent="space-between" px={["5rem", "4rem"]} w="100%">
                     <Text color="white" fontSize={["1.2rem", "1.3rem", "1.4rem", "1.5rem", "2rem"]} fontStyle="italic" pos={"relative"} alignSelf="center">Iacademy</Text>
 
@@ -72,13 +72,13 @@ export default function LandingPage() {
                 <Container maxW={"100%"} p={0} pt={5}>
                     <Flex alignItems="center" justifyContent="center">
                         <Box h={["100vh"]} />
-                        <Flex justifyContent={"flex-end"} top={["5%", 10, 10, 10, 10, 10]} right={[5, 5, 5, 20, 20, 20]} position={breakpoints <= "md" ? "absolute" : "relative"} >
-                            <Image w={"50%"} src={undraw_reading} />
+                        <Flex justifyContent={"flex-end"} top={["5%","5%","5%","5%","5%", 10]} right={[5, 5, 5, 20, 20, 20]} position={breakpoints <= "md" ? "absolute" : "relative"} >
+                            <Image w={["40vw","30vw","19vw","19vw","19vw","20vw"]} src={undraw_reading} position={"relative"} top={["20vw","10","10","48","48","48"]} right={["1vw","10","10","10","10","6vw"]}/>
                         </Flex>
-                        <Box color="blue.900" h={"100%"} textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={"10%"} top={["5%", "10%"]} maxW={["40%", "40%","55%","55%","55%","55%"]}>
-                            <Text fontSize={["5vw", "2.5vw", "2.5vw", "2.5vw", "2.5vw", "2.5vw"]} position="relative" >Desenvolvendo habilidades da sua maneira</Text>
-                            <Text fontSize={["3vw", "3vw", "2.0vw", "2.0vw", "1.4vw", "1.4vw"]} position="relative" top={5} left={"10%"} color={"gray.700"} textShadow="2px 2px 2px white">Na Iacademy, o aprendizado é flexível. Personalize seu caminho de aprendizado e gere explicações de curso para se adequar ao seu estilo.</Text>
-                            <Button w={["26vw","14vw","14vw","14vw","14vw","14vw"]} h={["3vw","2vw","2vw","2vw","2vw","2vw"]} top={10} left={"70%"} fontSize={["0.3rem", "0.4rem", "0.5rem", "0.9vw", "0.9vw", "0.9vw"]} p={["1", "1.6", "0.2vw", "0.2vw", "0.2vw", "0.2vw"]} px={["1vw", "1vw", "1vw", "1vw", "1vw", "1vw"]} borderRadius={["1.2vw", "0.8vw", "0.4vw"]} borderWidth={1} backgroundColor={"blue.300"} color={"white"} _hover={{ backgroundColor: "whiteAlpha.900", color: "black", textDecoration: "none", borderColor: "blue.700" }}>Conheça nossa plataforma</Button>
+                        <Box color="blue.900" h={"100%"} textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={["5%","10%","10%","10%","10%","10%"]} top={["5%", "10%"]} maxW={["70%", "60%","45%","45%","50%","55%"]}>
+                            <Text fontSize={["5vw", "4vw", "2.5vw", "2.5vw", "2.5vw", "2.5vw"]} position={breakpoints <= "sm" ? "relative" : "absolute"} maxW={["100%", "100%","100%","100%","100%","100%"]}>Desenvolvendo habilidades da sua maneira</Text>
+                            <Text fontSize={["3.5vw", "2.5vw", "2.0vw", "2.0vw", "1.4vw", "1.4vw"]} position="relative" maxW={["50%", "90%","90%","90%","90%", "90%"]} top={5} left={["5%","10%","10%","10%","10%","10%"]} color={"gray.700"} textShadow="2px 2px 2px white">Na Iacademy, o aprendizado é flexível. Personalize seu caminho de aprendizado e gere explicações de curso para se adequar ao seu estilo.</Text>
+                            <Button w={["30vw","20vw","14vw","14vw","14vw","14vw"]} h={["4vw","3vw","2vw","2vw","2vw","2vw"]} top={10} left={["30%","70%","70%","70%","70%","70%"]} fontSize={["1.8vw", "1.2vw", "0.9vw", "0.9vw", "0.9vw", "0.9vw"]} p={["1", "1.6", "0.2vw", "0.2vw", "0.2vw", "0.2vw"]} px={["1vw", "1vw", "1vw", "1vw", "1vw", "1vw"]} borderRadius={["1.2vw", "0.8vw", "0.4vw"]} borderWidth={1} backgroundColor={"blue.300"} color={"white"} _hover={{ backgroundColor: "whiteAlpha.900", color: "black", textDecoration: "none", borderColor: "blue.700" }}>Conheça nossa plataforma</Button>
                         </Box>
                     </Flex>
                 </Container>
