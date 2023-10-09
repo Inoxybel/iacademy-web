@@ -14,24 +14,19 @@ const Item = ({itemName}) => {
     )
 }
 
-export default function MenuAction( {optionName} ) {
+export default function MenuAction( {optionName, listaNomes} ) {
     
     const [isVisible, setIsVisible] = useState(false)
-    const handleMouseEnter = () => {
-        setIsVisible(true)
-    }
 
-    const handleMouseLeave = () => {
-        setIsVisible(false)
-    }
+ 
     return (
 
-        <Menu >
-            <MenuButton borderRadius={0} onMouseEnter={handleMouseEnter}
-        >
+        <Menu>
+            <MenuButton borderRadius={0}>
                 {optionName}
             </MenuButton>
-            <MenuList style={{transition: "0.2s"}} isOpen={isVisible} backgroundColor={"blue.600"} onMouseLeave={handleMouseLeave}>
+            <MenuList style={{transition: "0.2s"}}  backgroundColor={"blue.600"}>
+                {}
                 <Item itemName={"Download"}/>
                 <Item itemName={"Create a Copy"}/>
                 <Item itemName={"Mark as Draft"}/>
