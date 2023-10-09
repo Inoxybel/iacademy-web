@@ -24,10 +24,10 @@ const TextoEImagem = ({
                 alignItems="center"
                 flexWrap="wrap-reverse">
                 <Flex
-                    flex={['1', '1', '1']}
+                    flex={['1', '1', '2']}
                     alignItems="center"
                     justifyContent="center"
-                    mb={[4, 4, 0]}>
+                    mb={[4, 4, 24]}>
 
                     <Image src={imagem} alt={`Image for ${titulo}`} maxH="300px" />
                 </Flex>
@@ -35,7 +35,8 @@ const TextoEImagem = ({
                     flex={['1', '1', '2']}
                     flexDir="column"
                     alignItems="center"
-                    textAlign={['center', 'center', 'left']}>
+                    textAlign={['center', 'center', 'left']}
+                    mb={[4, 4, 24]}>
                     <Text fontSize="2xl" fontWeight="bold" mb={4}>
                         {titulo}
                     </Text>
