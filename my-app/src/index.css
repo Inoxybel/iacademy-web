@@ -7,10 +7,12 @@
   color: #ffffffde;
   background-color: #242424;
 
-  --backgroud-color: #213547;
+  --background-color: #213547;
+  --background-form: #2f3142;
+  --background-black: #1a1922;
+  --background-menu: #16151c;
 
-  --backgroud-form: #2f3142;
-  --backgroud-black: #1a1922;
+  --background-card: #414045;
 
   --primary-black: #000;
 

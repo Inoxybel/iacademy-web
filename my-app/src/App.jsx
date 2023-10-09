@@ -9,6 +9,7 @@ import Conteudo from './pages/conteudo/Conteudo';
 import Feedback from "./pages/feedback/Feedback";
 import Pendencias from "./pages/exercicios/Pendencias";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
+import Treinamentos from "./pages/empresa/Treinamentos"
 
 const cookies = new Cookies(); // Crie uma instância de Cookies
 
@@ -57,6 +58,10 @@ function App() {
             <Route
               path="/dashboard"
               element={<PrivateRoute element={<Dashboard />} authenticated={authenticated} />}
+            />
+            <Route
+              path="/empresa/treinamentos"
+              element={<PrivateRoute element={<Treinamentos />} authenticated={authenticated} />}
             />
           </Routes>
         </Router>
