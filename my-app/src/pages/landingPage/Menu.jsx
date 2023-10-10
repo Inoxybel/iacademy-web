@@ -1,7 +1,20 @@
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import MenuDropAction from "./menuDropAction";
-const menu = ({ breakpoints, breakpoint }) => {
+import { useState } from 'react';
+
+const MenuLandingPage = ({ breakpoints, breakpoint }) => {
+
+    const [menuLeft, setMenuLeft] = useState({})
+
+    const handleMenuMobile = () => {
+        setMenuLeft({
+            ...menuLeft,
+            transition: "0.4s",
+            width: "70%",
+            boxShadow: "-5px 0px 5px lightGray"
+        })
+    }
 
     return (
         breakpoint >= breakpoints.md ? <> <Breadcrumb display={["block", "block", "block", "block", "block", "block"]} p={["0.8rem", "0.8rem", "0.8rem", "0.8rem", "1rem", "1rem"]} separator="" spacing={["1.4rem", "1.8re", "2.0rem", "2.2vw", "2.8vw", "3vw"]} alignSelf="flex-end" fontSize={["0.6rem", "0.7rem", "0.8rem", "0.8rem", "1vw", "1vw"]}>
@@ -35,7 +48,6 @@ const menu = ({ breakpoints, breakpoint }) => {
                 flexDir={"column-reverse"}
                 backgroundColor={"blue.700"}
                 w={0} h={"100vh"}
-                _hover={{ transition: "0.4s", width: "70%", boxShadow: "-5px 0px 5px lightGray" }}
                 zIndex={"10"}
                 display={"block"}>
 
@@ -45,6 +57,7 @@ const menu = ({ breakpoints, breakpoint }) => {
                     _hover={{ backgroundColor: 'blackAlpha.300' }}
                     position="absolute" right={5}
                     icon={<HamburgerIcon w={6} h={6} color="white" />}
+                    onClick={handleMenuMobile}
                 />
                 <Flex width={"70%"} h={"100vh"}>
 
@@ -52,13 +65,13 @@ const menu = ({ breakpoints, breakpoint }) => {
 
                 <Menu boxShadow='2xl' p='6' rounded='xl'>
                     <MenuButton borderRadius={0}>
-                       vamo ver
+                        vamo ver
                     </MenuButton>
 
                     <MenuList style={{ transition: "0.2s" }} backgroundColor={"blue.300"} boxShadow='2xl' rounded='lg' p={1}>
-                      <MenuItem>
-                      Vamo ver
-                      </MenuItem>
+                        <MenuItem>
+                            Vamo ver
+                        </MenuItem>
                     </MenuList>
 
                 </Menu>
@@ -66,4 +79,4 @@ const menu = ({ breakpoints, breakpoint }) => {
 
     )
 }
-export default menu;
+export default MenuLandingPage;
