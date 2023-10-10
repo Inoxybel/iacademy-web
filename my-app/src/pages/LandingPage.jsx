@@ -38,7 +38,7 @@ export default function LandingPage() {
 
     return (
         <Box backgroundColor={"white"} > 
-            <Flex bg="blue.500" w="100vw" position={"fixed"} zIndex="1" h={["4rem", "4rem", "4rem", "5.9rem", "5.9rem", "6rem"]}>
+            <Flex bg="blue.500" w="100vw" position={"fixed"} zIndex="5" h={["4rem", "4rem", "4rem", "5.9rem", "5.9rem", "6rem"]}>
                 <Flex alignItems="center" justifyContent="space-between" px={["5rem", "4rem"]} w="100%">
                     <Link href="/" color="white" fontSize={["1.2rem", "1.3rem", "1.4rem", "1.5rem", "2rem"]} fontStyle="italic" fontWeight={"semibold"} _hover={{textDecoration:"none"}} >IAcademy</Link>
                     
