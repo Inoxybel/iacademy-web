@@ -37,10 +37,10 @@ const TextoEImagem = ({
                     alignItems="center"
                     textAlign={['center', 'center', 'left']}
                     mb={[2, 4, 32]}>
-                    <Text fontSize={["md","2xl","32","36","40","40"]} fontWeight="bold" mb={4}>
+                    <Text fontSize={["md","2xl","32","36","35","40"]} fontWeight="bold" mb={4}>
                         {titulo}
                     </Text>
-                    <Text fontSize={["sm","md","20","22","24","24"]}>{descricao}</Text>
+                    <Text fontSize={["sm","md","20","22","20","24"]}>{descricao}</Text>
                 </Flex>
             </Flex>
         </Container>

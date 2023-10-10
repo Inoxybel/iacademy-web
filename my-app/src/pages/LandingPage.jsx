@@ -1,16 +1,14 @@
 import {
     AspectRatio,
     Box,
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
     Button,
     Container,
     Flex,
     Image,
+    Link,
     Text
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import feedback from '../img/feedback.png';
 import like from '../img/like.png';
 import tarefas from '../img/tarefas.png';
@@ -20,8 +18,10 @@ import undraw_reading from "../img/undraw_reading_re_29f8.svg";
 import undraw_skills from "../img/undraw_skills.svg";
 import video from '../video/Video_pitch_IAcademy.mp4';
 import Footer from "./landingPage/FooterLP.jsx";
+import Menu from "./landingPage/Menu";
 import TextoEImagem from "./landingPage/TextoEImagem";
-import MenuAction from './landingPage/menuAction.jsx';
+
+
 import { useBreakpointValue } from "@chakra-ui/react";
 const breakpoints = {
     base: "0em", // 0px
@@ -33,42 +33,17 @@ const breakpoints = {
 };
 
 export default function LandingPage() {
-    const [menuActionVisible, setMenuActionVisible] = useState(false)
+
     const breakpoint = useBreakpointValue(breakpoints);
 
     return (
         <Box backgroundColor={"white"} > 
             <Flex bg="blue.500" w="100vw" position={"fixed"} zIndex="1" h={["4rem", "4rem", "4rem", "5.9rem", "5.9rem", "6rem"]}>
                 <Flex alignItems="center" justifyContent="space-between" px={["5rem", "4rem"]} w="100%">
-                    <Text color="white" fontSize={["1.2rem", "1.3rem", "1.4rem", "1.5rem", "2rem"]} fontStyle="italic" fontWeight={"semibold"} >IAcademy</Text>
-
-                    {breakpoint >= breakpoints.md ? <> <Breadcrumb display={["block","block","block","block","block","block"]} p={["0.8rem", "0.8rem", "0.8rem", "0.8rem", "1rem", "1rem"]} separator="" spacing={["1.4rem", "1.8re", "2.0rem", "2.2vw", "2.8vw", "3vw"]} alignSelf="flex-end" fontSize={["0.6rem", "0.7rem", "0.8rem", "0.8rem", "1vw", "1vw"]}>
-                        
-                        <BreadcrumbItem onMouseEnter={() => { setMenuActionVisible(true) }} onMouseLeave={() => setMenuActionVisible(false)}>
-                            <MenuAction optionName={"Home"} isVisible={menuActionVisible}></MenuAction>
-                        </BreadcrumbItem>
-                        <BreadcrumbItem>
-                            <MenuAction optionName={"About"} isVisible={menuActionVisible}></MenuAction>
-                        </BreadcrumbItem>
-                        <BreadcrumbItem>
-                            <MenuAction optionName={"Contact"} isVisible={menuActionVisible}></MenuAction>
-                        </BreadcrumbItem>
-                    </Breadcrumb> 
-
-                    <Flex alignSelf="center">
-                        <Breadcrumb separator="" >
-                            <BreadcrumbItem>
-                                <BreadcrumbLink fontSize={["0.3rem", "0.4rem", "0.5rem", "0.9vw", "0.9vw", "0.9vw"]} p={["1", "1.6", "0.2vw", "0.2vw", "0.2vw", "0.2vw"]} px={["1vw", "1vw", "1vw", "1vw", "1vw", "1vw"]} borderRadius={["1.2vw", "0.8vw", "0.4vw"]} borderWidth={1} backgroundColor={"blue.600"} color={"blue.50"} _hover={{ backgroundColor: "blackAlpha.700", color: "white", textDecoration: "none", }} href='/login'>Sign in</BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbItem>
-                                <BreadcrumbLink fontSize={["0.3rem", "0.4rem", "0.5rem", "0.9vw", "0.9vw", "0.9vw"]} p={["1", "1.6", "0.2vw", "0.2vw", "0.2vw", "0.2vw"]} px={["1vw", "1vw", "1vw", "1vw", "1vw", "1vw"]} borderRadius={["1.2vw", "0.8vw", "0.4vw"]} borderWidth={1} backgroundColor={"blue.300"} color={"white"} _hover={{ backgroundColor: "whiteAlpha.900", color: "black", textDecoration: "none", borderColor: "blue.700" }} href='/cadastro'>Sign Up</BreadcrumbLink>
-                            </BreadcrumbItem>
-                        </Breadcrumb>
-                    </Flex></>
-                     : 
-                     <Button pos={"absolute"} right={10}></Button>}
+                    <Link href="/" color="white" fontSize={["1.2rem", "1.3rem", "1.4rem", "1.5rem", "2rem"]} fontStyle="italic" fontWeight={"semibold"} _hover={{textDecoration:"none"}} >IAcademy</Link>
                     
-                    {breakpoint === "sm" && <Button>aseasesaeasesa</Button>}
+                    <Menu breakpoint={breakpoint} breakpoints={breakpoints}/>
+                    
                 </Flex>
             </Flex>
 
@@ -78,7 +53,7 @@ export default function LandingPage() {
                     <Flex alignItems="center" justifyContent="center">
                         <Box h={["100vh"]} />
                         <Flex justifyContent={"flex-end"} top={["5%","5%","5%","5%","5%", "10%"]} right={[5, 5, 5, 20, 20, 20]} position={breakpoints <= "md" ? "absolute" : "relative"} >
-                            <Image w={["45vw","30vw","19vw","19vw","19vw","25vw"]} src={undraw_reading} position={"relative"} top={["20vw","10","10","10vw","10vw","-8vw"]} right={["-5vw","3vw","3vw","3vw","3vw","3vw"]}/>
+                            <Image w={["45vw","30vw","19vw","19vw","22vw","25vw"]} src={undraw_reading} position={"relative"} top={["20vw","10","10","10vw","3vw","-8vw"]} right={["-5vw","3vw","3vw","3vw","3vw","3vw"]}/>
                         </Flex>
                         <Box color="blue.900" h={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={["5%","10%","10%","10%","10%","10%"]} top={["5%", "8%"]} maxW={["70%", "60%","45%","45%","50%","55%"]}>
                             <Text fontSize={["5vw", "4vw", "2.5vw", "2.5vw", "2.5vw", "2.5vw"]} position={breakpoints <= "sm" ? "relative" : "absolute"} maxW={["100%", "100%","100%","100%","100%","100%"]}>Desenvolvendo habilidades da sua maneira</Text>
