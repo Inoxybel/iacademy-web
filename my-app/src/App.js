@@ -4,14 +4,14 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Login from "./pages/Login";
 import Cadastro from './pages/Cadastro';
 import Dashboard from "./pages/Dashboard";
-import Perfil from './pages/Perfil';
+import Perfil from './pages/perfil/Perfil';
 import Conteudo from './pages/conteudo/Conteudo';
 import Feedback from "./pages/feedback/Feedback";
 import Questionario from "./pages/exercicios/questionario/Questionario";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
 import Pendencia from "./pages/pendencia/Pendencia";
 
-const cookies = new Cookies(); // Crie uma instância de Cookies
+const cookies = new Cookies();
 
 function PrivateRoute({ element, authenticated }) {
   return authenticated ? element : <Navigate to="/" />;

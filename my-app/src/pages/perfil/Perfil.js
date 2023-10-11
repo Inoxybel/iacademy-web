@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from "react";
 import {
   Box,
-  Heading,
-  Input,
   Button,
   FormControl,
   FormLabel,
-  Alert,
-  AlertIcon,
-  AlertTitle,
+  Heading,
+  Input
 } from "@chakra-ui/react";
-import styles from "./styles.js";
-import Menu from "../pages/Menu";
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
+import Menu from "../Menu.js";
+import styles from "../styles.js";
+import ErroFormulario from "./ErroFormulario.js";
 
-
-const apiUrl = 'https://iacademy-api.azurewebsites.net';
 
 function Perfil() {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -24,45 +20,26 @@ function Perfil() {
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [erro, setErro] = useState(null); 
-  const [userId, setUserId] = useState("");
-
-
+ 
+  const cookies = new Cookies();
+  const user = cookies.get("user");
 
   useEffect(() => {
     const buscarInformacoesUsuario = async () => {
       try {
-        
-        const token = localStorage.getItem("token");
-        const response = await axios.get(`${apiUrl}/api/user/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setUserId(response.data.id || "");
-        setNomeCompleto(response.data.nomeCompleto || "");
-        setCnpj(response.data.cnpj || "");
-        setEmail(response.data.email || "");
-  
+        setCnpj(user.companyRef)
+        setEmail(user.email)
+        setNomeCompleto(user.name)
+       
       } catch (error) {
         console.error('Erro ao buscar informações do usuário', error);
       }
     };
-  
-    // userId e token sejam válidos antes de fazer a solicitação
-    if (userId ) {
       buscarInformacoesUsuario();
-    }
-  }, [userId]);
+  }, []);
 
   const atualizarCadastroUsuario = async () => {
-    // Construir o objeto de dados que será enviado para a API
-    if (!nomeCompleto || !cnpj || !email) {
-      setErro("Preencha todos os campos obrigatórios.");
-      return;
-    }
 
-    // Verificar se as senhas coincidem
     if (senha !== confirmarSenha) {
       setErro("As senhas não coincidem.");
       return;
@@ -102,17 +79,11 @@ function Perfil() {
             <Heading sx={{...styles.header}} >Perfil do Usuário</Heading>
 
           <Box sx={{...styles.formCadastro}} >
-            {erro && (
-              <Alert status="error" mb="4"  color={"brown"}>
-                <AlertIcon />
-                <AlertTitle >{erro}</AlertTitle>
-              </Alert>
-            )}
+            {erro && (<ErroFormulario error={erro} />)}
             <FormControl id="nomeCompleto" sx={{...styles.formControl}}>
               <FormLabel sx={{...styles.formLabel}}>Nome Completo</FormLabel>
               <Input sx={{...styles.input}}
                 type="text"
-                placeholder="Seu nome completo"
                 value={nomeCompleto}
                 onChange={(e) => setNomeCompleto(e.target.value)}
                 variant="filled"
@@ -122,7 +93,6 @@ function Perfil() {
               <FormLabel sx={{...styles.formLabel}}>CNPJ da Empresa</FormLabel>
               <Input sx={{...styles.input}}
                 type="text"
-                placeholder="CNPJ da sua empresa"
                 value={cnpj}
                 onChange={(e) => setCnpj(e.target.value)}
                 variant="filled"
@@ -132,7 +102,6 @@ function Perfil() {
               <FormLabel sx={{...styles.formLabel}}>Email</FormLabel>
               <Input sx={{...styles.input}}
                 type="email"
-                placeholder="Seu e-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 variant="filled"
