@@ -30,8 +30,38 @@ import styles from "../styles.js";
 import Menu from "../Menu";
 import axios from 'axios';
 import { AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { pegarConfiguracao, atualizarConfiguracao, novaConfiguracao} from '../Fetchers/FetchersApp';
 
 function Treinamento() {
+  const [tema, setTema] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [subcategoria, setSubcategoria] = useState("");
+  const [identificacao, setIdentificacao] = useState("");
+
+  function criarObj(){
+    return(
+      tema, categoria, subcategoria, identificacao
+      );
+  }
+
+  const enviarParaAPI = async () => {
+    // Crie o objeto de configuração
+    const obj = criarObj();
+  
+    try {
+      // Chame a função novaConfiguracao passando o objeto de configuração
+      const resposta = await atualizarConfiguracao(obj);
+  
+      // Verifique a resposta ou lide com erros, se necessário
+      if (resposta.ok) {
+        console.log('Configuração atualizada com sucesso!');
+      } else {
+        console.error('Erro ao atualizar configuração:', resposta.statusText);
+      }
+    } catch (erro) {
+      console.error('Erro na requisição:', erro);
+    }
+  };
 
   return (
     <Flex maxW='vw' mx="auto" direction={"column"} gap="2rem" p={5} align="center"  >
@@ -41,13 +71,29 @@ function Treinamento() {
         <Heading size={12}>Informações do Treinamento</Heading>      
         <Flex align={"center"} justifyContent={"space-between"} gap="1.5rem">
           <Image src='gibbresh.png' fallbackSrc='https://via.placeholder.com/90' borderRadius={7} />
-          <Input placeholder='Tema' mx="auto"/>
-          <Input placeholder='Categoria' mx="auto" />
-          <Input placeholder='Subcategoria' mx="auto"/>
-          <Input placeholder='Identificação' mx="auto"/>
+          <Input 
+            value={tema}
+            onChange={setTema}
+            placeholder='Tema' 
+            mx="auto"/>
+          <Input 
+            value={categoria}
+            onChange={setCategoria}
+            placeholder='Categoria' 
+            mx="auto" />
+          <Input 
+            value={subcategoria}
+            onChange={setSubcategoria}
+            placeholder='Subcategoria' 
+            mx="auto"/>
+          <Input 
+            value={identificacao}
+            onChange={setIdentificacao}
+            placeholder='Identificação' 
+            mx="auto"/>
         </Flex>
           <Flex alignSelf={"flex-end"}>
-            <Button bg="#3C485A" color={"white"}>Criar Base</Button>
+            <Button bg="#3C485A" color={"white"} onClick={enviarParaAPI}>Criar Base</Button>
           </Flex>
       </VStack>
       <Grid templateColumns="repeat(2, 1fr)" gap={4} >

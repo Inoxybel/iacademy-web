@@ -40,7 +40,7 @@ function App() {
         <Router>
           <Routes>
           <Route
-              path="/Treinamento"
+              path="/"
               element={<PrivateRoute element={<Treinamento />} authenticated={authenticated} />}
             />
             <Route
@@ -66,7 +66,7 @@ function App() {
             />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route
-              path="/"
+              path="/dashboard"
               element={<PrivateRoute element={<Dashboard />} authenticated={authenticated} />}
             />
              <Route
