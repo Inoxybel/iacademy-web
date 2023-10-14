@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 const api = axios.create({
-  baseURL: "https://iacademy-api.azurewebsites.net/api",
+  baseURL: " https://iacademy-v1-api.azurewebsites.net",
 });
 
 function setAuthorizationHeader(token) {
