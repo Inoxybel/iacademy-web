@@ -27,9 +27,13 @@ import Menu from "../Menu";
 import axios from 'axios';
 import { AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import { pegarConfiguracao, atualizarConfiguracao, novaConfiguracao} from '../Fetchers/FetchersApp';
 
 
 function Treinamento() {
+
+  const [opcoes, setOpcoes] = useState([]);
+  const [configuracoes, setConfiguracoes] = useState([]);
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,6 +51,30 @@ function Treinamento() {
   const [inputValue12, setInputValue12] = useState('');
 
 
+  useEffect(() => {
+    // Função para buscar as configurações e atualizar o estado 'configuracoes'
+    const fetchConfiguracoes = async () => {
+      try {
+        const response = await pegarConfiguracao(); // Supondo que pegarConfiguracao não requer um parâmetro específico
+        setConfiguracoes(response.data); // Atualiza o estado com as configurações obtidas da API
+      } catch (error) {
+        console.error('Erro ao buscar configurações:', error);
+      }
+    };
+
+    fetchConfiguracoes(); // Chama a função ao montar o componente
+  }, []); // O array vazio garante que a função é chamada apenas uma vez no carregamento inicial
+
+  useEffect(() => {
+    // Converte as configurações para o formato desejado para as opções do Select
+    const opcoesFormatadas = configuracoes.map((config) => (
+      <option key={config.id} value={config.valor}>
+        {config.nome}
+      </option>
+    ));
+
+    setOpcoes(opcoesFormatadas); // Atualiza o estado com as opções formatadas
+  }, [configuracoes]); 
 
   const handleInputChange = (e, identifier) => {
     const inputValue = e.target.value;
@@ -125,9 +153,7 @@ function Treinamento() {
       <VStack alignItems={"center"} bg={"#282B38"} p="4" gap="2rem" borderRadius={7}>
         <Heading size={12}>Configuração</Heading>      
         <Select placeholder='Select option' spacing={3} icon={<ChevronDownIcon />} bg="white" color="black">
-          <option value='option1'>Option 1</option>
-          <option value='option2'>Option 2</option>
-          <option value='option3'>Option 3</option> 
+          {opcoes.length > 0 ? opcoes : <option value="">Carregando...</option>}
         </Select>
         <Flex direction="row" p={0} w="100%" justifyContent="space-between" align={"center"}>
           <IconButton aria-label='Add to friends' icon={<AddIcon />} onClick={onOpen}/>

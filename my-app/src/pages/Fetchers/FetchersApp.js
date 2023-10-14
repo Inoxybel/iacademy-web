@@ -89,6 +89,23 @@ const pegarFeedbackDeExercicio = (idCorrecao)=>{
    return api.get(`/correction/${idCorrecao}`)
 }
 
+const pegarConfiguracao = (idConfiguracao) =>{
+   return api.get(`/api/configurations/${idConfiguracao}`, {
+      headers: {
+         'Content-Type': 'application/json',
+         'accept': '*/*',
+      },
+    });
+}
+
+const atualizarConfiguracao = (idConfiguracao) =>{
+   return api.put(`/api/configurations/${idConfiguracao}`)
+}
+
+const novaConfiguracao = (idConfiguracao) =>{
+   return api.put(`/api/configurations`)
+}
+
  export{
    cursosDisponiveis,
    cursosMatriculados,
@@ -99,6 +116,9 @@ const pegarFeedbackDeExercicio = (idCorrecao)=>{
    pegarExercicioPorId,
    corrigirExercicio,
    atualizarConteudo,
-   pegarFeedbackDeExercicio
+   pegarFeedbackDeExercicio,
+   pegarConfiguracao,
+   atualizarConfiguracao,
+   novaConfiguracao
 }
  
