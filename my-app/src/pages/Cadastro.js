@@ -148,7 +148,7 @@ function Cadastro() {
       <Box sx={{ ...styles.formCadastro }}>
 
         <Box style={botaoVoltarCadastro} >
-          <RiArrowGoBackLine onClick={() => navigate("/")} />
+          <RiArrowGoBackLine onClick={() => navigate("/login")} />
         </Box>
 
         <FormControl id="nomeCompleto" isRequired sx={{ ...styles.formControl }}>
