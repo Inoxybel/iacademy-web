@@ -40,14 +40,14 @@ function App() {
         <Router>
           <Routes>
           <Route
-              path="/"
+              path="/Treinamento"
               element={<PrivateRoute element={<Treinamento />} authenticated={authenticated} />}
             />
             <Route
               path="/NextTreinamento"
               element={<PrivateRoute element={<NextTreinamento />} authenticated={authenticated} />}
             />
-            <Route path="/Login" element={<Login setAuthenticated={setAuthenticated} />} />
+            <Route path="/" element={<Login setAuthenticated={setAuthenticated} />} />
             <Route
               path="/perfil"
               element={<PrivateRoute element={<Perfil />} authenticated={authenticated} />}
