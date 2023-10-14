@@ -1,34 +1,17 @@
-import { ViewIcon } from '@chakra-ui/icons';
 import {
     Flex,
-    HStack,
     IconButton,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
     Skeleton,
     Text,
-    Button,
-    Box,
-    Tooltip,
-    useToast,
-    Link
+    Tooltip
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { AiOutlineEdit } from "react-icons/ai";
-import { BiHistory } from "react-icons/bi";
-import { useGeralContext } from '../context/ContextProvider'
-import ReactMarkdown from 'react-markdown'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { HiOutlineZoomIn, HiZoomOut } from "react-icons/hi";
 import styled from 'styled-components';
-import { HiZoomOut } from "react-icons/hi";
-import { HiOutlineZoomIn } from "react-icons/hi";
-import { MdCheckCircle } from "react-icons/md"
 import ConteudoItem from './ConteudoItem';
+import { useGeralContext } from '../../services/context/ContextProvider';
 
-//Isso estiliza o conteudo markdown. Linhas, titulos, topicos
+
 const EstiloConteudoPrincipal = styled.div`
     
 /* Adiciona uma barra de rolagem quando o conteúdo for maior que o contêiner */
@@ -76,7 +59,7 @@ h3{
 
 const ConteudoBody = () => {
 
-    //Funções de auxílio para zoom
+
     function zoom() {
         setFonte((prevFonte) => prevFonte + 2);
     }
@@ -89,11 +72,9 @@ const ConteudoBody = () => {
     const { conteudoSelecionado} = useGeralContext();
 
 
-    //Verifica se conteudo já está dusponível, e pega a descrição do conteudo com menor data, que pelo padrão da api é o conteudo mais recente
-    // const valor = conteudoSelecionado ? conteudoSelecionado.body.contents[0].subcontentHistory.find((obj) => obj.disabledDate === "0001-01-01T00:00:00Z") : undefined;
     const valor = conteudoSelecionado ? conteudoSelecionado.body.contents : undefined;
     const [conteudoRenderizadoAtual, setConteudoRenderizadoAtual] = useState(valor);
-    // Use um useEffect para rastrear mudanças em conteudoSelecionado e atualizar conteudoRenderizadoAtual
+ 
     useEffect(() => {
         if (conteudoSelecionado) {
             const novoValor = conteudoSelecionado.body.contents;
@@ -101,10 +82,7 @@ const ConteudoBody = () => {
         }
     }, [conteudoSelecionado]);
 
-    //Conteudo que será renderizado na tela
-  
 
-    //Skeletom para efeito na tela enquanto conteudo nao atualiza
     if (!conteudoSelecionado) {
         return (
             <Flex flex={3} h='100%' flexDir='column' p='10px'>
@@ -133,7 +111,7 @@ const ConteudoBody = () => {
                         <div>Ainda não possui conteúdo</div>
                     )}
                 </Flex>
-                {/*Zomm */}
+
                 <Flex
                     style={{
                         position: "fixed",

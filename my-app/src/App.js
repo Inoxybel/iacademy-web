@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Login from "./pages/Login";
 import Cadastro from './pages/Cadastro';
 import Dashboard from "./pages/Dashboard";
-import Perfil from './pages/Perfil';
+import Perfil from './pages/perfil/Perfil';
 import Conteudo from './pages/conteudo/Conteudo';
 import Feedback from "./pages/feedback/Feedback";
-import Pendencias from "./pages/exercicios/Pendencias";
-import Cookies from "universal-cookie";
-import LandingPage from "./pages/LandingPage";
+import Questionario from "./pages/exercicios/questionario/Questionario";
+import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
+import Pendencia from "./pages/pendencia/Pendencia";
 
 const cookies = new Cookies();
 
@@ -21,7 +21,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(true);
 
   useEffect(() => {
-    const token = cookies.get("token");
+    const token = cookies.get("token"); 
 
     if (token) {
       const sessionDuration = 60 * 60;
@@ -53,13 +53,17 @@ function App() {
               element={<PrivateRoute element={<Feedback />} authenticated={authenticated} />}
             />
             <Route
-              path="/pendencias/:id"
-              element={<PrivateRoute element={<Pendencias />} authenticated={authenticated} />}
+              path="/exercicios/:id"
+              element={<PrivateRoute element={<Questionario />} authenticated={authenticated} />}
             />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route
               path="/dashboard"
               element={<PrivateRoute element={<Dashboard />} authenticated={authenticated} />}
+            />
+             <Route
+              path="/pendencia"
+              element={<PrivateRoute element={<Pendencia />} authenticated={authenticated} />}
             />
           </Routes>
         </Router>

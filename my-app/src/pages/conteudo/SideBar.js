@@ -1,6 +1,5 @@
 import {Box,Button,Divider,Flex,Image,Menu,MenuButton,MenuItem,MenuList,Progress,Skeleton,Text} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import ContextProvider from '../context/ContextProvider'; // Substitua pelo caminho correto do arquivo
 import { AiOutlineDown } from "react-icons/ai";
 import { BsBookHalf } from "react-icons/bs";
 import { FaClipboardList, FaPencilAlt } from 'react-icons/fa';
@@ -8,19 +7,19 @@ import { RiMenuFoldFill } from "react-icons/ri";
 import { RiMenuUnfoldFill } from "react-icons/ri";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
-import imgTeste from '../../img/csharp_logo.png';
-import { useGeralContext } from '../context/ContextProvider';
+import imgTeste from '../../assets/csharp_logo.png';
+import { useGeralContext } from '../../services/context/ContextProvider';
 import { useSelecaoContext } from './ConteudoContext';
 import SidebarStyledComponent from './SidebarStyleComponent';
 
 
 
 
-const Sidebar = ({ idSumario, onSelectConteudo, onSetIdExercicioSelecionado, onSetAberto }) => {
-    const { SolicitarSumario, SolicitarConteudoPorId, conteudoSelecionado, SolicitarExercicioPorID } = useGeralContext();
+const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
+    const { SolicitarSumario, SolicitarConteudoPorId} = useGeralContext();
     const [listaSumario, setListaSumario] = useState()
     const [topicoAtual, setTopicoAtual] = useState(null)
-    const { selecao, selecionar } = useSelecaoContext();
+    const { selecionar } = useSelecaoContext();
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
 
