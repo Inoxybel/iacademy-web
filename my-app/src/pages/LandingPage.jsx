@@ -9,14 +9,14 @@ import {
     Text
 } from "@chakra-ui/react";
 import React from "react";
-import feedback from '../img/feedback.png';
-import like from '../img/like.png';
-import tarefas from '../img/tarefas.png';
-import undraw_lugares from "../img/undraw_lugares.svg";
-import undraw_organization from "../img/undraw_organization.svg";
-import undraw_reading from "../img/undraw_reading_re_29f8.svg";
-import undraw_skills from "../img/undraw_skills.svg";
-import video from '../video/Video_pitch_IAcademy.mp4';
+import feedback from '../assets/feedback.png';
+import like from '../assets/like.png';
+import tarefas from '../assets/tarefas.png';
+import undraw_lugares from "../assets/undraw_lugares.svg";
+import undraw_organization from "../assets/undraw_organization.svg";
+import undraw_reading from "../assets/undraw_reading_re_29f8.svg";
+import undraw_skills from "../assets/undraw_skills.svg";
+import video from '../assets/video/Video_pitch_IAcademy.mp4';
 import Footer from "./landingPage/FooterLP.jsx";
 import Menu from "./landingPage/Menu";
 import TextoEImagem from "./landingPage/TextoEImagem";

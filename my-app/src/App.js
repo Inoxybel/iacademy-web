@@ -10,6 +10,7 @@ import Feedback from "./pages/feedback/Feedback";
 import Questionario from "./pages/exercicios/questionario/Questionario";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
 import Pendencia from "./pages/pendencia/Pendencia";
+import LandingPage from "./pages/LandingPage"
 
 const cookies = new Cookies();
 

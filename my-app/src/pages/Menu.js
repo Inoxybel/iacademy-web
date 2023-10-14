@@ -8,7 +8,6 @@ import {
   Divider,
   useMediaQuery 
 } from '@chakra-ui/react';
-import React from 'react';
 import { AiFillHome } from 'react-icons/ai';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { BiBook } from 'react-icons/bi';
