@@ -6,14 +6,13 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
-const ExercicioDescritivo = ({ question, identification, exercicioEntregado, mandarParaListaDeRespostas }) => {
+const ExercicioDescritivo = ({ status,question, identification, exercicioEntregado, mandarParaListaDeRespostas }) => {
 
     const [valor, setValor] = useState("")
-
+    
     if (exercicioEntregado) {
         mandarParaListaDeRespostas(identification, valor)
     }
-    console.log(exercicioEntregado)
 
     return (
         <Box style={{backgroundColor:"#2F3142",width:'100%',padding:'20px'}}>
@@ -23,7 +22,8 @@ const ExercicioDescritivo = ({ question, identification, exercicioEntregado, man
             <Flex w={'100%'} direction="column" rowGap={'1rem'}>
                 <Textarea placeholder='Escreva sua resposta'
                     size='sm' value={valor}
-                    onChange={(event) => setValor(event.target.value)} />
+                    onChange={(event) => setValor(event.target.value)}
+                    isDisabled={status==='Finished'?true:false} />
             </Flex>
 
         </Box>

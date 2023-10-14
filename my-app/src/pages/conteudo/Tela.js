@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelecaoContext } from './ConteudoContext';
 import ConteudoBody from './ConteudoBody';
-import Pendencias from "../exercicios/Pendencias"
+import Questionario from "../exercicios/questionario/Questionario"
 import { Box } from '@chakra-ui/react';
 
  const Conteudo = ({idExercicioSelecionado}) => {
@@ -12,7 +12,7 @@ import { Box } from '@chakra-ui/react';
       {selecao === 'conteudo' ? (
         <ConteudoBody />
       ) : selecao === 'exercicio' ? (
-        <Pendencias idExercicio={idExercicioSelecionado} />
+        <Questionario idExercicio={idExercicioSelecionado} />
       ) : null}
    </Box>
   );

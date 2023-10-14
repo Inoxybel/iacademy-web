@@ -1,23 +1,15 @@
-import React, { useState, useContext, createContext, useEffect } from 'react';
+import React, { useState, useContext, createContext } from 'react';
 import { atualizarConteudo, corrigirExercicio, pegarConteudoPorId, pegarExercicioPorId, pegarFeedbackDeExercicio, pegarSumario, pegarTodosConteudosPorSumario } from '../Fetchers/FetchersApp';
 import { useNavigate } from 'react-router-dom';
-
-
-
-
-
 
 const ContextGeral = createContext();
 
 function ContextProvider({ children }) {
 
-    const [listaExerciciosPendentes, setListaExerciciosPendentes] = useState()
-    const [listaDeCursos, setListaDeCursos] = useState(); // Defina os dados iniciais aqui
-    const [listaConteudoPorSumario, setListaConteudoPorSumario] = useState();
     const [exercicioConteudoSelecionado, setExercicioConteudoSelecionado] = useState();
-    const [feedbackAtual, setFeedbackAtual] = useState()
     const [conteudoSelecionado,setConteudoSelecionado] =useState()
     const navigate =useNavigate()
+
     async function SolicitarSumario(id) {
         try {
             const response = await pegarSumario(id);
@@ -36,12 +28,6 @@ function ContextProvider({ children }) {
         }
     }
 
-    function atualizaListaExerciciosPendentes(exercise, theme) {
-        const novoObj = { "theme": theme, "exercise": exercise }
-        const novaListaExerciciosPendentes = [...listaExerciciosPendentes, novoObj]
-        setListaExerciciosPendentes(novaListaExerciciosPendentes)
-    }
-
     async function SolicitarConteudosPorSumario(id) {
         try {
             const response = await pegarTodosConteudosPorSumario(id);
@@ -55,18 +41,11 @@ function ContextProvider({ children }) {
                 return null;
             }
         } catch (error) {
-            console.error("Erro ao solicitar conteudos do sumário:", error);
             if(error.response.status===401){
                 navigate("/")
                }
         }
     }
-
-    function exercicioSelecionadoParaMenu(exercicio) {
-        const exercicioJSON = JSON.stringify(exercicio);
-        sessionStorage.setItem('exercicioSelecionado', exercicioJSON);
-    }
-
 
     async function SolicitarConteudoPorId(contentID) {
         try {
@@ -106,11 +85,8 @@ function ContextProvider({ children }) {
         }
     }
 
- 
     async function CriarCorrecaoPorExerciseId(exerciseID, respostas) {
         try {
-            console.log("o id do exercicío é: ",exerciseID)
-            console.log("As respostas são:", respostas)
             const response = await corrigirExercicio(exerciseID,respostas);
             if(response.status===401){
                 navigate('/')
@@ -128,8 +104,6 @@ function ContextProvider({ children }) {
         }
     }
 
-
-    
     async function SolicitarAtualizaçãoConteudoId(conteudoId,index) {
         try {
             const response = await atualizarConteudo(conteudoId,index);
@@ -137,7 +111,7 @@ function ContextProvider({ children }) {
                 navigate('/')
             }
             if (response.status === 204) {
-                        console.log('conteudo atualizado')
+                     
                        return true
             } else {
                 console.log(`Erro ao obter novo conteudo criado`);
@@ -173,21 +147,15 @@ function ContextProvider({ children }) {
     return (
         <ContextGeral.Provider
             value={{
-                listaExerciciosPendentes,
-                atualizaListaExerciciosPendentes,
-                listaDeCursos,
                 SolicitarConteudoPorId,
                 SolicitarExercicioPorID,
                 SolicitarSumario,
-                listaConteudoPorSumario,
                 SolicitarConteudosPorSumario,
                 setExercicioConteudoSelecionado,
                 exercicioConteudoSelecionado,
-                exercicioSelecionadoParaMenu,
                 CorrecaoPorCorrectionId,
                 CriarCorrecaoPorExerciseId,
                 SolicitarAtualizaçãoConteudoId,
-                feedbackAtual,
                 conteudoSelecionado
             }}
         >
