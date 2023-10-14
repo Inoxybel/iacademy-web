@@ -102,8 +102,8 @@ const atualizarConfiguracao = (idConfiguracao) =>{
    return api.put(`/api/configurations/${idConfiguracao}`)
 }
 
-const novaConfiguracao = (idConfiguracao) =>{
-   return api.put(`/api/configurations`)
+const novaConfiguracao = (obj) =>{
+   return api.put(`/api/configurations`,obj)
 }
 
  export{

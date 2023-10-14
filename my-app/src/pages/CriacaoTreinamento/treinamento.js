@@ -131,6 +131,54 @@ function Treinamento() {
     setActiveIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
+  function criarObjeto() {
+    return {
+      summary: {
+        initialInput: inputValue1,
+        finalInput: inputValue2,
+      },
+      firstContent: {
+        initialInput: inputValue3,
+        finalInput: inputValue4,
+      },
+      newContent: {
+        initialInput: inputValue5,
+        finalInput: inputValue6,
+      },
+      exercise: {
+        initialInput: inputValue7,
+        finalInput: inputValue8,
+      },
+      correction: {
+        initialInput: inputValue9,
+        finalInput: inputValue10,
+      },
+      pendency: {
+        initialInput: inputValue11,
+        finalInput: inputValue12,
+      },
+    };
+  }
+
+  const enviarParaAPI = async () => {
+    // Crie o objeto de configuração
+    const obj = criarObjeto();
+  
+    try {
+      // Chame a função novaConfiguracao passando o objeto de configuração
+      const resposta = await novaConfiguracao(obj);
+  
+      // Verifique a resposta ou lide com erros, se necessário
+      if (resposta.ok) {
+        console.log('Configuração enviada com sucesso!');
+      } else {
+        console.error('Erro ao enviar configuração:', resposta.statusText);
+      }
+    } catch (erro) {
+      console.error('Erro na requisição:', erro);
+    }
+  };
+
   const limpaCampos=()=>{
     setInputValue1("");
     setInputValue2("");
@@ -340,7 +388,7 @@ function Treinamento() {
                 />
                 <Flex justifyContent={"space-evenly"}>
                 <Button onClick={handlePreviousTab}>Anterior</Button>
-                <Button bg="#0880A2" color="white">Salvar Alterações</Button>
+                <Button bg="#0880A2" color="white" onClick={enviarParaAPI}>Salvar Alterações</Button>
                 </Flex>
               </TabPanel>
             </TabPanels>
