@@ -172,9 +172,7 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
         direction="row"
         overflow={"hidden"}
         borderRadius={5}
-        w={isSmOrMd ? "18rem" : "25rem"}
-        h="8rem"
-        p={isSmOrMd ? 1 : 2}
+        p={isSmOrMd ? 2 : 2}
       >
         <CardBody p={2}>
           <Heading fontSize="13px">{obj.theme}</Heading>
@@ -255,8 +253,6 @@ const CardComponentCursoIniciado = ({ curso }) => {
       flexDirection="row"
       overflow="hidden"
       bg="#262734"
-      w={isSmOrMd ? "25rem" : "32rem"}
-      h="8rem"
       color="white"
       p={isSmOrMd ? 1 : 2}
     >
@@ -272,7 +268,7 @@ const CardComponentCursoIniciado = ({ curso }) => {
       />
       
       <Stack flexDir="column" justifyContent="space-between">
-        <Flex justifyContent="space-between" >
+        <Flex justifyContent="space-between" flexDir={isSmOrMd ? "column" : "row"}>
           <Flex flexDir="column" >
             <Text fontSize="13px" fontWeight="bold" mb={3}>
               {curso.theme}
@@ -280,25 +276,26 @@ const CardComponentCursoIniciado = ({ curso }) => {
             <Box
               display="flex"
               flexDir="row"
-              alignItems="center"
-              justifyContent="center"
+              alignItems={isSmOrMd ? "flex-start" : "center"}
+              justifyContent={isSmOrMd ? "flex-start" : "center"}
             >
               <Text fontSize="11px">{curso.subcategory}</Text> - <Text fontSize="11px">{curso.category}</Text>
             </Box>
           </Flex>
 
           <Button
-            ml={isSmOrMd ? "1rem" : "5rem"}
+            ml={isSmOrMd ? "0" : "5rem"}
+            mr={isSmOrMd ? "10" : "0"}
             p={2}
             variant="solid"
             colorScheme="#0880A2;"
-            size={isSmOrMd ? "sm" : "lg"}
-            fontSize={ isSmOrMd ? 10 : 13}
+            size={isSmOrMd ? "sm" : "md"}
+            fontSize={ isSmOrMd ? 11 : 13}
             onClick={() => {
               RedirecionaParaConteudoPorIdSumarioMatriculado(curso.id);
             }}
           >
-            Continuar de onde parou
+              Continuar de onde parou
           </Button>
         </Flex>
         <Flex alignItems="center" gap="10px" justifyContent="space-between">
@@ -463,7 +460,7 @@ function DashboardBody() {
         justifyContent={'center'}
         rowGap={isSmOrMd ? '7rem' : '0'}
       >
-        <VStack minW={isSmOrMd ? 0 : "40rem"} alignItems={isMobile ? "flex-start" : "center"} >
+        <VStack minW={isSmOrMd ? 0 : "40rem"} alignItems="center" >
           <Heading as="h2" size="sm" mb="2">
             Treinamentos em andamento
           </Heading>
@@ -476,28 +473,26 @@ function DashboardBody() {
           )}
         </VStack>
 
-        <VStack minW={isSmOrMd ? 0 : "40rem"} alignItems={isMobile ? "flex-start" : "center"}  >
+        <VStack minW={"100%"} alignItems="center" >
           <Flex flexDir="column"  >
             <Heading
               as="h2"
               size="sm"
               mb="1rem"
-              whiteSpace={'nowrap'}
             >
               Treinamentos Disponíveis
             </Heading>
             <Flex >
               <Input
                 variant="filled"
-                size={isSmOrMd ? "md" : "lg"}
+                size={isSmOrMd ? "sm" : "md"}
                 border="none"
                 borderRadius={5}
                 borderColor="#0880A2"
                 mb="1rem"
                 mr={2}
-                w={isSmOrMd ? "19rem" : "27rem"}
               />
-              <Button bg="#0880A2" color="white" size={isSmOrMd ? "md" : "lg"} borderRadius={12}>
+              <Button bg="#0880A2" color="white" size={isSmOrMd ? "sm" : "md"} borderRadius={12}>
                 Pesquisar
               </Button>
             </Flex>

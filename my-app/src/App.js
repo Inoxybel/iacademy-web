@@ -47,7 +47,7 @@ function App() {
               path="/NextTreinamento"
               element={<PrivateRoute element={<NextTreinamento />} authenticated={authenticated} />}
             />
-            <Route path="/" element={<Login setAuthenticated={setAuthenticated} />} />
+            <Route path="/Login" element={<Login setAuthenticated={setAuthenticated} />} />
             <Route
               path="/perfil"
               element={<PrivateRoute element={<Perfil />} authenticated={authenticated} />}
@@ -66,7 +66,7 @@ function App() {
             />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route
-              path="/dashboard"
+              path="/"
               element={<PrivateRoute element={<Dashboard />} authenticated={authenticated} />}
             />
              <Route
