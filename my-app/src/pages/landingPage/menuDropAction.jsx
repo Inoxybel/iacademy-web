@@ -9,13 +9,25 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
-const Item = ({itemName}) => {
+function tratarString(str) {
+    
+    const strSemEspacos = str.replace(/ /g, '_');
+  
+   
+    const strSemAcentos = strSemEspacos.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  
+    return strSemAcentos;
+  }
+
+
+
+const Item = ({rota, itemName}) => {
     return(
-        <MenuItem backgroundColor={"blue.300"} borderRadius={0} _hover={{backgroundColor: "white", color: "black", borderRadius: "3" }}>{itemName}</MenuItem>
+        <MenuItem as="a" href={rota} backgroundColor={"blue.300"} borderRadius={0} _hover={{backgroundColor: "white", color: "black", borderRadius: "3" }}>{itemName}</MenuItem>
     )
 }
 
-export default function MenuAction( {optionName, listaNomes} ) {
+export default function MenuDropAction( {rotas, optionName, listaNomes} ) {
     
     const [isVisible, setIsVisible] = useState(false)
 
@@ -28,9 +40,12 @@ export default function MenuAction( {optionName, listaNomes} ) {
             </MenuButton>
             
             <MenuList style={{transition: "0.2s"}}  backgroundColor={"blue.300"} boxShadow='2xl' rounded='lg' p={1}>
-                {listaNomes.map((nome, index) => (
-                    <Item key={index} itemName={nome}/>
-))}
+            {listaNomes.map((nome, index) => (
+            rotas ? 
+            <Item key={index} itemName={nome} rota={rotas[index]} />
+            :
+            <Item key={index} itemName={nome}/>
+        ))}
             </MenuList>
             
         </Menu>

@@ -11,6 +11,7 @@ import Questionario from "./pages/exercicios/questionario/Questionario";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
 import Pendencia from "./pages/pendencia/Pendencia";
 import LandingPage from "./pages/LandingPage"
+import MissaoEVisao from "./pages/landingPage/missaoVisao/MissaoEVisao";
 
 const cookies = new Cookies();
 
@@ -22,7 +23,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(true);
 
   useEffect(() => {
-    const token = cookies.get("token"); 
+    const token = cookies.get("token");
 
     if (token) {
       const sessionDuration = 60 * 60;
@@ -38,9 +39,18 @@ function App() {
       <Flex minH="100vh" bg="#1A1922" color="white">
         <Router>
           <Routes>
-            <Route path={LandingPage ? "/" : "/login"} element={LandingPage ? <LandingPage/> : <Login/>} />
-            
-            <Route path="/login" element={<Login setAuthenticated={setAuthenticated} />} />
+            <Route
+              path={LandingPage ? "/" : "/login"}
+              element={LandingPage ? <LandingPage /> : <Login />}
+            />
+            <Route
+              path={MissaoEVisao ? "/missao_e_visao" : "/"}
+              element={MissaoEVisao ? <MissaoEVisao /> : <LandingPage />}
+            />
+            <Route
+              path="/login"
+              element={<Login setAuthenticated={setAuthenticated} />}
+            />
             <Route
               path="/perfil"
               element={<PrivateRoute element={<Perfil />} authenticated={authenticated} />}
@@ -62,7 +72,7 @@ function App() {
               path="/dashboard"
               element={<PrivateRoute element={<Dashboard />} authenticated={authenticated} />}
             />
-             <Route
+            <Route
               path="/pendencia"
               element={<PrivateRoute element={<Pendencia />} authenticated={authenticated} />}
             />
