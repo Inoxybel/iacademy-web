@@ -161,14 +161,11 @@ function Treinamento() {
   }
 
   const enviarParaAPI = async () => {
-    // Crie o objeto de configuração
     const obj = criarObjeto();
   
     try {
-      // Chame a função novaConfiguracao passando o objeto de configuração
       const resposta = await novaConfiguracao(obj);
   
-      // Verifique a resposta ou lide com erros, se necessário
       if (resposta.ok) {
         console.log('Configuração enviada com sucesso!');
       } else {

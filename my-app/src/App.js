@@ -48,6 +48,7 @@ function App() {
               element={<PrivateRoute element={<NextTreinamento />} authenticated={authenticated} />}
             />
             <Route path="/Login" element={<Login setAuthenticated={setAuthenticated} />} />
+
             <Route
               path="/perfil"
               element={<PrivateRoute element={<Perfil />} authenticated={authenticated} />}
