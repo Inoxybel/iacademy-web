@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 const api = axios.create({
-  baseURL: "https://iacademy-api.azurewebsites.net/api",
+  baseURL: " https://iacademy-v1-api.azurewebsites.net",
 });
 
 function setAuthorizationHeader(token) {
@@ -89,23 +89,6 @@ const pegarFeedbackDeExercicio = (idCorrecao)=>{
    return api.get(`/correction/${idCorrecao}`)
 }
 
-const pegarConfiguracao = (idConfiguracao) =>{
-   return api.get(`/api/configurations/${idConfiguracao}`, {
-      headers: {
-         'Content-Type': 'application/json',
-         'accept': '*/*',
-      },
-    });
-}
-
-const atualizarConfiguracao = (idConfiguracao) =>{
-   return api.put(`/api/configurations/${idConfiguracao}`)
-}
-
-const novaConfiguracao = (obj) =>{
-   return api.put(`/api/configurations`,obj)
-}
-
  export{
    cursosDisponiveis,
    cursosMatriculados,
@@ -116,9 +99,6 @@ const novaConfiguracao = (obj) =>{
    pegarExercicioPorId,
    corrigirExercicio,
    atualizarConteudo,
-   pegarFeedbackDeExercicio,
-   pegarConfiguracao,
-   atualizarConfiguracao,
-   novaConfiguracao
+   pegarFeedbackDeExercicio
 }
  

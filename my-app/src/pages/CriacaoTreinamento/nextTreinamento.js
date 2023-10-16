@@ -30,7 +30,7 @@ import styles from "../styles.js";
 import Menu from "../Menu";
 import axios from 'axios';
 import { AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
-import { pegarConfiguracao, atualizarConfiguracao, novaConfiguracao} from '../Fetchers/FetchersApp';
+import { pegarConfiguracao, atualizarConfiguracao, novaConfiguracao} from '../../services/Fetchers/FetchersApp';
 
 function Treinamento() {
   const [tema, setTema] = useState("");

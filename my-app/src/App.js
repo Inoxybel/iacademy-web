@@ -12,6 +12,7 @@ import Feedback from "./pages/feedback/Feedback";
 import Questionario from "./pages/exercicios/questionario/Questionario";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
 import Pendencia from "./pages/pendencia/Pendencia";
+import LandingPage from "./pages/LandingPage"
 
 const cookies = new Cookies();
 
@@ -39,8 +40,10 @@ function App() {
       <Flex minH="100vh" bg="#1A1922" color="white">
         <Router>
           <Routes>
+            <Route path={LandingPage ? "/" : "/login"} element={LandingPage ? <LandingPage/> : <Login/>} />
+            
           <Route
-              path="/"
+              path="/Treinamento"
               element={<PrivateRoute element={<Treinamento />} authenticated={authenticated} />}
             />
             <Route
