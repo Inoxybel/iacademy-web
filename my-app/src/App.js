@@ -6,6 +6,8 @@ import Cadastro from './pages/Cadastro';
 import Dashboard from "./pages/Dashboard";
 import Perfil from './pages/perfil/Perfil';
 import Conteudo from './pages/conteudo/Conteudo';
+import Treinamento from './pages/CriacaoTreinamento/treinamento';
+import NextTreinamento from './pages/CriacaoTreinamento/nextTreinamento';
 import Feedback from "./pages/feedback/Feedback";
 import Questionario from "./pages/exercicios/questionario/Questionario";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
@@ -40,7 +42,16 @@ function App() {
           <Routes>
             <Route path={LandingPage ? "/" : "/login"} element={LandingPage ? <LandingPage/> : <Login/>} />
             
-            <Route path="/login" element={<Login setAuthenticated={setAuthenticated} />} />
+          <Route
+              path="/Treinamento"
+              element={<PrivateRoute element={<Treinamento />} authenticated={authenticated} />}
+            />
+            <Route
+              path="/NextTreinamento"
+              element={<PrivateRoute element={<NextTreinamento />} authenticated={authenticated} />}
+            />
+            <Route path="/Login" element={<Login setAuthenticated={setAuthenticated} />} />
+
             <Route
               path="/perfil"
               element={<PrivateRoute element={<Perfil />} authenticated={authenticated} />}

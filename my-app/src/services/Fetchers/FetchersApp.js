@@ -98,6 +98,23 @@ const pegarExerciciosPendentes = async ()=>{
    return api.get('/exercise/type/Pendency')
 }
 
+const pegarConfiguracao = (idConfiguracao) =>{
+   return api.get(`/api/configurations/${idConfiguracao}`, {
+      headers: {
+         'Content-Type': 'application/json',
+         'accept': '*/*',
+      },
+    });
+}
+
+const atualizarConfiguracao = (idConfiguracao) =>{
+   return api.put(`/api/configurations/${idConfiguracao}`)
+}
+
+const novaConfiguracao = (obj) =>{
+   return api.post(`/api/configurations`,obj)
+}
+
  export{
    pegarExerciciosPendentes,
    cursosDisponiveis,
@@ -109,6 +126,9 @@ const pegarExerciciosPendentes = async ()=>{
    pegarExercicioPorId,
    corrigirExercicio,
    atualizarConteudo,
-   pegarFeedbackDeExercicio
+   pegarFeedbackDeExercicio,
+   pegarConfiguracao,
+   atualizarConfiguracao,
+   novaConfiguracao
 }
  
