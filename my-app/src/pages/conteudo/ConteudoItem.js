@@ -1,9 +1,9 @@
+import { ViewIcon } from '@chakra-ui/icons';
 import {
     Box,
     Flex,
     HStack,
     IconButton,
-    Link,
     Menu,
     MenuButton,
     MenuItem,
@@ -12,15 +12,14 @@ import {
     Tooltip,
     useToast
 } from '@chakra-ui/react';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiHistory } from "react-icons/bi";
 import { MdCheckCircle } from "react-icons/md";
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { useGeralContext } from '../context/ContextProvider';
-import { ViewIcon } from '@chakra-ui/icons';
+import { useGeralContext } from '../../services/context/ContextProvider';
 
 
 
@@ -49,11 +48,9 @@ const customRenderers = {
 
 
 const ConteudoItem = ({ position, conteudo, idConteudo }) => {
-    const [isUpdating, setIsUpdating] = useState(false);
-    const [fonte, setFonte] = useState(15);
     const [conteudoAtualRenderizado, setConteudoAtualRenderizado] = useState();
-    const [mostrarCabecalho, setMostrarCabecalho] = useState(true); // Estado para controlar a visibilidade do cabeçalho
-    const { conteudoSelecionado, SolicitarAtualizaçãoConteudoId, SolicitarConteudoPorId } = useGeralContext();
+    const [mostrarCabecalho, setMostrarCabecalho] = useState(true); 
+    const { conteudoSelecionado, SolicitarAtualizaçãoConteudoId} = useGeralContext();
     const toast = useToast();
     useEffect(() => {
 
@@ -62,7 +59,6 @@ const ConteudoItem = ({ position, conteudo, idConteudo }) => {
         const conteudoMaisRecente = conteudo.subcontentHistory.find((obj) => obj.disabledDate === "0001-01-01T00:00:00Z") ;
         console.log(conteudoMaisRecente)
         setConteudoAtualRenderizado(conteudoMaisRecente.content);
-        // Verifique se o conteúdo começa com '##' e oculte o cabeçalho se for o caso
         if (conteudoMaisRecente.content.startsWith('##')) {
             setMostrarCabecalho(false);
         } else {
@@ -86,7 +82,6 @@ return (
                              icon={<AiOutlineEdit style={{ width: '20px', height: '20px' }} />}
                              onClick={async () => {
                                  try {
-                                     setIsUpdating(true);
                                      toast({
                                          title: "Atualização solicitada, aguarde...",
                                          status: "info",
@@ -105,8 +100,7 @@ return (
                                                  <Text>Conteúdo atualizado.</Text>
                                              </Box>
                                          ),
-                                     });
-                                     setIsUpdating(false);
+                                     });        
                                  } catch (error) {
                                      console.error(error);
                                      toast({
@@ -115,8 +109,7 @@ return (
                                          status: "error",
                                          duration: 3000,
                                          isClosable: true,
-                                     });
-                                     setIsUpdating(false);
+                                     });        
                                  }
                              }}
                          />

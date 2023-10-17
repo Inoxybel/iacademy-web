@@ -1,5 +1,5 @@
 // theme.js
-export default {
+ const styles ={
   colors: {
     transparent: "transparent",
     background: "#1A1922",
@@ -132,3 +132,6 @@ export const botaoVoltarCadastro = {
     margin: 35,
     position: "absolute"
   }
+
+
+  export default styles

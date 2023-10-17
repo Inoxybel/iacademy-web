@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = axios.create({baseURL:"https://iacademy-user-api.azurewebsites.net/api"})
+const api = axios.create({baseURL:" https://iacademy-user-v1-api.azurewebsites.net/"})
 
 const logar =(dados)=>{
     return api.post(`/user/login`,dados);

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RiArrowLeftSLine } from "react-icons/ri";
 import {
   Box,
   Button,
@@ -14,7 +13,7 @@ import {
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import styles from './styles.js';
 import { botaoVoltarCadastro } from "./styles";
-import { cadastrar } from "./Fetchers/FetchersUsuario.js";
+import { cadastrar } from "../services/Fetchers/FetchersUsuario.js";
 
 
 function FormataDados(dados) {

@@ -4,12 +4,14 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Login from "./pages/Login";
 import Cadastro from './pages/Cadastro';
 import Dashboard from "./pages/Dashboard";
-import Perfil from './pages/Perfil';
+import Perfil from './pages/perfil/Perfil';
 import Conteudo from './pages/conteudo/Conteudo';
 import Feedback from "./pages/feedback/Feedback";
-import Pendencias from "./pages/exercicios/Pendencias";
-import Cookies from "universal-cookie";
-import LandingPage from "./pages/LandingPage";
+import Questionario from "./pages/exercicios/questionario/Questionario";
+import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
+import Pendencia from "./pages/pendencia/Pendencia";
+import LandingPage from "./pages/LandingPage"
+import MissaoEVisao from "./pages/landingPage/missaoVisao/MissaoEVisao";
 
 const cookies = new Cookies();
 
@@ -37,9 +39,18 @@ function App() {
       <Flex minH="100vh" bg="#1A1922" color="white">
         <Router>
           <Routes>
-            <Route path={LandingPage ? "/" : "/login"} element={LandingPage ? <LandingPage/> : <Login/>} />
-            
-            <Route path="/login" element={<Login setAuthenticated={setAuthenticated} />} />
+            <Route
+              path={LandingPage ? "/" : "/login"}
+              element={LandingPage ? <LandingPage /> : <Login />}
+            />
+            <Route
+              path={MissaoEVisao ? "/missao_e_visao" : "/"}
+              element={MissaoEVisao ? <MissaoEVisao /> : <LandingPage />}
+            />
+            <Route
+              path="/login"
+              element={<Login setAuthenticated={setAuthenticated} />}
+            />
             <Route
               path="/perfil"
               element={<PrivateRoute element={<Perfil />} authenticated={authenticated} />}
@@ -53,13 +64,17 @@ function App() {
               element={<PrivateRoute element={<Feedback />} authenticated={authenticated} />}
             />
             <Route
-              path="/pendencias/:id"
-              element={<PrivateRoute element={<Pendencias />} authenticated={authenticated} />}
+              path="/exercicios/:id"
+              element={<PrivateRoute element={<Questionario />} authenticated={authenticated} />}
             />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route
               path="/dashboard"
               element={<PrivateRoute element={<Dashboard />} authenticated={authenticated} />}
+            />
+            <Route
+              path="/pendencia"
+              element={<PrivateRoute element={<Pendencia />} authenticated={authenticated} />}
             />
           </Routes>
         </Router>

@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import styles from './styles.js';
-import { logar } from "./Fetchers/FetchersUsuario.js";
+import { logar } from "../services/Fetchers/FetchersUsuario.js";
 import Cookies from "universal-cookie"; // Importe a biblioteca Universal Cookie
 
 function Login({ setAuthenticated }) {
@@ -34,13 +34,10 @@ function Login({ setAuthenticated }) {
   };
 
   const handleLogin = async () => {
-    // Verifique se os campos de email e senha não estão vazios
     if (!formData.email || !formData.password) {
       setError("Preencha todos os campos.");
       return;
     }
-
-    // Limpe todos os cookies antes de configurar os novos
     cookies.remove('token');
     cookies.remove('tokenExpiration');
     cookies.remove('user');
@@ -54,10 +51,9 @@ function Login({ setAuthenticated }) {
         const sessionDuration = 60 * 60;
         const tokenExpiration = Date.now() / 1000 + sessionDuration;
         
-        // Configure os novos cookies com Universal Cookie
         cookies.set('token', token, { path: '/' });
         cookies.set('tokenExpiration', tokenExpiration, { path: '/' });
-        cookies.set('user', JSON.stringify(userData), { path: '/' });
+        cookies.set('user', userData, { path: '/' });
         
         setAuthenticated(true);
         navigate('/dashboard');
