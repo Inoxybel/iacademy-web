@@ -11,7 +11,7 @@ const MenuLandingPage = ({ breakpoints, breakpoint }) => {
         setMenuLeft({
             ...menuLeft,
             transition: "0.4s",
-            width: "70%",
+            width: "40%",
             boxShadow: "-5px 0px 5px lightGray"
         })
     }
@@ -45,6 +45,9 @@ const MenuLandingPage = ({ breakpoints, breakpoint }) => {
             <Flex pos={"fixed"}
                 right={0}
                 top={"4rem"}
+                _hover={{transition: "0.4s",
+                width: "40%",
+                boxShadow: "-5px 0px 5px lightGray"}}
                 flexDir={"column-reverse"}
                 backgroundColor={"blue.700"}
                 w={0} h={"100vh"}
@@ -54,7 +57,7 @@ const MenuLandingPage = ({ breakpoints, breakpoint }) => {
                 <IconButton
                     background="none"
                     top={"-3.2rem"}
-                    _hover={{ backgroundColor: 'blackAlpha.300' }}
+                    _hover={handleMenuMobile}
                     position="absolute" right={5}
                     icon={<HamburgerIcon w={6} h={6} color="white" />}
                     onClick={handleMenuMobile}
