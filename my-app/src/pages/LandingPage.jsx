@@ -37,7 +37,7 @@ export default function LandingPage() {
     const breakpoint = useBreakpointValue(breakpoints);
 
     return (
-        <Box backgroundColor={"white"} > 
+        <Box backgroundColor={"white"} overflowY={"hidden"} > 
             <Flex bg="blue.500" w="100vw" position={"fixed"} zIndex="5" h={["4rem", "4rem", "4rem", "5.9rem", "5.9rem", "6rem"]}>
                 <Flex alignItems="center" justifyContent="space-between" px={["5rem", "4rem"]} w="100%">
                     <Link href="/" color="white" fontSize={["1.2rem", "1.3rem", "1.4rem", "1.5rem", "2rem"]} fontStyle="italic" fontWeight={"semibold"} _hover={{textDecoration:"none"}} >IAcademy</Link>
@@ -104,7 +104,7 @@ export default function LandingPage() {
                 <AspectRatio minW={['320px', '480px', '770px', '770px', '770px']} h={["181px", "270px", "435px", "435px", "435px"]} ratio={1}>
                     <iframe
                         title='VideoPitch'
-                        src={video}
+                        src={"#"}
                         allowFullScreen
                     />
                 </AspectRatio>
