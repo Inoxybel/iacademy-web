@@ -9,6 +9,8 @@ import Conteudo from './pages/conteudo/Conteudo';
 import Feedback from "./pages/feedback/Feedback";
 import Pendencias from "./pages/exercicios/Pendencias";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
+import CompanyDashboard from "./pages/empresa/Dashboard"
+import CompanyLogin from "./pages/empresa/Login"
 import Treinamentos from "./pages/empresa/Treinamentos"
 
 const cookies = new Cookies(); // Crie uma instância de Cookies
@@ -33,6 +35,7 @@ function App() {
 
   return (
     <ChakraProvider>
+
       <CSSReset />
       <Flex minW="100vw" minH="100vh" bg="#1A1922" color="white">
         <Router>
@@ -60,12 +63,21 @@ function App() {
               element={<PrivateRoute element={<Dashboard />} authenticated={authenticated} />}
             />
             <Route
+              path="/empresa/login"
+              element={<PrivateRoute element={<CompanyLogin />} authenticated={authenticated} />}
+            />
+            <Route
+              path="/empresa"
+              element={<PrivateRoute element={<CompanyDashboard />} authenticated={authenticated} />}
+            />
+            <Route
               path="/empresa/treinamentos"
               element={<PrivateRoute element={<Treinamentos />} authenticated={authenticated} />}
             />
           </Routes>
         </Router>
       </Flex>
+
     </ChakraProvider>
   );
 }

@@ -29,11 +29,12 @@ export default function () {
             <FormControl>
               <FormLabel>Nome do Grupo</FormLabel>
               <Input mb='1rem' />
-              <FormLabel>Selecionar de Colaboradores:</FormLabel>
+              <FormLabel>Selecionar Colaboradores:</FormLabel>
               <Stack>
-                <Checkbox value={'Colaborador 1'}>Colaborador 1</Checkbox>
-                <Checkbox value={'Colaborador 2'}>Colaborador 2</Checkbox>
-                <Checkbox value={'Colaborador 3'}>Colaborador 3</Checkbox>
+                {/* Chamada de API para listar colaboradores relacionados ao cnpj */}
+                <Checkbox>Colaborador 1</Checkbox>
+                <Checkbox>Colaborador 2</Checkbox>
+                <Checkbox>Colaborador 3</Checkbox>
               </Stack>
             </FormControl>
           </ModalBody>

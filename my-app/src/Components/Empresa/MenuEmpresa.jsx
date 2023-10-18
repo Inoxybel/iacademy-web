@@ -1,9 +1,10 @@
 import React from 'react';
+import { useMatch, useNavigate } from 'react-router-dom'
 import {
   Flex,
-  useMediaQuery,
   Box,
-  Icon
+  Icon,
+  useMediaQuery
 } from '@chakra-ui/react';
 import { BsBuildings, BsClipboard2Data } from 'react-icons/bs';
 
@@ -11,6 +12,8 @@ import { BsBuildings, BsClipboard2Data } from 'react-icons/bs';
 export default function App() {
 
   const [isSmOrMd] = useMediaQuery("(max-width: 960px)");
+  const match = useMatch('empresa')
+  const navigate = useNavigate()
 
   const styles = {
 
@@ -19,26 +22,28 @@ export default function App() {
       position: 'fixed',
       left: '0',
       right: isSmOrMd ? 'none' : '0',
-      paddingTop: '1rem',
       h: isSmOrMd ? '4rem' : '100%',
-      w: isSmOrMd ? '100%' : '45px',
+      w: isSmOrMd ? '100%' : '3.5rem',
       flexDirection: isSmOrMd ? 'row' : 'column',
-      overflow: isSmOrMd ? 'auto' : 'hidden',
       alignItems: isSmOrMd ? 'center' : 'space-between',
       justifyContent: isSmOrMd ? 'space-around' : 'flex-start',
       zIndex: '999',
       bottom: '0',
-      gap: '3rem',
+    },
+    stylesBox: {
+      width: '100%',
+      textAlign: 'center',
+      lineHeight: '5rem'
     },
     stylesButton: {
-      height: '6',
-      width: '6',
+      height: '2rem',
+      width: '2rem',
       background: "none",
       color: "var(--primary-white)",
       cursor: 'pointer',
       _hover: {
         color: 'var(--background-button)'
-      }
+      },
     }
   }
 
@@ -46,11 +51,11 @@ export default function App() {
     <Flex
       sx={styles.stylesFlex}
     >
-      <Box alignSelf='center'>
-        <Icon as={BsBuildings} sx={styles.stylesButton} />
+      <Box sx={styles.stylesBox} bg={match && 'var(--background-black)'}>
+        <Icon onClick={() => navigate('/empresa')} as={BsBuildings} sx={styles.stylesButton} />
       </Box>
-      <Box alignSelf='center'>
-        <Icon as={BsClipboard2Data} sx={styles.stylesButton} />
+      <Box sx={styles.stylesBox} bg={match ?? 'var(--background-black)'}>
+        <Icon onClick={() => navigate('/empresa/treinamentos')} as={BsClipboard2Data} sx={styles.stylesButton} />
       </Box>
 
     </Flex>
