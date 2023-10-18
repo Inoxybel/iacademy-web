@@ -104,7 +104,7 @@ export default function LandingPage() {
                 <AspectRatio minW={['320px', '480px', '770px', '770px', '770px']} h={["181px", "270px", "435px", "435px", "435px"]} ratio={1}>
                     <iframe
                         title='VideoPitch'
-                        src={video}
+                        src={"#"}
                         allowFullScreen
                     />
                 </AspectRatio>
