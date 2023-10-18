@@ -5,7 +5,6 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  useDisclosure,
   Button,
   Text,
   Box,
@@ -13,9 +12,16 @@ import {
 } from '@chakra-ui/react'
 import AddColaborador from './AddColaborador'
 import data from "../../../json/grupos.json"
+import { useState } from 'react'
 
-export default function () {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+export default function ({ training }) {
+
+  const [group, setGroup] = useState()
+
+  const close = () => {
+    setGroup()
+  }
+
   const grupos = data.Items
 
   const styles = {
@@ -41,45 +47,48 @@ export default function () {
   return (
     <Flex sx={{ flexDirection: 'column', gap: '1rem' }}>
       {
-        grupos.map((elem, index) =>
-          <>
-            <Button onClick={onOpen} sx={styles.card}>
+        grupos.filter((elem, index) => training ? training.GroupsId.includes(elem.id) : true).map((elem, index) => {
+          return <>
+            <Box as='button' key={index} onClick={() => {
+              setGroup(elem)
+            }} sx={styles.card}>
               <Box>
                 <Text as={'h3'} sx={styles.subTitle2}>{elem.GroupName}</Text>
                 <Text as={'span'}> {elem.TotalAcess} Acessos / {elem.Employees.length} Colaboradores</Text>
               </Box>
-            </Button >
-            <Modal isOpen={isOpen} onClose={onClose} size='lg' colorScheme='gray'>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>
-                  <Text>Acessos: {elem.TotalAcess}</Text>
-                  <Text>Em uso: {elem.Employees.length}</Text>
-                  <Text>Colaboradores:</Text>
-                </ModalHeader>
-                <ModalBody display='flex' flexDirection='column' gap='0.5rem'>
-                  {
-                    elem.Employees.map((elem, index) =>
-                      <Flex key={index} justifyContent='space-between'>
-                        <Text>Nome: {elem.name}</Text>
-                        <Text>CPF: {elem.cpf}</Text>
-                        <Button colorScheme='red' size='xs'>Remover Acesso</Button>
-                      </Flex>
-                    )
-                  }
-                </ModalBody>
-                <ModalFooter>
-                  <AddColaborador />
-                  <Button m={3} onClick={onClose}>
-                    Fechar
-                  </Button>
-                  <Button >Salvar</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+            </Box >
           </>
+        }
         )
       }
+      <Modal isOpen={Boolean(group)} onClose={close} size='lg' colorScheme='gray'>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <Text>Acessos: {group?.TotalAcess}</Text>
+            <Text>Em uso: {group?.Employees.length}</Text>
+            <Text>Colaboradores:</Text>
+          </ModalHeader>
+          <ModalBody display='flex' flexDirection='column' gap='0.5rem'>
+            {
+              group?.Employees.map((elem, index) =>
+                <Flex key={index} justifyContent='space-between'>
+                  <Text>Nome: {elem.name}</Text>
+                  <Text>CPF: {elem.cpf}</Text>
+                  <Button colorScheme='red' size='xs'>Remover Acesso</Button>
+                </Flex>
+              )
+            }
+          </ModalBody>
+          <ModalFooter>
+            <AddColaborador />
+            <Button m={3} onClick={close}>
+              Fechar
+            </Button>
+            <Button >Salvar</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex >
   )
 }

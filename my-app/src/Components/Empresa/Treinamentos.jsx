@@ -4,7 +4,7 @@ import {
 import SwitchPendencias from './SwitchPendencias';
 import data from "../../../json/treinamentos.json"
 
-export default function App() {
+export default function App({ setTraining }) {
 
   const treinamentos = data.Items
 
@@ -18,6 +18,11 @@ export default function App() {
     box: {
       backgroundColor: 'var(--background-form)',
       borderRadius: '0.2rem',
+
+      _hover: {
+        filter: 'brightness(85%)',
+        transition: '0.25s'
+      }
     },
 
     icon: {
@@ -36,10 +41,10 @@ export default function App() {
   }
 
   return (
-    <Flex sx={{ flexDirection: 'column', gap: '1rem' }}>
+    <Flex sx={{ flexDirection: 'column', gap: '1rem', }}>
       {
-        treinamentos.map(elem =>
-          <Box as='button' sx={styles.box}>
+        treinamentos.map((elem, index) =>
+          <Box key={index} onClick={() => setTraining(elem)} role='button' sx={styles.box}>
             <Flex sx={styles.flex} >
               <Icon sx={styles.icon}>{elem.TrainingIcon}</Icon>
               <Text as={'h2'} sx={styles.h2}>{elem.TrainingName}</Text>

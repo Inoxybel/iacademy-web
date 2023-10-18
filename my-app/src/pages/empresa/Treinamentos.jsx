@@ -5,10 +5,12 @@ import MenuEmpresa from '../../Components/Empresa/MenuEmpresa';
 import Grupos from '../../Components/Empresa/Grupos';
 import AddGrupo from '../../Components/Empresa/AddGrupo';
 import Treinamentos from '../../Components/Empresa/Treinamentos';
+import { useState } from 'react';
 
 export default function App() {
 
   const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
+  const [training, setTraining] = useState()
 
   const styles = {
     flex: {
@@ -49,12 +51,11 @@ export default function App() {
       <Flex sx={styles.flex}>
         <Flex sx={styles.trainingFlex}>
           <Text as={'h2'} sx={styles.title}>Treinamentos</Text>
-          <Treinamentos />
+          <Treinamentos setTraining={setTraining} />
         </Flex>
-
         <Flex sx={styles.groupsFlex}>
           <Text as={'h2'} sx={styles.title}>Grupos</Text>
-          <Grupos />
+          <Grupos training={training} />
           <AddGrupo />
         </Flex>
       </Flex >

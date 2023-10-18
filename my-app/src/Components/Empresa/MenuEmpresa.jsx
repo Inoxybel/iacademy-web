@@ -33,7 +33,7 @@ export default function App() {
     stylesBox: {
       width: '100%',
       textAlign: 'center',
-      lineHeight: '5rem'
+      lineHeight: '4rem'
     },
     stylesButton: {
       height: '2rem',
