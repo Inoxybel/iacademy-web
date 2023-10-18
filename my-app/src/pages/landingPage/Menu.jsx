@@ -1,6 +1,6 @@
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import MenuDropAction from "./MenuDropAction";
+import MenuDropAction from "./menuDropAction";
 import { useState } from 'react';
 
 const MenuLandingPage = ({ breakpoints, breakpoint }) => {
