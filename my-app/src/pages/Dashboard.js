@@ -31,7 +31,6 @@ import { cursosDisponiveis, cursosMatriculados, matricularEmCurso } from '../ser
 import Menu from './Menu';
 import styles from './styles';
 
-//ContextoApi para poder compartilhar funções entre todos os recursos da minha api
 const DashboardContext = createContext();
 
 function DashboardProvider({ children }) {
