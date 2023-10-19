@@ -31,7 +31,7 @@ export default function () {
               <Input mb='1rem' />
               <FormLabel>Selecionar Colaboradores:</FormLabel>
               <Stack>
-                {/* Chamada de API para listar colaboradores relacionados ao cnpj */}
+                {/* Chamada de API para listar colaboradores relacionados ao cnpj*/}
                 <Checkbox>Colaborador 1</Checkbox>
                 <Checkbox>Colaborador 2</Checkbox>
                 <Checkbox>Colaborador 3</Checkbox>

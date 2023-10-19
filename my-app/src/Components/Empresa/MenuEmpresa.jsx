@@ -57,6 +57,7 @@ export default function App() {
       <Box sx={styles.stylesBox} bg={match ?? 'var(--background-black)'}>
         <Icon onClick={() => navigate('/empresa/treinamentos')} as={BsClipboard2Data} sx={styles.stylesButton} />
       </Box>
+      {/* Icone e funcoes de edicao para empresa ? */}
 
     </Flex>
 

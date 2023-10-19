@@ -29,7 +29,7 @@ export default function () {
             <FormControl>
               <FormLabel>Selecionar Colaboradores:</FormLabel>
               <Stack>
-                {/* Chamada de API para listar colaboradores relacionados ao cnpj */}
+                {/* Listar colaboradores do CNPJ e condicao includes (nao listar oque ja esta no grupo)*/}
                 <Checkbox>Colaborador 1</Checkbox>
                 <Checkbox>Colaborador 2</Checkbox>
                 <Checkbox>Colaborador 3</Checkbox>
