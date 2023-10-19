@@ -1,4 +1,4 @@
-const getConfiguration=[
+[
   {
     "id": "1",
     "name":"REACT",
@@ -65,31 +65,4 @@ const getConfiguration=[
   }
 ]
 
-const putConfiguration={
-  "summary": {
-    "initialInput": "string",
-    "finalInput": "string"
-  },
-  "firstContent": {
-    "initialInput": "string",
-    "finalInput": "string"
-  },
-  "newContent": {
-    "initialInput": "string",
-    "finalInput": "string"
-  },
-  "exercise": {
-    "initialInput": "string",
-    "finalInput": "string"
-  },
-  "correction": {
-    "initialInput": "string",
-    "finalInput": "string"
-  },
-  "pendency": {
-    "initialInput": "string",
-    "finalInput": "string"
-  }
-}
 
-export {getConfiguration}
