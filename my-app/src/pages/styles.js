@@ -107,7 +107,7 @@
   
   buttonEnviar: {
     h: "2rem",
-    minW:"30%",
+    w:"10rem",
     mt: 4,
     bg: "#0880A2",
     color: "white",
