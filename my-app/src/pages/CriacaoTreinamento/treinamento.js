@@ -28,7 +28,8 @@ import axios from 'axios';
 import { AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { pegarConfiguracao, atualizarConfiguracao, novaConfiguracao} from '../../services/Fetchers/FetchersApp';
-
+import {getConfiguration} from './banco.js';
+import { useQuery } from 'react-query';
 
 function Treinamento() {
 
@@ -48,33 +49,17 @@ function Treinamento() {
   const [inputValue9, setInputValue9] = useState('');
   const [inputValue10, setInputValue10] = useState('');
   const [inputValue11, setInputValue11] = useState('');
-  const [inputValue12, setInputValue12] = useState('');
-
-
-  useEffect(() => {
-    // Função para buscar as configurações e atualizar o estado 'configuracoes'
-    const fetchConfiguracoes = async () => {
-      try {
-        const response = await pegarConfiguracao(); // Supondo que pegarConfiguracao não requer um parâmetro específico
-        setConfiguracoes(response.data); // Atualiza o estado com as configurações obtidas da API
-      } catch (error) {
-        console.error('Erro ao buscar configurações:', error);
-      }
-    };
-
-    fetchConfiguracoes(); // Chama a função ao montar o componente
-  }, []); // O array vazio garante que a função é chamada apenas uma vez no carregamento inicial
+  const [inputValue12, setInputValue12] = useState('');  
 
   useEffect(() => {
-    // Converte as configurações para o formato desejado para as opções do Select
-    const opcoesFormatadas = configuracoes.map((config) => (
-      <option key={config.id} value={config.valor}>
-        {config.nome}
-      </option>
-    ));
-
-    setOpcoes(opcoesFormatadas); // Atualiza o estado com as opções formatadas
-  }, [configuracoes]); 
+      // Converte as configurações para o formato desejado para as opções do Select
+      const configuracoes1 = getConfiguration.map((config) => (
+        <option key={config.id} value={config.valor} onClick={()=>alert("Clicando")}>
+          {config.name}
+        </option>
+      ));
+      setOpcoes(configuracoes1); // Atualiza o estado com as opções formatadas
+  }, []);
 
   const handleInputChange = (e, identifier) => {
     const inputValue = e.target.value;
@@ -160,12 +145,10 @@ function Treinamento() {
     };
   }
 
-  const enviarParaAPI = async () => {
+  const enviarParaAPI =()=> {
     const obj = criarObjeto();
-  
     try {
-      const resposta = await novaConfiguracao(obj);
-  
+      const resposta = getConfiguration(obj);
       if (resposta.ok) {
         console.log('Configuração enviada com sucesso!');
       } else {
@@ -198,14 +181,14 @@ function Treinamento() {
       <VStack alignItems={"center"} bg={"#282B38"} p="4" gap="2rem" borderRadius={7}>
         <Heading size={12}>Configuração</Heading>      
         <Select placeholder='Select option' spacing={3} icon={<ChevronDownIcon />} bg="white" color="black">
-          {opcoes.length > 0 ? opcoes : <option value="">Carregando...</option>}
+          {opcoes.length > 0 ? opcoes  : <option  value="">Carregando...</option>}
         </Select>
         <Flex direction="row" p={0} w="100%" justifyContent="space-between" align={"center"}>
           <IconButton aria-label='Add to friends' icon={<AddIcon />} onClick={onOpen}/>
           <Button bg="#0880A2" color="white" onClick={() => navigate("/NextTreinamento")}>Próximo</Button>
         </Flex>
       </VStack>
-      <Modal 
+      <Modal
         closeOnOverlayClick={false}
         onClose={onClose} 
         isOpen={isOpen} 
