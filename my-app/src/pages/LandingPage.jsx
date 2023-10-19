@@ -100,13 +100,13 @@ export default function LandingPage() {
 
             <Flex backgroundColor={"yellow.100"} h={[500,600,600,600,600,600,]} w={"100%"} justifyContent={"center"} align={"center"}>
 
-                <AspectRatio minW={['320px', '480px', '770px', '770px', '770px']} h={["181px", "270px", "435px", "435px", "435px"]} ratio={1}>
+                {/* <AspectRatio minW={['320px', '480px', '770px', '770px', '770px']} h={["181px", "270px", "435px", "435px", "435px"]} ratio={1}>
                     <iframe
                         title='VideoPitch'
                         src={"#"}
                         allowFullScreen
                     />
-                </AspectRatio>
+                </AspectRatio> */}
             </Flex>
 
             <Footer >
