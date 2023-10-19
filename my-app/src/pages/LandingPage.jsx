@@ -1,5 +1,4 @@
 import {
-    AspectRatio,
     Box,
     Button,
     Container,
@@ -16,7 +15,6 @@ import undraw_lugares from "../assets/undraw_lugares.svg";
 import undraw_organization from "../assets/undraw_organization.svg";
 import undraw_reading from "../assets/undraw_reading_re_29f8.svg";
 import undraw_skills from "../assets/undraw_skills.svg";
-import video from '../assets/video/Video_pitch_IAcademy.mp4';
 import Footer from "./landingPage/FooterLP.jsx";
 import Menu from "./landingPage/Menu";
 import TextoEImagem from "./landingPage/TextoEImagem";
@@ -101,13 +99,13 @@ export default function LandingPage() {
 
             <Flex backgroundColor={"yellow.100"} h={[500,600,600,600,600,600,]} w={"100%"} justifyContent={"center"} align={"center"}>
 
-                <AspectRatio minW={['320px', '480px', '770px', '770px', '770px']} h={["181px", "270px", "435px", "435px", "435px"]} ratio={1}>
+                {/* <AspectRatio minW={['320px', '480px', '770px', '770px', '770px']} h={["181px", "270px", "435px", "435px", "435px"]} ratio={1}>
                     <iframe
                         title='VideoPitch'
                         src={"#"}
                         allowFullScreen
                     />
-                </AspectRatio>
+                </AspectRatio> */}
             </Flex>
 
             <Footer >
