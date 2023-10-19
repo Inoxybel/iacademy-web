@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/static/js/main.95b76eaf.js",
+    "static/js/787.28cb0dcd.chunk.js": "/static/js/787.28cb0dcd.chunk.js",
+    "static/media/Video_pitch_IAcademy.mp4": "/static/media/Video_pitch_IAcademy.83dd880906e861d90cb7.mp4",
+    "static/media/undraw_lugares.svg": "/static/media/undraw_lugares.8cba7e79895ce344f0d2a48a1487d576.svg",
+    "static/media/like.png": "/static/media/like.4dd5c9672cbb14351cc4.png",
+    "static/media/undraw_organization.svg": "/static/media/undraw_organization.e013de11151791c999a8720d4402ee32.svg",
+    "static/media/tarefas.png": "/static/media/tarefas.d8a05a2e31c16cf731df.png",
+    "static/media/undraw_reading_re_29f8.svg": "/static/media/undraw_reading_re_29f8.da2a3cdf6db3330d33612b43517cd739.svg",
+    "static/media/undraw_skills.svg": "/static/media/undraw_skills.ac1d2644c306ecfe2b8f313f36c25bc5.svg",
+    "index.html": "/index.html",
+    "main.95b76eaf.js.map": "/static/js/main.95b76eaf.js.map",
+    "787.28cb0dcd.chunk.js.map": "/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.95b76eaf.js"
+  ]
+}

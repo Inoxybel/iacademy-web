@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { ChakraProvider, CSSReset, Flex } from "@chakra-ui/react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import Cadastro from './pages/Cadastro';
-import Dashboard from "./pages/Dashboard";
-import Perfil from './pages/perfil/Perfil';
-import Conteudo from './pages/conteudo/Conteudo';
-import Feedback from "./pages/feedback/Feedback";
-import Questionario from "./pages/exercicios/questionario/Questionario";
+import { CSSReset, ChakraProvider, Flex } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Cookies from "universal-cookie"; // Importe o pacote universal-cookie
+import Cadastro from './pages/Cadastro';
+import NextTreinamento from './pages/CriacaoTreinamento/nextTreinamento';
+import Treinamento from './pages/CriacaoTreinamento/treinamento';
+import Dashboard from "./pages/Dashboard";
+import LandingPage from "./pages/LandingPage";
+import Login from "./pages/Login";
+import Conteudo from './pages/conteudo/Conteudo';
+import Questionario from "./pages/exercicios/questionario/Questionario";
+import Feedback from "./pages/feedback/Feedback";
 import Pendencia from "./pages/pendencia/Pendencia";
-import LandingPage from "./pages/LandingPage"
+import Perfil from './pages/perfil/Perfil';
 
 const cookies = new Cookies();
 
@@ -22,7 +24,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(true);
 
   useEffect(() => {
-    const token = cookies.get("token"); 
+    const token = cookies.get("token");
 
     if (token) {
       const sessionDuration = 60 * 60;
@@ -38,9 +40,23 @@ function App() {
       <Flex minH="100vh" bg="#1A1922" color="white">
         <Router>
           <Routes>
-            <Route path={LandingPage ? "/" : "/login"} element={LandingPage ? <LandingPage/> : <Login/>} />
+          <Route
+              path="/Treinamento"
+              element={<PrivateRoute element={<Treinamento />} authenticated={authenticated} />}
+            />
+            <Route
+              path="/NextTreinamento"
+              element={<PrivateRoute element={<NextTreinamento />} authenticated={authenticated} />}
+            />
+            <Route
+              path={LandingPage ? "/" : "/login"}
+              element={LandingPage ? <LandingPage /> : <Login />}
+            />
             
-            <Route path="/login" element={<Login setAuthenticated={setAuthenticated} />} />
+            <Route
+              path="/login"
+              element={<Login setAuthenticated={setAuthenticated} />}
+            />
             <Route
               path="/perfil"
               element={<PrivateRoute element={<Perfil />} authenticated={authenticated} />}
@@ -62,7 +78,7 @@ function App() {
               path="/dashboard"
               element={<PrivateRoute element={<Dashboard />} authenticated={authenticated} />}
             />
-             <Route
+            <Route
               path="/pendencia"
               element={<PrivateRoute element={<Pendencia />} authenticated={authenticated} />}
             />
