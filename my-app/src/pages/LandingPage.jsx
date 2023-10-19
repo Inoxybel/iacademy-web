@@ -16,7 +16,6 @@ import undraw_lugares from "../assets/undraw_lugares.svg";
 import undraw_organization from "../assets/undraw_organization.svg";
 import undraw_reading from "../assets/undraw_reading_re_29f8.svg";
 import undraw_skills from "../assets/undraw_skills.svg";
-import video from '../assets/video/Video_pitch_IAcademy.mp4';
 import Footer from "./landingPage/FooterLP.jsx";
 import Menu from "./landingPage/Menu";
 import TextoEImagem from "./landingPage/TextoEImagem";
