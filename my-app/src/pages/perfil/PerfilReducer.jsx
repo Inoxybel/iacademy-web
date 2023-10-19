@@ -35,15 +35,14 @@ const perfilReducer = (state,action)=>{
            
         }
     }
-    else if(action.type===CAMPO_ALTERAR){
-        const novoEstado = {
-            ...state,
-            formulario: {
-              ...state.formulario,
-              [action.payload.campo]: action.payload.valor
-            }
-          };
-        return novoEstado
+    else if (action.type === CAMPO_ALTERAR) {
+        const novoEstado = { ...state }; 
+        const campo = action.payload.campo; 
+        const valor = action.payload.valor; 
+    
+        novoEstado.formulario[campo] = valor; 
+    
+        return novoEstado;
     }
     else if(action.type===SENHA_ALTERAR){
         const novoEstado={
@@ -82,6 +81,7 @@ const perfilReducer = (state,action)=>{
         return novoEstado
     }
     else if(action.type===LISTA_ATUALIZAR){
+     
         const novoEstado={
             ...state,
             formulario:{
@@ -94,5 +94,6 @@ const perfilReducer = (state,action)=>{
         return novoEstado
     }
   }
+  
 
   export {estado,perfilReducer,CAMPO_ALTERAR,LISTA_INICIAR,SENHA_ALTERAR,LIMPAR_SENHA,SENHA_CONFIRMAR,LISTA_ATUALIZAR}

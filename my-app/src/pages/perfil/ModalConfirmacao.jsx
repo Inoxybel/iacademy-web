@@ -6,14 +6,16 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
+  useToast,
   Input,
 } from '@chakra-ui/react';
-import React from 'react';
-import usePerfil from './UsePerfil';
+import React, { useState } from 'react';
+import ErroFormulario from './ErroFormulario';
 
 
-const ModalConfirmacao = ({ isOpen, cancelRef, onClose }) => {
-  const { state, dispatch,LISTA_ATUALIZAR,LIMPAR_SENHA, SENHA_CONFIRMAR,pegarUsuarioPorIdController,atualizarUsuarioPorIdController} = usePerfil();
+const ModalConfirmacao = ({ isOpen, cancelRef, onClose, state, dispatch, LISTA_ATUALIZAR, LIMPAR_SENHA, SENHA_CONFIRMAR, pegarUsuarioPorIdController, atualizarUsuarioPorIdController }) => {
+  const toast = useToast()
+  const [isError,setErro] = useState(false)
   return (
     <>
       <AlertDialog
@@ -28,6 +30,7 @@ const ModalConfirmacao = ({ isOpen, cancelRef, onClose }) => {
             </AlertDialogHeader>
 
             <AlertDialogBody>
+            {isError && (<ErroFormulario error="Senha incorreta. Tente novamente."/>)}
               Insira sua senha para confirmar a atualização.
               <Input
                 bg='white'
@@ -35,6 +38,7 @@ const ModalConfirmacao = ({ isOpen, cancelRef, onClose }) => {
                 type="password"
                 required={true}
                 onChange={(e)=>{
+                  setErro(false)
                   dispatch({
                     type:SENHA_CONFIRMAR,payload:{valor:e.target.value}
                   })
@@ -52,7 +56,7 @@ const ModalConfirmacao = ({ isOpen, cancelRef, onClose }) => {
               <Button colorScheme='blue' 
               isDisabled={state.formulario.password===""?true:false}
               onClick={async ()=>{
-
+                
                 const obj = {
                   name: state.formulario.name,
                   email: state.formulario.email,
@@ -60,19 +64,25 @@ const ModalConfirmacao = ({ isOpen, cancelRef, onClose }) => {
                   CompanyRef:state.formulario.companyRef,
                   password: state.formulario.password
                 }
-
+               
                 const response =await atualizarUsuarioPorIdController(state.formulario.id,obj);
-                console.log(response)
-                if(response===true){
-                  const user =await pegarUsuarioPorIdController(state.formulario.id)
-                  dispatch({type:LISTA_ATUALIZAR,payload:{
-                    name:user.name,
-                    companyRef:user.companyRef,
-                    email:user.email
-                  }})
-                  onClose()
-                  window.location.reload()
+              
+                if(response.result==="ATUALIZADO"){
+                 onClose()
+                 toast({
+                  title: 'Perfil atualizado.',
+                  description: "Seus dados foram atualizados!",
+                  status: 'success',
+                  position:'top',
+                  duration: 9000,
+                  isClosable: true,
+                })
+                } else if(response.result === "Invalid credentials."){
+                  setErro(true)
+                }else{
+                  alert("Dados inválidos")
                 }
+                
               } } ml={3}>
                 Atualizar
               </Button>
