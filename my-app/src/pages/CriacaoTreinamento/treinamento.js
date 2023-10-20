@@ -72,15 +72,22 @@ function Treinamento() {
       if (configSelecionada.id) {
         const idDaConfig = configSelecionada.id;
         setIdConfiguracao(idDaConfig);
-        getDataById(idDaConfig);  // Certifique-se de que a função está correta
+        getDataById(idDaConfig);
         console.log('ID da Configuração Selecionada:', idDaConfig);
       } else {
         console.error('Objeto de configuração inválido:', configSelecionada);
         // Lide com a situação quando o objeto é inválido
         // Por exemplo, mostrar uma mensagem de erro ou limpar os estados
       }
+    } else {
+      // Se configSelecionada for falsy, limpe os estados
+      setNomeConfiguracao('');
+      setIdConfiguracao('');
+      // Limpe outros estados conforme necessário
+      // ...
     }
   };
+  
 
   const getDataById = async (id) => {
     try {
