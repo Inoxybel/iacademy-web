@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   Modal,
   ModalOverlay,
@@ -19,7 +21,7 @@ export default function () {
 
   return (
     <>
-      <Button size='sm' colorScheme='green' onClick={onOpen}>Adicionar novo Grupo</Button>
+      <Button size='sm' colorScheme='green' onClick={onOpen}>Adicionar Colaborador +</Button>
       <Modal isOpen={isOpen} onClose={onClose} size='lg' colorScheme='gray'>
         <ModalOverlay />
         <ModalContent>
@@ -27,13 +29,12 @@ export default function () {
           </ModalHeader>
           <ModalBody>
             <FormControl>
-              <FormLabel>Nome do Grupo</FormLabel>
-              <Input mb='1rem' />
-              <FormLabel>Selecionar de Colaboradores:</FormLabel>
+              <FormLabel>Selecionar Colaboradores:</FormLabel>
               <Stack>
-                <Checkbox value={'Colaborador 1'}>Colaborador 1</Checkbox>
-                <Checkbox value={'Colaborador 2'}>Colaborador 2</Checkbox>
-                <Checkbox value={'Colaborador 3'}>Colaborador 3</Checkbox>
+                {/* Listar colaboradores do CNPJ e condicao includes (nao listar oque ja esta no grupo)*/}
+                <Checkbox>Colaborador 1</Checkbox>
+                <Checkbox>Colaborador 2</Checkbox>
+                <Checkbox>Colaborador 3</Checkbox>
               </Stack>
             </FormControl>
           </ModalBody>

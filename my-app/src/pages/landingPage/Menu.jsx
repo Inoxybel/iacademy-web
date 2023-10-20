@@ -1,3 +1,4 @@
+import React from 'react'
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import MenuDropAction from "./MenuDropAction";
@@ -23,7 +24,7 @@ const MenuLandingPage = ({ breakpoints, breakpoint }) => {
                 <BreadcrumbLink href="/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
-                <MenuDropAction rotas={["/missao_e_visao", "/historia", "/equipe"]}  optionName={"About"} listaNomes={["Missão e visão", "História da empresa", "Equipe"]}></MenuDropAction>
+                <MenuDropAction rotas={["/missao_e_visao", "/historia", "/equipe"]} optionName={"About"} listaNomes={["Missão e visão", "História da empresa", "Equipe"]}></MenuDropAction>
             </BreadcrumbItem>
             <BreadcrumbItem>
                 <MenuDropAction rotas={["https://wa.me/5511973455655", "mailto:lucas.hbrd@gmail.com", "https://www.instagram.com/lucasszera/", "https://www.linkedin.com/groups/9515487/"]} optionName={"Contact"} listaNomes={["Whatsapp", "E-mail", "Instagram", "Linkedin"]}></MenuDropAction>
@@ -45,9 +46,11 @@ const MenuLandingPage = ({ breakpoints, breakpoint }) => {
             <Flex pos={"fixed"}
                 right={0}
                 top={"4rem"}
-                _hover={{transition: "0.4s",
-                width: "40%",
-                boxShadow: "-5px 0px 5px lightGray"}}
+                _hover={{
+                    transition: "0.4s",
+                    width: "40%",
+                    boxShadow: "-5px 0px 5px lightGray"
+                }}
                 flexDir={"column-reverse"}
                 backgroundColor={"blue.700"}
                 w={0} h={"100vh"}

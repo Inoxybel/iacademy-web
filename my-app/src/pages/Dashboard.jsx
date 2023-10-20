@@ -29,7 +29,6 @@ import { useNavigate } from 'react-router-dom';
 import ImgC from '../assets/csharp_logo.png';
 import { cursosDisponiveis, cursosMatriculados, matricularEmCurso } from '../services/Fetchers/FetchersApp';
 import Menu from './Menu';
-import styles from './styles';
 
 const DashboardContext = createContext();
 
@@ -44,7 +43,7 @@ function DashboardProvider({ children }) {
   async function SolicitarListaCursosDisponiveis() {
     try {
       const response = await cursosDisponiveis();
-      if(response.status===401){
+      if (response.status === 401) {
         navigate("/")
       }
       if (response && response.data) {
@@ -55,16 +54,16 @@ function DashboardProvider({ children }) {
       }
     } catch (error) {
       console.log('Erro ao pegar cursos do banco');
-      if(error.response.status===401){
+      if (error.response.status === 401) {
         navigate("/")
-       }
+      }
     }
   }
 
   async function SolicitarListaCursosMatriculados() {
     try {
       const response = await cursosMatriculados();
-      if(response.status===401){
+      if (response.status === 401) {
         navigate("/")
       }
       if (response.status === 200 && response.data) {
@@ -74,9 +73,9 @@ function DashboardProvider({ children }) {
         return console.log('Devia retornar algo aqui');
       }
     } catch (error) {
-      if(error.response.status===401){
+      if (error.response.status === 401) {
         navigate("/")
-       }
+      }
     }
   }
 
@@ -93,9 +92,9 @@ function DashboardProvider({ children }) {
       }
     } catch (error) {
       console.error(error);
-      if(error.response.status===401){
+      if (error.response.status === 401) {
         navigate("/")
-       }
+      }
     }
   }
 
@@ -187,7 +186,7 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
           bg="#0880A2"
           colorScheme="blue"
           size={isSmOrMd ? "md" : "lg"}
-          fontSize={ isSmOrMd ? 11 : 13}
+          fontSize={isSmOrMd ? 11 : 13}
           fontWeight="bold"
           onClick={async () => {
             try {
@@ -208,7 +207,7 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
           bg="#0880A2"
           colorScheme="blue"
           size={isSmOrMd ? "md" : "lg"}
-          fontSize={ isSmOrMd ? 11: 13}
+          fontSize={isSmOrMd ? 11 : 13}
           fontWeight="bold"
           onClick={() => {
             onOpen();
@@ -265,7 +264,7 @@ const CardComponentCursoIniciado = ({ curso }) => {
         w="110px"
         mr="13px"
       />
-      
+
       <Stack flexDir="column" justifyContent="space-between">
         <Flex justifyContent="space-between" flexDir={isSmOrMd ? "column" : "row"}>
           <Flex flexDir="column" >
@@ -289,12 +288,12 @@ const CardComponentCursoIniciado = ({ curso }) => {
             variant="solid"
             colorScheme="#0880A2;"
             size={isSmOrMd ? "sm" : "md"}
-            fontSize={ isSmOrMd ? 11 : 13}
+            fontSize={isSmOrMd ? 11 : 13}
             onClick={() => {
               RedirecionaParaConteudoPorIdSumarioMatriculado(curso.id);
             }}
           >
-              Continuar de onde parou
+            Continuar de onde parou
           </Button>
         </Flex>
         <Flex alignItems="center" gap="10px" justifyContent="space-between">
@@ -411,12 +410,13 @@ function DashboardBody() {
   }, []);
 
 
+
   if (
     listaCursosNaoMatriculadosParaRenderizar.length === 0 &&
     listaCursosMatriculadosParaRenderizar.length === 0
   ) {
     return (
-      <Container maxWidth="10rem" >
+      <Container maxWidth="10rem" color='var(--primary-white)'>
         <Center>
           <Heading as="h1" size="lg" fontSize={"38px"}>
             Dashboard
@@ -445,9 +445,13 @@ function DashboardBody() {
   }
 
   return (
-    <Container overflow={isSmOrMd ? "auto" : "none"} justifyContent={'center'}>
+    <Container color='var(--primary-white)' overflow={isSmOrMd ? "auto" : "none"} justifyContent={'center'}>
       <Center>
-        <Heading sx={{...styles.header}}>
+        <Heading as='h1'
+          fontSize='48'
+          my='15'
+        >
+
           Dashboard
         </Heading>
 

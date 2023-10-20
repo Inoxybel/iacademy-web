@@ -9,14 +9,14 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Menu from "../Menu.jsx";
-import styles from "../styles.js";
+import formStyles from "../../styles/formStyles.js";
 import FormularioSenha from "./FormularioSenha.jsx";
 import ModalConfirmacao from "./ModalConfirmacao.jsx";
 import usePerfil from "./UsePerfil.jsx";
 
 function Perfil() {
 
-  const { state, dispatch, CAMPO_ALTERAR,LIMPAR_SENHA,LISTA_ATUALIZAR,SENHA_CONFIRMAR,pegarUsuarioPorIdController,atualizarUsuarioPorIdController } = usePerfil();
+  const { state, dispatch, CAMPO_ALTERAR, LIMPAR_SENHA, LISTA_ATUALIZAR, SENHA_CONFIRMAR, pegarUsuarioPorIdController, atualizarUsuarioPorIdController } = usePerfil();
   const { isOpen: isModalSenhaOpen, onOpen: onModalSenhaOpen, onClose: onModalSenhaClose } = useDisclosure()
   const { isOpen: isModalConfirmacaoOpen, onOpen: onModaConfirmacaoOpen, onClose: onModalConfirmacaoClose } = useDisclosure()
   const initialRef = React.useRef(null)
@@ -26,13 +26,13 @@ function Perfil() {
   return (
     <>
       <Menu />
-      <Box sx={{ ...styles.formFather }} >
-        <Menu sx={{ ...styles.menu }} />
-        <Heading sx={{ ...styles.header }} >Perfil do Usuário</Heading>
-        <Box sx={{ ...styles.formCadastro }} >
-          <FormControl id="nomeCompleto" sx={{ ...styles.formControl }}>
-            <FormLabel sx={{ ...styles.formLabel }}>Nome Completo</FormLabel>
-            <Input sx={{ ...styles.input }}
+      <Box sx={{ ...formStyles.formFather }} >
+        <Menu sx={{ ...formStyles.menu }} />
+        <Heading sx={{ ...formStyles.formTitle }} >Perfil do Usuário</Heading>
+        <Box sx={{ ...formStyles.formCadastro }} >
+          <FormControl id="nomeCompleto" sx={{ ...formStyles.formControl }}>
+            <FormLabel sx={{ ...formStyles.formLabel }}>Nome Completo</FormLabel>
+            <Input sx={{ ...formStyles.input }}
               type="text"
               value={state.formulario.name}
               onChange={(e) => {
@@ -44,9 +44,9 @@ function Perfil() {
               variant="filled"
             />
           </FormControl>
-          <FormControl id="cnpj" sx={{ ...styles.formControl }}>
-            <FormLabel sx={{ ...styles.formLabel }}>CNPJ da Empresa</FormLabel>
-            <Input sx={{ ...styles.input }}
+          <FormControl id="cnpj" sx={{ ...formStyles.formControl }}>
+            <FormLabel sx={{ ...formStyles.formLabel }}>CNPJ da Empresa</FormLabel>
+            <Input sx={{ ...formStyles.input }}
               type="text"
               value={state.formulario.companyRef}
               onChange={(e) => {
@@ -58,9 +58,9 @@ function Perfil() {
               variant="filled"
             />
           </FormControl>
-          <FormControl id="cpf" sx={{ ...styles.formControl }}>
-            <FormLabel sx={{ ...styles.formLabel }}>CPF</FormLabel>
-            <Input sx={{ ...styles.input }}
+          <FormControl id="cpf" sx={{ ...formStyles.formControl }}>
+            <FormLabel sx={{ ...formStyles.formLabel }}>CPF</FormLabel>
+            <Input sx={{ ...formStyles.input }}
               type="text"
               value={state.formulario.cpf}
               onChange={(e) => {
@@ -72,9 +72,9 @@ function Perfil() {
               variant="filled"
             />
           </FormControl>
-          <FormControl id="email" sx={{ ...styles.formControl }}>
-            <FormLabel sx={{ ...styles.formLabel }}>Email</FormLabel>
-            <Input sx={{ ...styles.input }}
+          <FormControl id="email" sx={{ ...formStyles.formControl }}>
+            <FormLabel sx={{ ...formStyles.formLabel }}>Email</FormLabel>
+            <Input sx={{ ...formStyles.input }}
               type="email"
               value={state.formulario.email}
               onChange={(e) => {
@@ -87,14 +87,14 @@ function Perfil() {
             />
           </FormControl>
           <Button
-            sx={{ ...styles.buttonEnviar }}
+            sx={{ ...formStyles.buttonEnviar }}
             onClick={() => {
               onModaConfirmacaoOpen()
             }}>
             Salvar Alterações
           </Button>
           <Button
-            sx={{ ...styles.buttonEnviar }}
+            sx={{ ...formStyles.buttonEnviar }}
             onClick={onModalSenhaOpen}
           >
             Alterar senha
@@ -103,9 +103,9 @@ function Perfil() {
             onClose={onModalConfirmacaoClose}
             isOpen={isModalConfirmacaoOpen}
             cancelRef={cancelRef}
-            state={state} 
-            dispatch={dispatch} 
-            LISTA_ATUALIZAR={LISTA_ATUALIZAR} 
+            state={state}
+            dispatch={dispatch}
+            LISTA_ATUALIZAR={LISTA_ATUALIZAR}
             LIMPAR_SENHA={LIMPAR_SENHA}
             SENHA_CONFIRMAR={SENHA_CONFIRMAR}
             pegarUsuarioPorIdController={pegarUsuarioPorIdController}

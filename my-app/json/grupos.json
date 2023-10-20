@@ -1,0 +1,99 @@
+{
+  "TotalCount": 0,
+  "PageSize": 5,
+  "CurrentPage": 0,
+  "TotalPages": 2,
+  "Items": [
+    {
+      "id": "0",
+      "GroupName": "Frontends",
+      "TotalAcess": "15",
+      "Employees": [
+        { "name": "Gustavo Franco", "cpf": "43264542239" },
+        { "name": "Riquelme Silva", "cpf": "35548796258" },
+        { "name": "Camillo Vergara", "cpf": "47885321569" },
+        { "name": "Tiago Fernando", "cpf": "45877963258" },
+        { "name": "Adriel Monteiro", "cpf": "44578896324" },
+        { "name": "Andre Nikoto", "cpf": "24558965875" },
+        { "name": "Samuel Ferreira", "cpf": "64227899415" },
+        { "name": "Marcelo Roger", "cpf": "45987632158" },
+        { "name": "Carlos Cadavid", "cpf": "32648975124" },
+        { "name": "Ignacio Semola", "cpf": "43264542239" },
+        { "name": "Robert DeNiro", "cpf": "56489325754" }
+      ]
+    },
+    {
+      "id": "1",
+      "GroupName": "Backends",
+      "TotalAcess": "15",
+      "Employees": [
+        { "name": "Gustavo Franco", "cpf": "43264542239" },
+        { "name": "Riquelme Silva", "cpf": "35548796258" },
+        { "name": "Camillo Vergara", "cpf": "47885321569" },
+        { "name": "Tiago Fernando", "cpf": "45877963258" },
+        { "name": "Adriel Monteiro", "cpf": "44578896324" },
+        { "name": "Andre Nikoto", "cpf": "24558965875" },
+        { "name": "Samuel Ferreira", "cpf": "64227899415" },
+        { "name": "Marcelo Roger", "cpf": "45987632158" }
+      ]
+    },
+    {
+      "id": "2",
+      "GroupName": "Fullstacks",
+      "TotalAcess": "8",
+      "Employees": [
+        { "name": "Gustavo Franco", "cpf": "43264542239" },
+        { "name": "Samuel Ferreira", "cpf": "64227899415" },
+        { "name": "Marcelo Roger", "cpf": "45987632158" },
+        { "name": "Carlos Cadavid", "cpf": "32648975124" },
+        { "name": "Ignacio Semola", "cpf": "43264542239" },
+        { "name": "Robert DeNiro", "cpf": "56489325754" }
+      ]
+    },
+    {
+      "id": "3",
+      "GroupName": "Python",
+      "TotalAcess": "15",
+      "Employees": [
+        { "name": "Riquelme Silva", "cpf": "35548796258" },
+        { "name": "Camillo Vergara", "cpf": "47885321569" },
+        { "name": "Tiago Fernando", "cpf": "45877963258" },
+        { "name": "Adriel Monteiro", "cpf": "44578896324" },
+        { "name": "Andre Nikoto", "cpf": "24558965875" },
+        { "name": "Samuel Ferreira", "cpf": "64227899415" },
+        { "name": "Marcelo Roger", "cpf": "45987632158" },
+        { "name": "Carlos Cadavid", "cpf": "32648975124" },
+        { "name": "Ignacio Semola", "cpf": "43264542239" },
+        { "name": "Robert DeNiro", "cpf": "56489325754" }
+      ]
+    },
+    {
+      "id": "4",
+      "GroupName": "Dev Juniors",
+      "TotalAcess": "15",
+      "Employees": [
+        { "name": "Gustavo Franco", "cpf": "43264542239" },
+        { "name": "Riquelme Silva", "cpf": "35548796258" },
+        { "name": "Camillo Vergara", "cpf": "47885321569" },
+        { "name": "Tiago Fernando", "cpf": "45877963258" },
+        { "name": "Adriel Monteiro", "cpf": "44578896324" },
+        { "name": "Andre Nikoto", "cpf": "24558965875" },
+        { "name": "Samuel Ferreira", "cpf": "64227899415" },
+        { "name": "Marcelo Roger", "cpf": "45987632158" },
+        { "name": "Carlos Cadavid", "cpf": "32648975124" },
+        { "name": "Ignacio Semola", "cpf": "43264542239" },
+        { "name": "Robert DeNiro", "cpf": "56489325754" }
+      ]
+    },
+    {
+      "id": "5",
+      "GroupName": "Mobile",
+      "TotalAcess": "5",
+      "Employees": [
+        { "name": "Gustavo Franco", "cpf": "43264542239" },
+        { "name": "Riquelme Silva", "cpf": "35548796258" },
+        { "name": "Robert DeNiro", "cpf": "56489325754" }
+      ]
+    }
+  ]
+}
