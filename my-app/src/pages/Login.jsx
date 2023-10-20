@@ -11,8 +11,8 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
-import stylesForms from '../styles/stylesForms.js';
-import { logar } from "./Fetchers/FetchersUsuario.js";
+import formStyles from '../styles/formStyles';
+import { logar } from "../services/Fetchers/FetchersUsuario.js";
 import Cookies from "universal-cookie"; // Importe a biblioteca Universal Cookie
 
 function Login({ setAuthenticated }) {
@@ -34,13 +34,10 @@ function Login({ setAuthenticated }) {
   };
 
   const handleLogin = async () => {
-    // Verifique se os campos de email e senha não estão vazios
     if (!formData.email || !formData.password) {
       setError("Preencha todos os campos.");
       return;
     }
-
-    // Limpe todos os cookies antes de configurar os novos
     cookies.remove('token');
     cookies.remove('tokenExpiration');
     cookies.remove('user');
@@ -54,10 +51,9 @@ function Login({ setAuthenticated }) {
         const sessionDuration = 60 * 60;
         const tokenExpiration = Date.now() / 1000 + sessionDuration;
 
-        // Configure os novos cookies com Universal Cookie
         cookies.set('token', token, { path: '/' });
         cookies.set('tokenExpiration', tokenExpiration, { path: '/' });
-        cookies.set('user', JSON.stringify(userData), { path: '/' });
+        cookies.set('user', userData, { path: '/' });
 
         setAuthenticated(true);
         navigate('/dashboard');
@@ -71,18 +67,18 @@ function Login({ setAuthenticated }) {
   };
 
   return (
-    <Container sx={{ ...stylesForms.formFather }}>
-      <Heading sx={{ ...stylesForms.header }}>Login</Heading>
-      <Box sx={{ ...stylesForms.formLogin }}>
+    <Container sx={{ ...formStyles.formFather }}>
+      <Heading sx={{ ...formStyles.formTitle }}>Login</Heading>
+      <Box sx={{ ...formStyles.formLogin }}>
         {error && (
-          <Text sx={{ ...stylesForms.formError, alignSelf: "center" }}>
+          <Text sx={{ ...formStyles.formError, alignSelf: "center" }}>
             {error}
           </Text>
         )}
-        <FormControl id="email" isRequired sx={{ ...stylesForms.formControl }}>
-          <FormLabel sx={{ ...stylesForms.formLabel }}>Email</FormLabel>
+        <FormControl id="email" isRequired sx={{ ...formStyles.formControl }}>
+          <FormLabel sx={{ ...formStyles.formLabel }}>Email</FormLabel>
           <Input
-            sx={{ ...stylesForms.input }}
+            sx={{ ...formStyles.input }}
             type="email"
             placeholder="Seu e-mail"
             name="email"
@@ -91,10 +87,10 @@ function Login({ setAuthenticated }) {
             variant="filled"
           />
         </FormControl>
-        <FormControl id="password" isRequired sx={{ ...stylesForms.formControl }}>
-          <FormLabel sx={{ ...stylesForms.formLabel }}>Senha</FormLabel>
+        <FormControl id="password" isRequired sx={{ ...formStyles.formControl }}>
+          <FormLabel sx={{ ...formStyles.formLabel }}>Senha</FormLabel>
           <Input
-            sx={{ ...stylesForms.input }}
+            sx={{ ...formStyles.input }}
             type="password"
             placeholder="Sua senha"
             name="password"
@@ -103,13 +99,13 @@ function Login({ setAuthenticated }) {
             variant="filled"
           />
         </FormControl>
-        <Button onClick={handleLogin} sx={{ ...stylesForms.buttonEnviar }}>
+        <Button onClick={handleLogin} sx={{ ...formStyles.buttonEnviar }}>
           Entrar
         </Button>
       </Box>
-      <Link onClick={() => navigate("/cadastro")} sx={{ m: 3 }}>
-        Não tem uma conta? Cadastre-se aqui
-      </Link>
+      <Text sx={{ m: 3, color: 'var(--primary-white)' }}>
+        Não tem uma conta? <Link onClick={() => navigate("/cadastro")} as={'span'} sx={formStyles.formLink}>Cadastre-se aqui</Link>
+      </Text>
     </Container>
   );
 }

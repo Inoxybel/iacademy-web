@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   Flex, useMediaQuery, Text
 } from '@chakra-ui/react';
@@ -23,6 +25,7 @@ export default function App() {
       paddingY: '2rem'
     },
     title: {
+      color: 'var(--primary-white)',
       fontSize: '1.5rem',
       fontWeight: 'bold',
       textAlign: 'center'

@@ -1,21 +1,16 @@
-import { CloseIcon } from '@chakra-ui/icons';
 import {
+  Box,
   Flex,
   Skeleton,
-  Text,
-  Box,
-  Heading
+  Text
 } from '@chakra-ui/react';
-import { RiArrowGoBackLine } from 'react-icons/ri';
-import styles from '../../styles/styles.js';
-import stylesFeedback, { botaoVoltarFeedback } from '../../styles/stylesFeedback.js';
 import React, { useEffect, useState } from 'react';
+import { RiArrowGoBackLine } from 'react-icons/ri';
 import { useNavigate, useParams } from 'react-router-dom';
-import ContextProvider, { useGeralContext } from '../context/ContextProvider';
+import ContextProvider, { useGeralContext } from '../../services/context/ContextProvider';
+import feedbackStyles from '../../styles/feedbackStyles';
 import ExercicioDescritivo from './ExercicioDescritivo';
 import ExercicioUmaRespostas from './ExercicioUmaResposta';
-import ReactMarkdown
-  from 'react-markdown';
 const Feedback = ({ idFeedback }) => {
   const { CorrecaoPorCorrectionId } = useGeralContext(ContextProvider);
   const [feedback, setFeedback] = useState();
@@ -49,12 +44,12 @@ const Feedback = ({ idFeedback }) => {
   }
 
   return (
-    <Flex sx={{ ...stylesFeedback.flexFather }}>
+    <Flex sx={{ ...feedbackStyles.flexFather }}>
       <Box style={botaoVoltarFeedback} >
         <RiArrowGoBackLine onClick={() => Redirecionar()} />
       </Box>
 
-      <Text sx={{ ...styles.header }}>Feedback</Text>
+      <Text sx={{ ...feedbackStyles.header }}>Feedback</Text>
 
       <Flex w="70rem" flexDir='column'>
         <Flex h="3rem" bg="#262734" flexDir="row" w="100%" alignItems="center" justifyContent='flex-start'>

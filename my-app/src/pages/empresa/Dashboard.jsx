@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   Flex, useMediaQuery, Text, Box, List, ListItem, Img
 } from '@chakra-ui/react';
@@ -10,6 +12,7 @@ export default function App() {
 
   const styles = {
     flex: {
+      color: 'var(--primary-white)',
       width: '100vw',
       flexDirection: isSmallerThan768 ? 'column' : 'row',
       justifyContent: isSmallerThan768 ? 'space-evenly' : 'space-between',

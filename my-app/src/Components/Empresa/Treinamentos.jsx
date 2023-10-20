@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   Box, Flex, Icon, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon,
 } from '@chakra-ui/react';
@@ -41,7 +43,9 @@ export default function App({ setTraining }) {
   }
 
   return (
-    <Flex sx={{ flexDirection: 'column', gap: '1rem', }}>
+    <Flex sx={{
+      flexDirection: 'column', gap: '1rem', color: 'var(--primary-white)',
+    }}>
       {
         treinamentos.map((elem, index) =>
           <Box key={index} onClick={() => setTraining(elem)} role='button' sx={styles.box}>

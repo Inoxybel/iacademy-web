@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -47,18 +48,15 @@ export default function ({ training }) {
   return (
     <Flex sx={{ flexDirection: 'column', gap: '1rem' }}>
       {
-        grupos.filter((elem, index) => training ? training.GroupsId.includes(elem.id) : true).map((elem, index) => {
-          return <>
-            <Box as='button' key={index} onClick={() => {
-              setGroup(elem)
-            }} sx={styles.card}>
-              <Box>
-                <Text as={'h3'} sx={styles.subTitle2}>{elem.GroupName}</Text>
-                <Text as={'span'}> {elem.TotalAcess} Acessos / {elem.Employees.length} Colaboradores</Text>
-              </Box>
-            </Box >
-          </>
-        }
+        grupos.filter(elem => training ? training.GroupsId.includes(elem.id) : true).map((elem, index) =>
+          <Box as='button' key={index} onClick={() => {
+            setGroup(elem)
+          }} sx={styles.card}>
+            <Box>
+              <Text as={'h3'} sx={styles.subTitle2}>{elem.GroupName}</Text>
+              <Text as={'span'}> {elem.TotalAcess} Acessos / {elem.Employees.length} Colaboradores</Text>
+            </Box>
+          </Box >
         )
       }
       <Modal isOpen={Boolean(group)} onClose={close} size='lg' colorScheme='gray'>

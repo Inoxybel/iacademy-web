@@ -8,34 +8,28 @@ import {
   Flex,
   Grid,
   Heading,
+  Image,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
   Progress,
   Skeleton,
   Stack,
   Text,
   VStack,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
-  Image,
   useMediaQuery,
 } from '@chakra-ui/react';
-import styles from '../styles/styles.js';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ImgC from '../assets/csharp_logo.png';
+import { cursosDisponiveis, cursosMatriculados, matricularEmCurso } from '../services/Fetchers/FetchersApp';
 import Menu from './Menu';
-import axios from 'axios';
-import { AiFillSecurityScan } from 'react-icons/ai';
-import { da } from 'date-fns/locale';
-import ImgC from '../img/csharp_logo.png';
-import { cursosDisponiveis, cursosMatriculados, matricularEmCurso } from './Fetchers/FetchersApp';
 
-//ContextoApi para poder compartilhar funções entre todos os recursos da minha api
 const DashboardContext = createContext();
 
 function DashboardProvider({ children }) {
@@ -45,8 +39,6 @@ function DashboardProvider({ children }) {
   function RedirecionaParaConteudoPorIdSumarioMatriculado(idSumario) {
     navigate('/conteudo/' + idSumario);
   }
-
-  const [idSumarioMatriculado, setIdSumarioMatriculado] = useState('');
 
   async function SolicitarListaCursosDisponiveis() {
     try {
@@ -106,9 +98,6 @@ function DashboardProvider({ children }) {
     }
   }
 
-  //Essa função verifica uma lista de todos os cursos que a plataforma oferece, e todos os cursos que o usuário atual está
-  //matriculado, e retorna no dashboard os cursos dispniveis que o usuário não esta matriculado
-
   function verificarSincronizaçãoDeCursos(
     listaTodosCursosCadastradados,
     listaCursosMatriculados
@@ -131,7 +120,6 @@ function DashboardProvider({ children }) {
         SolicitarListaCursosMatriculados,
         verificarSincronizaçãoDeCursos,
         RedirecionaParaConteudoPorIdSumarioMatriculado,
-        idSumarioMatriculado,
         isSmOrMd,
       }}
     >
@@ -139,7 +127,7 @@ function DashboardProvider({ children }) {
     </DashboardContext.Provider>
   );
 }
-//Função para você pode importar os intes de contexto
+
 function useDashboardContext() {
   const context = useContext(DashboardContext);
   if (!context) {
@@ -151,9 +139,8 @@ function useDashboardContext() {
 }
 
 const CardComponentCursosDisponiveis = ({ obj }) => {
-  //Importo as funções que vou precisar do contextApi
+
   const {
-    idSumarioMatriculado,
     isSmOrMd,
     matricularEmCursos,
     RedirecionaParaConteudoPorIdSumarioMatriculado,
@@ -163,7 +150,7 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
   return (
     <Card
       flexDir={'row'}
-      bg="var(--background-black)"
+      bg="#1A1922"
       mb={5}
 
     >
@@ -174,18 +161,16 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
         h="130px"
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgIcon)}`}
         mr={isSmOrMd ? 0 : 4}
-        bg="var(--primary-white)"
+        bg="white"
         style={{ borderRadius: '5' }}
       />
       <Stack
-        bg="var(--background-color)"
-        color="var(--primary-white)"
+        bg="#262734"
+        color="white"
         direction="row"
         overflow={"hidden"}
         borderRadius={5}
-        w={isSmOrMd ? "18rem" : "25rem"}
-        h="8rem"
-        p={isSmOrMd ? 1 : 2}
+        p={isSmOrMd ? 2 : 2}
       >
         <CardBody p={2}>
           <Heading fontSize="13px">{obj.theme}</Heading>
@@ -198,15 +183,12 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
           mr={"1rem"}
           alignSelf={"flex-end"}
           variant="solid"
-          bg="var(--background-button)"
+          bg="#0880A2"
           colorScheme="blue"
           size={isSmOrMd ? "md" : "lg"}
           fontSize={isSmOrMd ? 11 : 13}
           fontWeight="bold"
           onClick={async () => {
-            //No botão de cursos disponiveis, eu verifico o id do usuário criado atraves do login/cadsatro
-            //ao ele iniciar um curso, chamo a função de matricula e passo o id dele, espero ela retornar o true
-            //em seguida se der tudo certo redireciono ele para a tela de conteudo
             try {
               console.log(obj.id);
               const idSumario = await matricularEmCursos(obj.id);
@@ -219,11 +201,10 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
           Começar
         </Button>
 
-        {/*Botão que ao clicar, renderiza um modal com os detalhes do curso */}
         <Button
           alignSelf={"flex-end"}
           variant="solid"
-          bg="var(--background-button)"
+          bg="#0880A2"
           colorScheme="blue"
           size={isSmOrMd ? "md" : "lg"}
           fontSize={isSmOrMd ? 11 : 13}
@@ -236,7 +217,7 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
         </Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent color="white" bg="var(--background-form)">
+          <ModalContent color="white" bg="#262734">
             <ModalHeader>Detalhes do treinamento</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -261,19 +242,15 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
 };
 
 const CardComponentCursoIniciado = ({ curso }) => {
-  //Solicito as funções e variáveis que preciso do context
   const { isSmOrMd, RedirecionaParaConteudoPorIdSumarioMatriculado } =
     useDashboardContext();
 
-  const svgIcon = curso.icon;
 
   return (
     <Card
       flexDirection="row"
       overflow="hidden"
-      bg="var(--background-form)"
-      w={isSmOrMd ? "25rem" : "32rem"}
-      h="8rem"
+      bg="#262734"
       color="white"
       p={isSmOrMd ? 1 : 2}
     >
@@ -287,8 +264,9 @@ const CardComponentCursoIniciado = ({ curso }) => {
         w="110px"
         mr="13px"
       />
+
       <Stack flexDir="column" justifyContent="space-between">
-        <Flex justifyContent="space-between" >
+        <Flex justifyContent="space-between" flexDir={isSmOrMd ? "column" : "row"}>
           <Flex flexDir="column" >
             <Text fontSize="13px" fontWeight="bold" mb={3}>
               {curso.theme}
@@ -296,20 +274,21 @@ const CardComponentCursoIniciado = ({ curso }) => {
             <Box
               display="flex"
               flexDir="row"
-              alignItems="center"
-              justifyContent="center"
+              alignItems={isSmOrMd ? "flex-start" : "center"}
+              justifyContent={isSmOrMd ? "flex-start" : "center"}
             >
               <Text fontSize="11px">{curso.subcategory}</Text> - <Text fontSize="11px">{curso.category}</Text>
             </Box>
           </Flex>
 
           <Button
-            ml={isSmOrMd ? "1rem" : "5rem"}
+            ml={isSmOrMd ? "0" : "5rem"}
+            mr={isSmOrMd ? "10" : "0"}
             p={2}
             variant="solid"
-            colorScheme="var(--background-button)"
-            size={isSmOrMd ? "sm" : "lg"}
-            fontSize={isSmOrMd ? 10 : 13}
+            colorScheme="#0880A2;"
+            size={isSmOrMd ? "sm" : "md"}
+            fontSize={isSmOrMd ? 11 : 13}
             onClick={() => {
               RedirecionaParaConteudoPorIdSumarioMatriculado(curso.id);
             }}
@@ -356,7 +335,6 @@ const PaginationComponent = ({ items }) => {
     // Calcula o índice de início e fim dos "cards" a serem exibidos na página atual
     const startIndex = (currentPage - 1) * cardsPerPage;
     const endIndex = startIndex + cardsPerPage;
-    // Retorna uma array de componentes "cards" com base nos índices calculados
     return items
       .slice(startIndex, endIndex)
       .map((item, index) => (
@@ -392,7 +370,7 @@ const PaginationComponent = ({ items }) => {
 };
 
 function DashboardBody() {
-  const [isSmOrMd] = useMediaQuery('(max-width: 880px)');
+  const [isSmOrMd] = useMediaQuery('(max-width: 55em)');
   const [isMobile] = useMediaQuery('(max-width: 440px)');
 
 
@@ -400,7 +378,6 @@ function DashboardBody() {
   const {
     SolicitarListaCursosDisponiveis,
     SolicitarListaCursosMatriculados,
-    verificarSincronizaçãoDeCursos,
   } = useDashboardContext();
 
   //Variáveis de estado que são listas que sofrerão tratamentos antes de renderizar na tela
@@ -422,39 +399,24 @@ function DashboardBody() {
       //Solicita todo os cursos disponíveis do id do usuário atual
       const listaCursosMatriculados = await SolicitarListaCursosMatriculados();
 
-      //Manda a lista dos cursos do usuário para renderizar
       setListaCursosMatriculadosParaRenderizar(listaCursosMatriculados);
       setListaCursosNaoMatriculadosParaRenderizar(
         listaTodosOsCursosDisponiveisRetornado
       );
-      //Verifica se o usuário não está matriculado em nenhum curso ainda
 
-      /* if(listaCursosMatriculados===undefined){
-          //caso não esteja matriculadom,a função verificarSincronicaçaoDeCursos irá filtrar uma lista vazia
-          //portanto não filtrando nenhum curso e retornando todos
-          const listaCursosNaoMatriculados = await verificarSincronizaçãoDeCursos(listaTodosOsCursosDisponiveisRetornado,[]);
-          setListaCursosNaoMatriculadosParaRenderizar(listaCursosNaoMatriculados)
-        }else{
-          //Caso ele tenha sido matriculado em algum curso,a  função verificarSincronicaçaoDeCursos irá filtrar a
-          //listaDeCursos matriculados, e irá renderizar na tela na aba cursosDisponiveis apenas os cursos que o usuario
-          //não está matriculado
-          const listaCursosNaoMatriculados = await verificarSincronizaçãoDeCursos(listaTodosOsCursosDisponiveisRetornado,listaCursosMatriculados);
-          setListaCursosNaoMatriculadosParaRenderizar(listaCursosNaoMatriculados)
-        } */
     };
 
     fetchData();
   }, []);
 
-  //Enquanto o useEffect faz as requisições e renderiza, as lista estarão vazias, portanto,
-  //verifico se as listas para renderizar ainda estão sem conteudo, e caso estejam
-  //renderizo na tela um 'skelleton', componente do chakra ui.
+
+
   if (
     listaCursosNaoMatriculadosParaRenderizar.length === 0 &&
     listaCursosMatriculadosParaRenderizar.length === 0
   ) {
     return (
-      <Container w={'100%'}>
+      <Container maxWidth="10rem" color='var(--primary-white)'>
         <Center>
           <Heading as="h1" size="lg" fontSize={"38px"}>
             Dashboard
@@ -483,9 +445,13 @@ function DashboardBody() {
   }
 
   return (
-    <Container overflow={isSmOrMd ? "auto" : "none"} justifyContent={'center'}>
+    <Container color='var(--primary-white)' overflow={isSmOrMd ? "auto" : "none"} justifyContent={'center'}>
       <Center>
-        <Heading sx={{ ...styles.header }}>
+        <Heading as='h1'
+          fontSize='48'
+          my='15'
+        >
+
           Dashboard
         </Heading>
 
@@ -497,58 +463,49 @@ function DashboardBody() {
         justifyContent={'center'}
         rowGap={isSmOrMd ? '7rem' : '0'}
       >
-        <VStack minW={isSmOrMd ? 0 : "40rem"} alignItems={isMobile ? "flex-start" : "center"} >
+        <VStack minW={isSmOrMd ? 0 : "40rem"} alignItems="center" >
           <Heading as="h2" size="sm" mb="2">
             Treinamentos em andamento
           </Heading>
-          {/*verifica se o usuario ainda não possui cursos matriculados, cajo não esteja, mapea a lista, e adiciona 
-            os daos dentro de um componente cardComponenteInciado para renderizar na tela. Caso ele ainda não possua cursos
-            ele irá retornar um text */}
           {listaCursosMatriculadosParaRenderizar !== undefined ? (
             listaCursosMatriculadosParaRenderizar.map((curso, index) => (
               <CardComponentCursoIniciado key={index} curso={curso} />
             ))
           ) : (
-            <Text>Você ainda não esta matriculado em nenhum treinamento</Text>
+            <Text>Você ainda não esta matriculado em algum treinamento</Text>
           )}
         </VStack>
 
-        <VStack minW={isSmOrMd ? 0 : "40rem"} alignItems={isMobile ? "flex-start" : "center"}  >
+        <VStack minW={"100%"} alignItems="center" >
           <Flex flexDir="column"  >
             <Heading
               as="h2"
               size="sm"
               mb="1rem"
-              whiteSpace={'nowrap'}
             >
               Treinamentos Disponíveis
             </Heading>
             <Flex >
               <Input
                 variant="filled"
-                size={isSmOrMd ? "md" : "lg"}
+                size={isSmOrMd ? "sm" : "md"}
                 border="none"
                 borderRadius={5}
-                borderColor="var(--background-button)"
+                borderColor="#0880A2"
                 mb="1rem"
                 mr={2}
-                w={isSmOrMd ? "19rem" : "27rem"}
               />
-              <Button bg="var(--background-button)" color="var(--primary-white)" size={isSmOrMd ? "md" : "lg"} borderRadius={12}>
+              <Button bg="#0880A2" color="white" size={isSmOrMd ? "sm" : "md"} borderRadius={12}>
                 Pesquisar
               </Button>
             </Flex>
           </Flex>
           <Flex >
-            {/*Manda a lista filtrada dos cursos disponiveis e manda para o compoente de paginação */}
             <PaginationComponent
               items={listaCursosNaoMatriculadosParaRenderizar}
             />
           </Flex>
         </VStack>
-
-
-
       </Flex>
     </Container>
   );
@@ -557,11 +514,9 @@ function DashboardBody() {
 function Dashboard() {
   return (
     <DashboardProvider>
-      <Flex sx={{ w: '100%' }}>
-        <Menu />
-        <DashboardBody />
-      </Flex>
-    </DashboardProvider >
+      <Menu />
+      <DashboardBody />
+    </DashboardProvider>
   );
 }
 
