@@ -10,7 +10,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import ErroFormulario from './ErroFormulario';
+import ErroFormulario from '../../Components/ErroFormulario';
 
 
 const ModalConfirmacao = ({ isOpen, cancelRef, onClose, state, dispatch, LISTA_ATUALIZAR, LIMPAR_SENHA, SENHA_CONFIRMAR, pegarUsuarioPorIdController, atualizarUsuarioPorIdController }) => {
@@ -49,6 +49,7 @@ const ModalConfirmacao = ({ isOpen, cancelRef, onClose, state, dispatch, LISTA_A
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={()=>{
                  dispatch({type: LIMPAR_SENHA,payload:{}})
+                 setErro(false)
                 onClose()
               }}>
                 Cancelar
@@ -64,9 +65,9 @@ const ModalConfirmacao = ({ isOpen, cancelRef, onClose, state, dispatch, LISTA_A
                   CompanyRef:state.formulario.companyRef,
                   password: state.formulario.password
                 }
-               
-                const response =await atualizarUsuarioPorIdController(state.formulario.id,obj);
               
+                const response =await atualizarUsuarioPorIdController(state.formulario.id,obj);
+                console.log(response)
                 if(response.result==="ATUALIZADO"){
                  onClose()
                  toast({

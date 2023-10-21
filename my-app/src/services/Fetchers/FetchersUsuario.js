@@ -44,9 +44,14 @@ const pegarUsuarioPorId = async(id)=>{
    return api.get("/user/"+id)
 }
 
+const atualizarSenha = async(id,dados)=>{
+   await setAuthorizationHeader(api)
+   return api.put("/user/"+id+"/update-password",dados)
+}
 export {
     logar,
     cadastrar,
     atualizarUsuario,
-    pegarUsuarioPorId
+    pegarUsuarioPorId,
+    atualizarSenha
 }

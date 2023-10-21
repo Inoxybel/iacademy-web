@@ -37,7 +37,7 @@ function Treinamento() {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [inputValue1, setInputValue1] = useState('');
+ st [inputValue1, setInputValue1] = useState('');
   const [inputValue2, setInputValue2] = useState('');
   const [inputValue3, setInputValue3] = useState('');
   const [inputValue4, setInputValue4] = useState('');
@@ -48,7 +48,7 @@ function Treinamento() {
   const [inputValue9, setInputValue9] = useState('');
   const [inputValue10, setInputValue10] = useState('');
   const [inputValue11, setInputValue11] = useState('');
-  const [inputValue12, setInputValue12] = useState('');
+  const [inputValue12, setInputValue12] = useState(''); con
 
 
   useEffect(() => {

@@ -13,6 +13,7 @@ import styles from "../styles.js";
 import FormularioSenha from "./FormularioSenha.jsx";
 import ModalConfirmacao from "./ModalConfirmacao.jsx";
 import usePerfil from "./UsePerfil.jsx";
+import { SENHA_ALTERAR } from "./PerfilReducer.jsx";
 
 function Perfil() {
 
@@ -111,7 +112,15 @@ function Perfil() {
             pegarUsuarioPorIdController={pegarUsuarioPorIdController}
             atualizarUsuarioPorIdController={atualizarUsuarioPorIdController}
           />
-          <FormularioSenha onClose={onModalSenhaClose} isOpen={isModalSenhaOpen} initialRef={initialRef} finalRef={finalRef} />
+          <FormularioSenha 
+          onClose={onModalSenhaClose} 
+          isOpen={isModalSenhaOpen} 
+          initialRef={initialRef} 
+          finalRef={finalRef} 
+          state={state}
+          dispatch={dispatch}
+          SENHA_ALTERAR={SENHA_ALTERAR} 
+          LIMPAR_SENHA={LIMPAR_SENHA}/>
         </Box>
       </Box>
     </>
