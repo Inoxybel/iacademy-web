@@ -27,7 +27,7 @@ const MenuLandingPage = ({ breakpoints, breakpoint }) => {
                 <MenuDropAction rotas={["/missao_e_visao", "/historia", "/equipe"]} optionName={"About"} listaNomes={["Missão e visão", "História da empresa", "Equipe"]}></MenuDropAction>
             </BreadcrumbItem>
             <BreadcrumbItem>
-                <MenuDropAction rotas={["https://wa.me/5511973455655", "mailto:lucas.hbrd@gmail.com", "https://www.instagram.com/lucasszera/", "https://www.linkedin.com/groups/9515487/"]} optionName={"Contact"} listaNomes={["Whatsapp", "E-mail", "Instagram", "Linkedin"]}></MenuDropAction>
+                <MenuDropAction rotas={["https://wa.me/5511945343471", "mailto:lucas.hbrd@gmail.com", "https://www.instagram.com/lucasszera/", "https://www.linkedin.com/groups/9515487/"]} optionName={"Contact"} listaNomes={["Whatsapp", "E-mail", "Instagram", "Linkedin"]}></MenuDropAction>
             </BreadcrumbItem>
         </Breadcrumb>
 
