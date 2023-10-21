@@ -30,9 +30,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
+        working-directory: /my-app
+      
       - name: Build using Vite
         run: npm run build
+        working-directory: /my-app
         
       - name: Build And Deploy
         id: builddeploy
