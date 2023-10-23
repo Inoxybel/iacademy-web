@@ -113,6 +113,33 @@
     color: "white",
     _hover: { color: "black", backgroundColor: "white"}
   },
+  wrapper: {
+    height: "100vh",
+    display: "grid",
+    placeItems: "center",
+  },
+  typingDemo: {
+    width: "24ch",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    borderRight: "3px solid",
+    fontFamily: "monospace",
+    fontSize: "2em",
+    animation: "typing 2s steps(22) blink 5s step-end infinite alternate",
+  },
+
+  // Definindo keyframes
+  "@keyframes typing": {
+    from: {
+      width: 0,
+    },
+  },
+  "@keyframes blink": {
+    "50%": {
+      borderColor: "transparent",
+    },
+  },
+    
 }
  
 export const previousButton = {

@@ -13,6 +13,7 @@ import Questionario from "./pages/exercicios/questionario/Questionario";
 import Feedback from "./pages/feedback/Feedback";
 import Pendencia from "./pages/pendencia/Pendencia";
 import Perfil from './pages/perfil/Perfil';
+import MissaoEVisao from "./pages/landingPage/missaoVisao/MissaoEVisao";
 
 const cookies = new Cookies();
 
@@ -52,7 +53,10 @@ function App() {
               path={LandingPage ? "/" : "/login"}
               element={LandingPage ? <LandingPage /> : <Login />}
             />
-            
+             <Route
+              path="/missao_e_visao"
+              element={<MissaoEVisao/>}
+            />
             <Route
               path="/login"
               element={<Login setAuthenticated={setAuthenticated} />}
