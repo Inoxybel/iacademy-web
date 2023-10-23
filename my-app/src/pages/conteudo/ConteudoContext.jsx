@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const ConteudoContext = createContext();
 
@@ -12,7 +12,7 @@ export const SelecaoProvider = ({ children }) => {
   const selecionar = (opcao) => {
     setSelecao(opcao);
   };
-  
+
 
   return (
     <ConteudoContext.Provider value={{ selecao, selecionar }}>
