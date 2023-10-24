@@ -68,7 +68,6 @@ function Treinamento() {
       const nmConfig = configSelecionada.name;
       setNomeConfiguracao(nmConfig);
   
-      // Chama a função getDataById apenas se configSelecionada for um objeto válido
       if (configSelecionada.id) {
         const idDaConfig = configSelecionada.id;
         setIdConfiguracao(idDaConfig);
@@ -76,15 +75,10 @@ function Treinamento() {
         console.log('ID da Configuração Selecionada:', idDaConfig);
       } else {
         console.error('Objeto de configuração inválido:', configSelecionada);
-        // Lide com a situação quando o objeto é inválido
-        // Por exemplo, mostrar uma mensagem de erro ou limpar os estados
       }
     } else {
-      // Se configSelecionada for falsy, limpe os estados
       setNomeConfiguracao('');
       setIdConfiguracao('');
-      // Limpe outros estados conforme necessário
-      // ...
     }
   };
   
@@ -94,16 +88,14 @@ function Treinamento() {
       let response;
   
       if (id) {
-        // Se um ID foi fornecido, busca a configuração correspondente
         response = await axios.get(`${apiUrl}/${id}`);
-        const configuracao = response.data;  // Corrija aqui
+        const configuracao = response.data;
         popularEstadosPorId(configuracao);
       } else {
-        // Caso contrário, busca todas as configurações
         response = await axios.get(apiUrl);
       }
   
-      console.log('Dados da Configuração obtidos com sucesso:', response.data);  // Mude aqui se necessário
+      console.log('Dados da Configuração obtidos com sucesso:', response.data);
     } catch (error) {
       console.error('Erro ao buscar dados da configuração:', error);
     }
