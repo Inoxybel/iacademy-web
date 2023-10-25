@@ -21,6 +21,7 @@ import Questionario from './pages/exercicios/questionario/Questionario';
 import Feedback from './pages/feedback/Feedback';
 import Pendencia from './pages/pendencia/Pendencia';
 import Perfil from './pages/perfil/Perfil';
+import CadastroEmpresa from './pages/Administrador/CadastroEmpresa';
 import {
   QueryClient,
   QueryClientProvider,
@@ -141,6 +142,15 @@ function App() {
                   />
                 }
               ></Route>
+              <Route
+                path="/empresa/cadastro"
+                element={
+                  <PrivateRoute
+                    element={<CadastroEmpresa />}
+                    authenticated={authenticated}
+                  />
+                }
+              />
               <Route
                 path="/empresa/login"
                 element={

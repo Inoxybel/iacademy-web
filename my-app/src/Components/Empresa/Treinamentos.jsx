@@ -4,11 +4,14 @@ import {
   Box, Flex, Icon, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon,
 } from '@chakra-ui/react';
 import SwitchPendencias from './SwitchPendencias';
-import data from "../../../json/treinamentos.json"
+import apiData from "../../../json/treinamentos.json"
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import { getCompanyById } from '../../services/Fetchers/FetchersCompany';
 
 export default function App({ setTraining }) {
 
-  const treinamentos = data.Items
+  const treinamentos = apiData.Items
 
   const styles = {
     flex: {
@@ -39,8 +42,17 @@ export default function App({ setTraining }) {
     text: {
       width: '100%'
     },
-
   }
+
+  // GET - RECUPERAR DADOS DA EMPRESA, ACESSAR E LISTAR TREINAMENTOS
+
+  // const api = axios.create({ baseURL: "https://iacademy-company-v1-api.azurewebsites.net/api" })
+
+  // const { isLoading, error, data } = useQuery('companyData', getCompanyById)
+
+  // if (isLoading) return 'Loading...'
+
+  // if (error) return 'An error has occurred: ' + error.message
 
   return (
     <Flex sx={{

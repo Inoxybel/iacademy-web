@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import {
   Box,
   Heading,
@@ -10,12 +11,9 @@ import {
   FormLabel,
   Text,
 } from "@chakra-ui/react";
-//import { logar } from "./Fetchers/FetchersUsuario.js";
-import Cookies from "universal-cookie";
+import { companyLogin } from "../../services/Fetchers/FetchersCompany";
 
 function Login({ setAuthenticated }) {
-
-
   const styles = {
     formFather: {
       display: 'flex',
@@ -26,6 +24,9 @@ function Login({ setAuthenticated }) {
       justifyContent: 'center',
       alignItems: 'center',
       py: 8,
+    },
+    formTitle: {
+      color: 'var(--primary-white)'
     },
     formControl: {
       w: '15rem',
@@ -94,12 +95,11 @@ function Login({ setAuthenticated }) {
     }
   };
 
-
   const navigate = useNavigate();
-  const cookies = new Cookies(); // Crie uma instância de Cookies
+  const cookies = new Cookies();
 
   const [formData, setFormData] = useState({
-    email: "",
+    cnpj: "",
     password: "",
   });
   const [error, setError] = useState(null);
@@ -113,19 +113,19 @@ function Login({ setAuthenticated }) {
   };
 
   const handleLogin = async () => {
-    if (!formData.email || !formData.password) {
+    if (!formData.cnpj || !formData.password) {
       setError("Preencha todos os campos.");
       return;
     }
 
     cookies.remove('token');
     cookies.remove('tokenExpiration');
-    cookies.remove('user');
+    cookies.remove('company');
 
     try {
-      //const response = await logar(formData)
+      const response = await companyLogin(formData)
       const token = response.data.token;
-      const userData = response.data;
+      const companyData = response.data;
 
       if (token) {
         const sessionDuration = 60 * 60;
@@ -133,7 +133,7 @@ function Login({ setAuthenticated }) {
 
         cookies.set('token', token, { path: '/' });
         cookies.set('tokenExpiration', tokenExpiration, { path: '/' });
-        cookies.set('user', JSON.stringify(userData), { path: '/' });
+        cookies.set('company', JSON.stringify(companyData), { path: '/' });
 
         setAuthenticated(true);
         navigate('/empresa/treinamentos');
@@ -148,7 +148,7 @@ function Login({ setAuthenticated }) {
 
   return (
     <Container sx={styles.formFather}>
-      <Heading sx={styles.header}>Login para Empresas</Heading>
+      <Heading sx={styles.formTitle}>Login para Empresas</Heading>
       <Box sx={styles.formLogin}>
         {error && (
           <Text sx={styles.formError}>
@@ -162,7 +162,7 @@ function Login({ setAuthenticated }) {
             type="cnpj"
             placeholder="CNPJ"
             name="cnpj"
-            value={formData.email}
+            value={formData.cnpj}
             onChange={handleInputChange}
             variant="filled"
           />

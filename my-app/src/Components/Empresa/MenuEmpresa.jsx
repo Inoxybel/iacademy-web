@@ -6,7 +6,8 @@ import {
   Icon,
   useMediaQuery
 } from '@chakra-ui/react';
-import { BsBuildings, BsClipboard2Data } from 'react-icons/bs';
+import { BsBuildings, BsClipboard2Data, BsDownload } from 'react-icons/bs';
+import ConfirmModal from './ConfirmModal';
 
 
 export default function App() {
@@ -57,8 +58,9 @@ export default function App() {
       <Box sx={styles.stylesBox} bg={match ?? 'var(--background-black)'}>
         <Icon onClick={() => navigate('/empresa/treinamentos')} as={BsClipboard2Data} sx={styles.stylesButton} />
       </Box>
-      {/* Icone e funcoes de edicao para empresa ? */}
-
+      <Box sx={styles.stylesBox}>
+        <ConfirmModal />
+      </Box>
     </Flex>
 
   );

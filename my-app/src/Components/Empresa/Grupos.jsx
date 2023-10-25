@@ -14,6 +14,9 @@ import {
 import AddColaborador from './AddColaborador'
 import data from "../../../json/grupos.json"
 import { useState } from 'react'
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import { getCompanyById } from '../../services/Fetchers/FetchersCompany';
 
 export default function ({ training }) {
 
@@ -44,6 +47,16 @@ export default function ({ training }) {
       color: 'var(--primary-color)'
     }
   }
+
+  // GET DA EMPRESA PARA ACESSAR E LISTAR GRUPOS
+
+  // const api = axios.create({ baseURL: "https://iacademy-company-v1-api.azurewebsites.net/api" })
+
+  // const { isLoading, error, data } = useQuery('companyData', getCompanyById)
+
+  // if (isLoading) return 'Loading...'
+
+  // if (error) return 'An error has occurred: ' + error.message
 
   return (
     <Flex sx={{ flexDirection: 'column', gap: '1rem' }}>
