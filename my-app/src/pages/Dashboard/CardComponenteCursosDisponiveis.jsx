@@ -38,8 +38,8 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
         <Image
           borderRadius={5}
           objectFit="fill"
-          w="130px"
-          h="130px"
+          w="5rem"
+          h="5rem"
           src={`data:image/svg+xml;utf8,${encodeURIComponent(svgIcon)}`}
           mr={isSmOrMd ? 0 : 4}
           bg="white"

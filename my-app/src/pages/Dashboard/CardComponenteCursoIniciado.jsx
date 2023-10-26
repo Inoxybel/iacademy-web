@@ -12,31 +12,40 @@ import React from 'react';
 
 import useDasboard from './UseDasboard';
 
+function salvaIdMemoria(chave, valor) {
+  if (localStorage.getItem(chave) !== null) {
+    localStorage.removeItem(chave);
+  }
+  localStorage.setItem(chave, valor);
+}
+
+
 
 const CardComponentCursoIniciado = ({ curso }) => {
-    const { isSmOrMd, RedirecionaParaConteudoPorIdSumarioMatriculado } =useDasboard;
-  
+    const { isSmOrMd, RedirecionaParaConteudoPorIdSumarioMatriculado } =useDasboard();
+ 
      return (
       <Card
         flexDirection="row"
         overflow="hidden"
         bg="#262734"
+        w='20rem'
         color="white"
         p={isSmOrMd ? 1 : 2}
       >
         <Image
           objectFit="cover"
-          src=""
+          src={`data:image/svg+xml;utf8,${encodeURIComponent(curso.icon)}`}
           bg="white"
           borderRadius="5"
           alignSelf={'center'}
-          h="110px"
-          w="110px"
+          w="5rem"
+          h="5rem"
           mr="13px"
         />
   
         <Stack flexDir="column" justifyContent="space-between">
-          <Flex justifyContent="space-between" flexDir={isSmOrMd ? "column" : "row"}>
+          <Flex justifyContent="space-between" gap='10px' flexDir={isSmOrMd ? "column" : "row"}>
             <Flex flexDir="column" >
               <Text fontSize="13px" fontWeight="bold" mb={3}>
                 {curso.theme}
@@ -47,7 +56,7 @@ const CardComponentCursoIniciado = ({ curso }) => {
                 alignItems={isSmOrMd ? "flex-start" : "center"}
                 justifyContent={isSmOrMd ? "flex-start" : "center"}
               >
-                <Text fontSize="11px">{curso.subcategory}</Text> - <Text fontSize="11px">{curso.category}</Text>
+                <Text fontSize="11px">{curso.subcategory} - {curso.category}</Text> 
               </Box>
             </Flex>
   
@@ -57,9 +66,11 @@ const CardComponentCursoIniciado = ({ curso }) => {
               p={2}
               variant="solid"
               colorScheme="#0880A2;"
+              w='90%'
               size={isSmOrMd ? "sm" : "md"}
               fontSize={isSmOrMd ? 11 : 13}
               onClick={() => {
+                salvaIdMemoria("id_sumario",curso.id)
                 RedirecionaParaConteudoPorIdSumarioMatriculado(curso.id);
               }}
             >
@@ -67,13 +78,13 @@ const CardComponentCursoIniciado = ({ curso }) => {
             </Button>
           </Flex>
           <Flex alignItems="center" gap="10px" justifyContent="space-between">
-            <Text fontSize="10px">{20}%</Text>
+            <Text fontSize="10px">{0}%</Text>
   
             <Progress
               colorScheme="whiteAlpha"
               size="md"
               h="2px"
-              value={20}
+              value={0}
               flex="1"
               mr={2}
               bg="grey"

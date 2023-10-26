@@ -4,10 +4,12 @@ import {
     Flex,
     HStack,
     IconButton,
+    Link,
     Menu,
     MenuButton,
     MenuItem,
     MenuList,
+    Skeleton,
     Text,
     Tooltip,
     useToast
@@ -54,19 +56,20 @@ const ConteudoItem = ({ position, conteudo, idConteudo }) => {
     const toast = useToast();
     useEffect(() => {
 
-    if (conteudoSelecionado) {
-        
+    if (conteudoSelecionado) {   
         const conteudoMaisRecente = conteudo.subcontentHistory.find((obj) => obj.disabledDate === "0001-01-01T00:00:00Z") ;
-        console.log(conteudoMaisRecente)
-        setConteudoAtualRenderizado(conteudoMaisRecente.content);
-        if (conteudoMaisRecente.content.startsWith('##')) {
-            setMostrarCabecalho(false);
-        } else {
-            setMostrarCabecalho(true);
-        }
+        if (conteudoMaisRecente && conteudoMaisRecente.content) {
+            setConteudoAtualRenderizado(conteudoMaisRecente.content);
+            if (conteudoMaisRecente.content.startsWith('##')) {
+              setMostrarCabecalho(false);
+            } else {
+              setMostrarCabecalho(true);
+            }
+          } else {
+            setConteudoAtualRenderizado(" "); 
+          }
     }
 }, [conteudoSelecionado, conteudo.subcontentHistory,setConteudoAtualRenderizado]);
-
 
 return (
     <Flex flexDir='column'>
@@ -97,12 +100,12 @@ return (
                                          render: ({ onClose }) => (
                                              <Box bg='green' width='100%' color='white' justifyContent='space-around' display='flex' gap='10px' alignItems='center' p='15px' borderRadius='3px'>
                                                  <MdCheckCircle />
-                                                 <Text>Conteúdo atualizado.</Text>
+                                                 <Text >Conteúdo atualizado.</Text>
+                                                 <Link onClick={()=>{window.location.reload()}}>Clique aqui para ver</Link>
                                              </Box>
                                          ),
                                      });        
                                  } catch (error) {
-                                     console.error(error);
                                      toast({
                                          title: "Erro ao solicitar atualização",
                                          description: "Ocorreu um erro ao tentar solicitar a atualização.",
@@ -124,18 +127,17 @@ return (
                                  icon={<BiHistory color='#70728C' style={{ width: '20px', height: '20px' }} />}
                              />
                          </Tooltip>
-                         <MenuList bg="#2F3142" p='10px' flexDir='row' justifyContent='flex-start]'>
+                         <MenuList bg="#2F3142" p='0.3rem' flexDir='row' justifyContent='flex-start]'>
                              {conteudo.subcontentHistory.map((obj, index) => (
                                  <MenuItem key={index} bg='#2F3142' _hover={{ bg: "#075E81" }} _active={{ bg: "#054B60" }} onClick={() => {
                                      setConteudoAtualRenderizado(obj.content);
                                  }}>
-                                     <Flex flexDir='row' alignSelf='center' justifyContent='space-around' gap='30px'>
+                                     <Flex flexDir='row' alignSelf='center' padding='0' justifyContent='space-around' gap='2rem'>
                                          <Text minW='70%'>{obj.content.slice(0, 20)}...</Text>
                                          <Box>
                                          {obj.disabledDate === '0001-01-01T00:00:00Z'   ? <Box><ViewIcon /></Box>
                                         : 
                                         <></>}
-                                      
                                          </Box>
                                      </Flex>
                                  </MenuItem>
@@ -145,7 +147,8 @@ return (
                  </HStack>
              </Flex>
         )}
-        <Flex className='corpoConteudo' margin='none' w='100%' flexDir='column' h='100%'>
+        {!conteudoAtualRenderizado&&(<Skeleton h={10} w='70vw'/>)}  
+        <Flex className='corpoConteudo' color='white' margin='none' w='100%' flexDir='column' h='100%'>
             <ReactMarkdown components={customRenderers}>
                 {conteudoAtualRenderizado}
             </ReactMarkdown>

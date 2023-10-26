@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import { useNavigate, useParams } from 'react-router-dom';
 import ContextProvider, { useGeralContext } from '../../services/context/ContextProvider';
-import feedbackStyles from '../../styles/feedbackStyles';
+import feedbackStyles, { botaoVoltarFeedback } from '../../styles/feedbackStyles';
 import ExercicioDescritivo from './ExercicioDescritivo';
 import ExercicioUmaRespostas from './ExercicioUmaResposta';
 const Feedback = ({ idFeedback }) => {
@@ -49,13 +49,13 @@ const Feedback = ({ idFeedback }) => {
         <RiArrowGoBackLine onClick={() => Redirecionar()} />
       </Box>
 
-      <Text sx={{ ...feedbackStyles.header }}>Feedback</Text>
+      <Text fontSize='3rem' sx={{ ...feedbackStyles.header }}>Feedback</Text>
 
-      <Flex w="70rem" flexDir='column'>
+      <Flex w="80%" flexDir='column'>
         <Flex h="3rem" bg="#262734" flexDir="row" w="100%" alignItems="center" justifyContent='flex-start'>
-          <Text ml="20px">Correção:</Text>
+          <Text ml="1rem">Correção:</Text>
         </Flex>
-        <Flex flexDir="column" padding="20px" bg="#2F3142" fontSize={"14px"} fontWeight={"bold"}>
+        <Flex flexDir="column" padding="0.5rem" bg="#2F3142" fontSize={"1rem"} fontWeight={"bold"}>
           {feedback.corrections.map((correcao) => {
             if (correcao.complementation.length > 0) {
               return <ExercicioUmaRespostas exercicio={correcao} />

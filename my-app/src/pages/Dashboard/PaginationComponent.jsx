@@ -17,7 +17,8 @@ const PaginationComponent = ({ items }) => {
     const handlePageChange = page => {
       setCurrentPage(page);
     };
-  
+    
+    console.log(items)
     const renderCards = () => {
       const startIndex = (currentPage - 1) * cardsPerPage;
       const endIndex = startIndex + cardsPerPage;

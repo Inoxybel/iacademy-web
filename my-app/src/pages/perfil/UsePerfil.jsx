@@ -64,8 +64,7 @@ async function atualizarUsuarioPorIdController(user_id,dados) {
   } catch (error) {
     if (error.response.status === 400) {
         const errorData = error.response.data;
-        return {result:errorData};
-
+        return {result:"ERRO",dados:errorData};
     } else if (error.response.status === 401) {
         navigate("/login");
     } else if (error.response.status === 404) {

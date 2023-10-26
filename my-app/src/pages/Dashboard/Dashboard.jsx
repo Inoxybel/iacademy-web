@@ -21,8 +21,36 @@ import CardComponentCursoIniciado from './CardComponenteCursoIniciado';
 function DashboardBody() {
   const { listaCursosNaoMatriculadosParaRenderizar, listaCursosMatriculadosParaRenderizar } = useDashboardInitialization()
 
+
   const [isSmOrMd] = useMediaQuery('(max-width: 55em)');
   const [isMobile] = useMediaQuery('(max-width: 440px)');
+
+
+  if (!listaCursosMatriculadosParaRenderizar || !listaCursosNaoMatriculadosParaRenderizar) {
+    // Renderizar esqueletos enquanto os dados estão sendo carregados
+    return (
+      <Container color='var(--primary-white)' overflow={isSmOrMd ? "auto" : "none"} justifyContent={'center'}>
+        <Center>
+          <Skeleton height="50px" width="50%" />
+        </Center>
+        <Flex
+          flexDir={isSmOrMd ? 'column' : 'row'}
+          mt={isSmOrMd ? '5rem' : '3rem'}
+          justifyContent={'center'}
+          rowGap={isSmOrMd ? '7rem' : '0'}
+        >
+          <VStack minW={isSmOrMd ? 0 : "40rem"} alignItems="center" >
+            <Skeleton height="20px" width="100%" />
+          </VStack>
+          <VStack minW={"100%"} alignItems="center" >
+            <Flex flexDir="column">
+              <Skeleton height="20px" width="50%" />
+            </Flex>
+          </VStack>
+        </Flex>
+      </Container>
+    );
+  }
 
    return (
     <Container color='var(--primary-white)' overflow={isSmOrMd ? "auto" : "none"} justifyContent={'center'}>
@@ -44,8 +72,8 @@ function DashboardBody() {
           <Heading as="h2" size="sm" mb="2">
             Treinamentos em andamento
           </Heading>
-          {listaCursosMatriculadosParaRenderizar !== undefined && listaCursosMatriculadosParaRenderizar.length !== 0 ? (
-            listaCursosMatriculadosParaRenderizar.map((curso, index) => (
+          {listaCursosMatriculadosParaRenderizar.data !== undefined && listaCursosMatriculadosParaRenderizar.data.length !== 0 ? (
+            listaCursosMatriculadosParaRenderizar.data.map((curso, index) => (
               <CardComponentCursoIniciado key={index} curso={curso} />
             ))
           ) : (
@@ -61,8 +89,9 @@ function DashboardBody() {
             >
               Treinamentos Disponíveis
             </Heading>
-            <Flex >
+            <Flex  w='100%'>
               <Input
+                w='100%'
                 variant="filled"
                 size={isSmOrMd ? "sm" : "md"}
                 border="none"
@@ -77,9 +106,9 @@ function DashboardBody() {
             </Flex>
           </Flex>
           <Flex >
-            {listaCursosNaoMatriculadosParaRenderizar !== undefined && listaCursosNaoMatriculadosParaRenderizar.length !== 0 ? (
+            {listaCursosNaoMatriculadosParaRenderizar.data !== undefined && listaCursosNaoMatriculadosParaRenderizar.data.length !== 0 ? (
               <PaginationComponent
-                items={listaCursosNaoMatriculadosParaRenderizar}
+                items={listaCursosNaoMatriculadosParaRenderizar.data}
               />
             ) : (
               <Text>Não há treinametos disponíveis para você</Text>

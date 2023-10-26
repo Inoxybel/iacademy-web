@@ -59,20 +59,7 @@ function Perfil() {
               variant="filled"
             />
           </FormControl>
-          <FormControl id="cpf" sx={{ ...formStyles.formControl }}>
-            <FormLabel sx={{ ...formStyles.formLabel }}>CPF</FormLabel>
-            <Input sx={{ ...formStyles.input }}
-              type="text"
-              value={state.formulario.cpf}
-              onChange={(e) => {
-                dispatch({
-                  type: CAMPO_ALTERAR,
-                  payload: { campo: 'cpf', valor: e.target.value }
-                })
-              }}
-              variant="filled"
-            />
-          </FormControl>
+    
           <FormControl id="email" sx={{ ...formStyles.formControl }}>
             <FormLabel sx={{ ...formStyles.formLabel }}>Email</FormLabel>
             <Input sx={{ ...formStyles.input }}
