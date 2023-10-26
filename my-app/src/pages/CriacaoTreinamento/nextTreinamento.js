@@ -36,8 +36,12 @@ function NextTreinamento() {
   const [imageUrl, setImageUrl] = useState('');
   const [inputUrl, setInputUrl] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
+  const [topicos, setTopicos] = useState([]);
+  const [subtopicos, setSubtopicos] = useState([]);
+  const [topicoSelecionado, setTopicoSelecionado] = useState('');
+  const [subtopicoSelecionado, setSubtopicoSelecionado] = useState('');
   const navigate = useNavigate();
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNTAyMjEsImV4cCI6MTY5ODM1MzgyMSwiaWF0IjoxNjk4MzUwMjIxfQ.VLUkr2391GNcdg5p6NpM9GtMvLrWcCNUmKU00IYzido"
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNTY1OTEsImV4cCI6MTY5ODM2MDE5MSwiaWF0IjoxNjk4MzU2NTkxfQ.6E5PMGKEUcuh-uQTOdRBpIjs4y9TDz4U3HNNaFgOaJk"
 
   const criarObj = () => {
     return {
@@ -47,9 +51,10 @@ function NextTreinamento() {
       icon: imageUrl,
       configurationId: identificacao,
       shouldGeneratePendency: true,
-
+      ownerId: "",
     };
-};
+  };
+  
 
 
   const enviarParaAPI = async () => {
@@ -61,6 +66,7 @@ function NextTreinamento() {
       const resposta = await api.post("/api/ai/summary/create", obj, { headers: { 'Authorization': 'Bearer ' + token } });
       if (resposta.status === 201) {
         console.log('Base criada com sucesso!');
+        
         fetchData();
       } else {
         console.error('Erro ao enviar base:', resposta.statusText);
@@ -72,18 +78,6 @@ function NextTreinamento() {
   };
 
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(apiUrl);
-      // Ajuste para usar a primeira configuração como imagem inicial
-      if (response.data.length > 0) {
-        setImageUrl(response.data[0].imageUrl);
-      }
-    } catch (error) {
-      console.error('Erro ao obter configurações', error);
-    }
-  };
-
   const handleInputChange = (e) => {
     setInputUrl(e.target.value);
   };
@@ -91,6 +85,45 @@ function NextTreinamento() {
   const setNewImage = () => {
     setImageUrl(inputUrl);
     setModalOpen(false);
+  };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get(`/api/summary/${Treinamento.idConfiguracao}`, {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        });
+  
+        const dados = response.data;
+        console.log("ID da configuração: ", Treinamento.idConfiguracao);
+  
+        setTopicos(dados.topics.map((topico) => topico.title));
+  
+        if (dados.topics.length > 0) {
+          setSubtopicos(dados.topics[0].subtopics.map((subtopico) => subtopico.title));
+        }
+      } catch (error) {
+        console.error('Erro ao obter dados da API', error);
+        console.log('Detalhes do Erro:', error.response.data);
+      }
+    };
+  
+    fetchData();
+  }, [Treinamento.idConfiguracao, token]);
+  
+
+
+  const handleTopicoChange = (event) => {
+    const novoTopico = event.target.value;
+    setTopicoSelecionado(novoTopico);
+
+    const topicoCorrespondente = dados.topics.find((topico) => topico.title === novoTopico);
+    if (topicoCorrespondente) {
+      setSubtopicos(topicoCorrespondente.subtopics.map((subtopico) => subtopico.title));
+    }
   };
 
   return (
@@ -155,15 +188,34 @@ function NextTreinamento() {
             </Heading>
             <Flex mb={'1rem'}>
               <Select
-                placeholder="Selecione Subtópico"
+                placeholder="Selecione Tópico"
+                value={topicoSelecionado}
+                onChange={handleTopicoChange}
                 spacing={3}
                 icon={<ChevronDownIcon />}
                 bg="white"
                 color="black"
               >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
+                {topicos.map((topico) => (
+                  <option key={topico} value={topico}>
+                    {topico}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                placeholder="Selecione Subtópico"
+                value={subtopicoSelecionado}
+                onChange={(event) => setSubtopicoSelecionado(event.target.value)}
+                spacing={3}
+                icon={<ChevronDownIcon />}
+                bg="white"
+                color="black"
+              >
+                {subtopicos.map((subtopico) => (
+                  <option key={subtopico} value={subtopico}>
+                    {subtopico}
+                  </option>
+                ))}
               </Select>
               <Button ml="5" bg="#3C485A" color={'white'}>
                 Criar
@@ -186,7 +238,7 @@ function NextTreinamento() {
           <ModalHeader>Definir Imagem</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input
+            <Input 
               placeholder="Insira a URL da imagem"
               value={inputUrl}
               onChange={handleInputChange}

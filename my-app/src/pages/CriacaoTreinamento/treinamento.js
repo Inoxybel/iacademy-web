@@ -55,7 +55,7 @@ function Treinamento() {
   const [idConfiguracao, setIdConfiguracao] = useState('');  
   const [selectedConfig, setSelectedConfig] = useState(null);
  
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNTAyMjEsImV4cCI6MTY5ODM1MzgyMSwiaWF0IjoxNjk4MzUwMjIxfQ.VLUkr2391GNcdg5p6NpM9GtMvLrWcCNUmKU00IYzido"
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNTY1OTEsImV4cCI6MTY5ODM2MDE5MSwiaWF0IjoxNjk4MzU2NTkxfQ.6E5PMGKEUcuh-uQTOdRBpIjs4y9TDz4U3HNNaFgOaJk"
   
   useEffect(() => {
     const fetchData = async () => {
@@ -119,6 +119,8 @@ function Treinamento() {
       console.log('Dados da Configuração obtidos com sucesso:', response.data);
     } catch (error) {
       console.error('Erro ao buscar dados da configuração:', error.response?.data || error.message);
+      console.log('Detalhes do Erro:', error.response.data);
+
     }
   };
   
