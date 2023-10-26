@@ -113,33 +113,28 @@
     color: "white",
     _hover: { color: "black", backgroundColor: "white"}
   },
-  wrapper: {
-    height: "100vh",
-    display: "grid",
-    placeItems: "center",
+  buttonExperimentar: {
+    w: ["24vw", "18vw", "13vw", "10vw", "10vw", "10vw"] ,
+    h: ["4vw", "3vw", "2.5vw", "2vw", "2vw", "2vw"], 
+    top:["10", "10", "10", "10", "10", "40"], 
+    left:["30%", "70%", "70%", "70%", "70%", "70%"] ,
+    fontSize:["2vw", "1.2vw", "1vw", "0.9vw", "0.9vw", "0.9vw"] ,
+    p:["1", "1.6", "0.2vw", "0.2vw", "0.2vw", "0.2vw"],
+     px:["1vw", "1vw", "1vw", "1vw", "1vw", "1vw"] ,
+     borderRadius:["1.2vw", "0.8vw", "0.4vw"] ,
+     borderWidth:1 ,
+     backgroundColor:"blue.300" ,
+     color:"white",
+     _hover:{ backgroundColor: "whiteAlpha.900", color: "black", textDecoration: "none", borderColor: "blue.700" } 
   },
-  typingDemo: {
-    width: "24ch",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    borderRight: "3px solid",
-    fontFamily: "monospace",
-    fontSize: "2em",
-    animation: "typing 2s steps(22) blink 5s step-end infinite alternate",
-  },
-
-  // Definindo keyframes
-  "@keyframes typing": {
-    from: {
-      width: 0,
-    },
-  },
-  "@keyframes blink": {
-    "50%": {
-      borderColor: "transparent",
-    },
-  },
-    
+  typeEffectFrase: {
+    fontSize:["3.5vw", "2.5vw", "2.0vw", "2.0vw", "1.4vw", "1.4vw"],
+    position:"relative", maxW:["50%", "90%","90%","90%","90%", "90%"],
+    top:5, 
+    left:["5%","10%","10%","10%","10%","10%"],
+    color:"gray.700",
+    textShadow11:"2px 2px 2px white"
+  }
 }
  
 export const previousButton = {
