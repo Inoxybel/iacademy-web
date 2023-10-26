@@ -14,12 +14,14 @@ import FormularioSenha from "./FormularioSenha.jsx";
 import ModalConfirmacao from "./ModalConfirmacao.jsx";
 import usePerfil from "./UsePerfil.jsx";
 import { SENHA_ALTERAR } from "./PerfilReducer.jsx";
+import ModalConfirmacaoLogout from "./ModalConfirmacaoLogout.jsx";
 
 function Perfil() {
 
   const { state, dispatch, CAMPO_ALTERAR, LIMPAR_SENHA, LISTA_ATUALIZAR, SENHA_CONFIRMAR, pegarUsuarioPorIdController, atualizarUsuarioPorIdController } = usePerfil();
   const { isOpen: isModalSenhaOpen, onOpen: onModalSenhaOpen, onClose: onModalSenhaClose } = useDisclosure()
   const { isOpen: isModalConfirmacaoOpen, onOpen: onModaConfirmacaoOpen, onClose: onModalConfirmacaoClose } = useDisclosure()
+  const { isOpen: isModalLogoutOpen, onOpen: onModalLogoutOpen, onClose: onModalLogoutClose } = useDisclosure()
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
   const cancelRef = React.useRef(null)
@@ -87,6 +89,12 @@ function Perfil() {
           >
             Alterar senha
           </Button>
+          <Button
+            sx={{ ...formStyles.buttonEnviar }}
+            onClick={onModalLogoutOpen}
+          >
+            Sair 
+          </Button>
           <ModalConfirmacao
             onClose={onModalConfirmacaoClose}
             isOpen={isModalConfirmacaoOpen}
@@ -108,6 +116,8 @@ function Perfil() {
           dispatch={dispatch}
           SENHA_ALTERAR={SENHA_ALTERAR} 
           LIMPAR_SENHA={LIMPAR_SENHA}/>
+
+          <ModalConfirmacaoLogout onClose={onModalLogoutClose} isOpen={isModalLogoutOpen} cancelRef={cancelRef}/>
         </Box>
       </Box>
     </>
