@@ -6,6 +6,7 @@ const useDashboardInitialization = () => {
 
   const [listaCursosNaoMatriculadosParaRenderizar, setListaCursosNaoMatriculadosParaRenderizar] = useState([]);
   const [listaCursosMatriculadosParaRenderizar, setListaCursosMatriculadosParaRenderizar] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,6 +15,7 @@ const useDashboardInitialization = () => {
 
       setListaCursosMatriculadosParaRenderizar(listaCursosMatriculados);
       setListaCursosNaoMatriculadosParaRenderizar(listaTodosOsCursosDisponiveisRetornado);
+      setIsLoading(false); 
     };
 
     fetchData();
@@ -22,6 +24,7 @@ const useDashboardInitialization = () => {
   return {
     listaCursosNaoMatriculadosParaRenderizar,
     listaCursosMatriculadosParaRenderizar,
+    isLoading, 
   };
 };
 
