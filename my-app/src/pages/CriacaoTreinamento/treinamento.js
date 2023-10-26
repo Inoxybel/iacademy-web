@@ -28,7 +28,7 @@ import axios from 'axios';
 import { AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 
-const apiUrl = 'https://my-json-server.typicode.com/IgorEverton/fakeApiTest/configuracoes';
+const apiUrl = 'https://my-json-server.typicode.com/api/configurations';
 
 function Treinamento() {
   const [data, setData] = useState([]);

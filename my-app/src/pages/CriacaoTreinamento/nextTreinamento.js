@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Heading,
@@ -20,9 +20,12 @@ import {
 } from '@chakra-ui/react';
 import { ChevronDownIcon, ArrowBackIcon } from '@chakra-ui/icons';
 import Menu from '../Menu';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Treinamento() {
+const apiUrl = 'https://my-json-server.typicode.com/api/ai/summary/create';
+
+function NextTreinamento() {
   const [tema, setTema] = useState('');
   const [categoria, setCategoria] = useState('');
   const [subcategoria, setSubcategoria] = useState('');
@@ -32,12 +35,28 @@ function Treinamento() {
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(apiUrl);
+  //       // Ajuste para usar a primeira configuração como imagem inicial
+  //       if (response.data.length > 0) {
+  //         setImageUrl(response.data[0].imageUrl);
+  //       }
+  //     } catch (error) {
+  //       console.error('Erro ao obter configurações', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
   const criarObj = () => {
     return {
       tema,
       categoria,
       subcategoria,
       identificacao,
+      imageUrl,
     };
   };
 
@@ -45,10 +64,29 @@ function Treinamento() {
     const obj = criarObj();
 
     try {
-      // Simulando uma requisição para atualizar a configuração
-      console.log('Enviando para a API:', obj);
+      const resposta = await axios.post(apiUrl, obj);
+      if (resposta.status === 201) {
+        console.log('Configuração enviada com sucesso!');
+        // Atualiza a lista de configurações
+        fetchData();
+      } else {
+        console.error('Erro ao enviar configuração:', resposta.statusText);
+      }
     } catch (erro) {
-      console.error('Erro na requisição:', erro);
+      console.error('Erro na requisição:', erro.message);
+    }
+  };
+
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(apiUrl);
+      // Ajuste para usar a primeira configuração como imagem inicial
+      if (response.data.length > 0) {
+        setImageUrl(response.data[0].imageUrl);
+      }
+    } catch (error) {
+      console.error('Erro ao obter configurações', error);
     }
   };
 
@@ -148,7 +186,6 @@ function Treinamento() {
         </Grid>
       </Flex>
 
-      {/* Modal para inserir a URL da imagem */}
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <ModalOverlay />
         <ModalContent>
@@ -169,4 +206,4 @@ function Treinamento() {
   );
 }
 
-export default Treinamento;
+export default NextTreinamento;
