@@ -13,7 +13,7 @@ import { useGeralContext } from '../../services/context/ContextProvider';
 
 
 const EstiloConteudoPrincipal = styled.div`
-    
+    padding:1rem;
 /* Adiciona uma barra de rolagem quando o conteúdo for maior que o contêiner */
   code {
     max-width: 100%;
@@ -53,6 +53,7 @@ h3{
   ol {
     margin-left: 25px;
   }
+  
 `;
 
 
@@ -84,6 +85,7 @@ const ConteudoBody = () => {
 
 
     if (!conteudoSelecionado) {
+        
         return (
             <Flex flex={3} h='100%' flexDir='column' p='10px'>
                 <Skeleton mb='20px' h='10%' p='10px' />
@@ -96,7 +98,7 @@ const ConteudoBody = () => {
         return (
             <Flex className='conteudo' fontSize={fonte} flexDir='column' h='100%' bg='#474859'>
                 <Flex className='cabecalho' bg='#262734' minH='100px' alignItems="center" justifyContent="center" p='10px'>
-                    <Text textAlign="center" fontWeight={'bold'} ml="1.5rem" fontSize={['16px', '16px', '16px', '26px']} >{conteudoSelecionado.title}</Text>
+                    <Text textAlign="center" color='white' fontWeight={'bold'} ml="1.5rem" fontSize={['16px', '16px', '16px', '26px']} >{conteudoSelecionado.title}</Text>
                 </Flex>
                 <Flex className='corpoConteudo' flexWrap='wrap' flexDir='column' m='10px' h='100%' alignItems='center'>
                     {conteudoRenderizadoAtual ? (
@@ -108,7 +110,7 @@ const ConteudoBody = () => {
                             })}
                         </EstiloConteudoPrincipal>
                     ) : (
-                        <div>Ainda não possui conteúdo</div>
+                       <></>
                     )}
                 </Flex>
 

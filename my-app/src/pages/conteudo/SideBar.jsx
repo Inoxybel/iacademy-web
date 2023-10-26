@@ -7,7 +7,6 @@ import { RiMenuFoldFill } from "react-icons/ri";
 import { RiMenuUnfoldFill } from "react-icons/ri";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
-import imgTeste from '../../assets/csharp_logo.png';
 import { useGeralContext } from '../../services/context/ContextProvider';
 import { useSelecaoContext } from './ConteudoContext';
 import SidebarStyledComponent from './SidebarStyleComponent';
@@ -40,13 +39,30 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
     const redirecionarParaDashboard=()=>{
         history("/dashboard")
     }
+
     useEffect(() => {
         async function fetchData() {
             try {
-                const listaSumarioResponse = await SolicitarSumario(idSumario);
-                setListaSumario(listaSumarioResponse)
-                setTopicoAtual(listaSumarioResponse.topics[0])
-                await SolicitarConteudoPorId(listaSumarioResponse.topics[0].subtopics[0].contentId)
+                let sumarioId = idSumario;
+    
+                // Verifica se idSumario é nulo ou não tem valor
+                if (!sumarioId) {
+                    // Se for nulo, tente buscar o valor no localStorage
+                    const localStorageSumarioId = localStorage.getItem('id_sumario');
+    
+                    if (localStorageSumarioId) {
+                        sumarioId = localStorageSumarioId;
+                    } else {
+                        console.error("idSumario não fornecido e não encontrado no localStorage.");
+                        return;
+                    }
+                }
+    
+                const listaSumarioResponse = await SolicitarSumario(sumarioId);
+    
+                setListaSumario(listaSumarioResponse);
+                setTopicoAtual(listaSumarioResponse.topics[0]);
+                await SolicitarConteudoPorId(listaSumarioResponse.topics[0].subtopics[0].contentId);
             } catch (error) {
                 console.error("Erro ao buscar dados:", error);
             }
@@ -75,7 +91,7 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                             </Flex>
                         </Flex>
                         <Flex className='menuDetalhesCurso'>
-                            <Image src={imgTeste} w='40px' />
+                            <Image w='3rem' src={`data:image/svg+xml;utf8,${encodeURIComponent(listaSumario.icon)}`}/>
                             <Box>
                                 <Text className='tema'>{listaSumario.theme}</Text>
                                 <Box className='categorias'>
@@ -84,7 +100,7 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                             </Box>
                         </Flex>
                         <Box >
-                            <Progress w='100%' borderRadius='10px' size='sm' bg="#4E506F" colorScheme='whatsapp' value={20} />
+                            <Progress w='100%' borderRadius='10px' size='sm' bg="#4E506F" colorScheme='whatsapp' value={0} />
                         </Box>
                     </Flex>
 
@@ -101,10 +117,10 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                                     {listaSumario.topics.map((obj) => (
                                         <MenuItem className='itemMenu'
                                             onMouseEnter={(e) => {
-                                                e.target.style.backgroundColor = '#4E506F'; // Altera a cor de fundo ao passar o mouse
+                                                e.target.style.backgroundColor = '#4E506F'; 
                                             }}
                                             onMouseLeave={(e) => {
-                                                e.target.style.backgroundColor = '#575A77'; // Restaura a cor de fundo ao retirar o mouse
+                                                e.target.style.backgroundColor = '#575A77'; 
                                             }}
                                             onClick={() => { setTopicoAtual(obj) }}> 
                                             {obj.title}

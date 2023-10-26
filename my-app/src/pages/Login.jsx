@@ -17,7 +17,7 @@ import Cookies from "universal-cookie"; // Importe a biblioteca Universal Cookie
 
 function Login({ setAuthenticated }) {
   const navigate = useNavigate();
-  const cookies = new Cookies(); // Crie uma instância de Cookies
+  const cookies = new Cookies();
 
   const [formData, setFormData] = useState({
     email: "",

@@ -23,7 +23,7 @@ function ContextProvider({ children }) {
             }
         } catch (error) {
            if(error.response.status===401){
-            navigate("/")
+            navigate("/login")
            }
         }
     }
@@ -42,7 +42,7 @@ function ContextProvider({ children }) {
             }
         } catch (error) {
             if(error.response.status===401){
-                navigate("/")
+                navigate("/login")
                }
         }
     }
@@ -59,9 +59,8 @@ function ContextProvider({ children }) {
                 throw new Error(`Erro ao buscar dados para o contentID ${contentID}`);
             }
         } catch (error) {
-            console.error(error);
             if(error.response.status===401){
-                navigate("/")
+                navigate("/login")
                }
         }
     }
@@ -70,7 +69,7 @@ function ContextProvider({ children }) {
         try {
             const response = await pegarExercicioPorId(exerciseID);
             if(response.status===401){
-                navigate('/')
+                navigate('/login')
             }
             if (response.status === 200) {
                 const exercicio = response.data
@@ -80,7 +79,7 @@ function ContextProvider({ children }) {
             }
         } catch (error) {
             if(error.response.status===401){
-                navigate("/")
+                navigate("/login")
                }
         }
     }
@@ -89,7 +88,7 @@ function ContextProvider({ children }) {
         try {
             const response = await corrigirExercicio(exerciseID,respostas);
             if(response.status===401){
-                navigate('/')
+                navigate('/login')
             }
             if (response.status === 201) {
                 const feedback = response.data;
@@ -97,7 +96,7 @@ function ContextProvider({ children }) {
             } 
         } catch (error) {
             if(error.response.status===401){
-                navigate("/")
+                navigate("/login")
                }
             console.log(error)
          
@@ -108,7 +107,7 @@ function ContextProvider({ children }) {
         try {
             const response = await atualizarConteudo(conteudoId,index);
             if(response.status===401){
-                navigate('/')
+                navigate('/login')
             }
             if (response.status === 204) {
                      
@@ -119,7 +118,7 @@ function ContextProvider({ children }) {
         } catch (error) {
             console.error(error);
             if(error.response.status===401){
-                navigate("/")
+                navigate("/login")
                }
         }
     }
@@ -128,7 +127,7 @@ function ContextProvider({ children }) {
         try {
             const response = await pegarFeedbackDeExercicio(correctionID);
             if(response.status===401){
-                navigate('/')
+                navigate('/login')
             }
             if (response.status === 200) {
                 const feedback = response.data
@@ -139,7 +138,7 @@ function ContextProvider({ children }) {
         } catch (error) {
             console.error(error);
             if(error.response.status===401){
-                navigate("/")
+                navigate("/login")
                }
         }
     }

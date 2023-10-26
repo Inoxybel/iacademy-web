@@ -13,12 +13,15 @@ import formStyles from "../../styles/formStyles.js";
 import FormularioSenha from "./FormularioSenha.jsx";
 import ModalConfirmacao from "./ModalConfirmacao.jsx";
 import usePerfil from "./UsePerfil.jsx";
+import { SENHA_ALTERAR } from "./PerfilReducer.jsx";
+import ModalConfirmacaoLogout from "./ModalConfirmacaoLogout.jsx";
 
 function Perfil() {
 
   const { state, dispatch, CAMPO_ALTERAR, LIMPAR_SENHA, LISTA_ATUALIZAR, SENHA_CONFIRMAR, pegarUsuarioPorIdController, atualizarUsuarioPorIdController } = usePerfil();
   const { isOpen: isModalSenhaOpen, onOpen: onModalSenhaOpen, onClose: onModalSenhaClose } = useDisclosure()
   const { isOpen: isModalConfirmacaoOpen, onOpen: onModaConfirmacaoOpen, onClose: onModalConfirmacaoClose } = useDisclosure()
+  const { isOpen: isModalLogoutOpen, onOpen: onModalLogoutOpen, onClose: onModalLogoutClose } = useDisclosure()
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
   const cancelRef = React.useRef(null)
@@ -34,7 +37,7 @@ function Perfil() {
             <FormLabel sx={{ ...formStyles.formLabel }}>Nome Completo</FormLabel>
             <Input sx={{ ...formStyles.input }}
               type="text"
-              value={state.formulario.name}
+              value={state.formulario.name===""?"Carregando...":state.formulario.name}
               onChange={(e) => {
                 dispatch({
                   type: CAMPO_ALTERAR,
@@ -48,7 +51,7 @@ function Perfil() {
             <FormLabel sx={{ ...formStyles.formLabel }}>CNPJ da Empresa</FormLabel>
             <Input sx={{ ...formStyles.input }}
               type="text"
-              value={state.formulario.companyRef}
+              value={state.formulario.companyRef===""?"Carregando...":state.formulario.companyRef}
               onChange={(e) => {
                 dispatch({
                   type: CAMPO_ALTERAR,
@@ -58,25 +61,12 @@ function Perfil() {
               variant="filled"
             />
           </FormControl>
-          <FormControl id="cpf" sx={{ ...formStyles.formControl }}>
-            <FormLabel sx={{ ...formStyles.formLabel }}>CPF</FormLabel>
-            <Input sx={{ ...formStyles.input }}
-              type="text"
-              value={state.formulario.cpf}
-              onChange={(e) => {
-                dispatch({
-                  type: CAMPO_ALTERAR,
-                  payload: { campo: 'cpf', valor: e.target.value }
-                })
-              }}
-              variant="filled"
-            />
-          </FormControl>
+    
           <FormControl id="email" sx={{ ...formStyles.formControl }}>
             <FormLabel sx={{ ...formStyles.formLabel }}>Email</FormLabel>
             <Input sx={{ ...formStyles.input }}
               type="email"
-              value={state.formulario.email}
+              value={state.formulario.email===""?"Carregando...":state.formulario.email}
               onChange={(e) => {
                 dispatch({
                   type: CAMPO_ALTERAR,
@@ -99,6 +89,12 @@ function Perfil() {
           >
             Alterar senha
           </Button>
+          <Button
+            sx={{ ...formStyles.buttonEnviar }}
+            onClick={onModalLogoutOpen}
+          >
+            Sair 
+          </Button>
           <ModalConfirmacao
             onClose={onModalConfirmacaoClose}
             isOpen={isModalConfirmacaoOpen}
@@ -111,7 +107,17 @@ function Perfil() {
             pegarUsuarioPorIdController={pegarUsuarioPorIdController}
             atualizarUsuarioPorIdController={atualizarUsuarioPorIdController}
           />
-          <FormularioSenha onClose={onModalSenhaClose} isOpen={isModalSenhaOpen} initialRef={initialRef} finalRef={finalRef} />
+          <FormularioSenha 
+          onClose={onModalSenhaClose} 
+          isOpen={isModalSenhaOpen} 
+          initialRef={initialRef} 
+          finalRef={finalRef} 
+          state={state}
+          dispatch={dispatch}
+          SENHA_ALTERAR={SENHA_ALTERAR} 
+          LIMPAR_SENHA={LIMPAR_SENHA}/>
+
+          <ModalConfirmacaoLogout onClose={onModalLogoutClose} isOpen={isModalLogoutOpen} cancelRef={cancelRef}/>
         </Box>
       </Box>
     </>

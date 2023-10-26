@@ -48,7 +48,7 @@ const ExercicioDescritivo =({exercicio})=>{
         <Divider 
           alignSelf={"center"}
           mt={"2.5rem"}
-          w={'65rem'}
+          w={'100%'}
         />
       </Flex>
     )
