@@ -65,7 +65,7 @@ export default function LandingPage() {
                         <Box color="blue.900" h={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={["5%", "5%", "10%", "10%", "10%", "10%"]} top={["5%", "8%"]} maxW={["70%", "60%", "45%", "45%", "50%", "55%"]}>
                             <Text fontSize={["5vw", "4vw", "2.5vw", "2.5vw", "2.5vw", "2.5vw"]} position={breakpoints <= "sm" ? "relative" : "absolute"} maxW={["100%", "100%", "100%", "100%", "100%", "100%"]}>Desenvolvendo habilidades da sua maneira</Text>
                             <TyperAnimation key={sequenciaAtual} frase={frases[sequenciaAtual]}></TyperAnimation>
-                            <Button sx={styles.buttonExperimentar} onClick={() => {setSequenciaAtual(sequenciaAtual <= 2 ? sequenciaAtual + 1 : sequenciaAtual == 3 && 0)}}>Experimente! {sequenciaAtual}</Button>
+                            <Button sx={styles.buttonExperimentar} onClick={() => {setSequenciaAtual(sequenciaAtual <= 2 ? sequenciaAtual + 1 : sequenciaAtual == 3 && 0)}}>Experimente!</Button>
                         </Box>
                     </Flex>
                 </Container>

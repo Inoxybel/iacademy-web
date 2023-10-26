@@ -11,8 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { RiArrowGoBackLine } from 'react-icons/ri';
-import styles from './styles.js';
-import { botaoVoltarCadastro } from "./styles.js";
+import formStyles, { botaoVoltarCadastro } from '../styles/formStyles';
 import { cadastrar } from "../services/Fetchers/FetchersUsuario.js";
 
 
@@ -32,11 +31,11 @@ async function solicitacaoCadastroUsuario(dados) {
   try {
     const response = await cadastrar(dados);
     if (response.status === 201) {
-      return {"status":response.status,"dados":response.data}
+      return { "status": response.status, "dados": response.data }
     }
   } catch (error) {
     console.log(error)
-    return {"status":error.response.status,"dados":error.response.data}
+    return { "status": error.response.status, "dados": error.response.data }
   }
 
 }
@@ -125,7 +124,7 @@ function Cadastro() {
       const response = await solicitacaoCadastroUsuario(request);
 
       // Se a resposta tiver erros de validação (status 400), atualize o estado com esses erros
-      if (response.status===201) {
+      if (response.status === 201) {
         toast({
           title: 'Conta criada',
           position: 'top',
@@ -142,132 +141,132 @@ function Cadastro() {
   }
 
   return (
-    <Box sx={{ ...styles.formFather }}>
-      <Heading sx={{ ...styles.header }}>Cadastro</Heading>
+    <Box sx={{ ...formStyles.formFather }}>
+      <Heading sx={{ ...formStyles.formTitle }}>Cadastro</Heading>
 
-      <Box sx={{ ...styles.formCadastro }}>
+      <Box sx={{ ...formStyles.formCadastro }}>
 
         <Box style={botaoVoltarCadastro} >
           <RiArrowGoBackLine onClick={() => navigate("/login")} />
         </Box>
 
-        <FormControl id="nomeCompleto" isRequired sx={{ ...styles.formControl }}>
-          <FormLabel sx={{ ...styles.formLabel }}>Nome Completo</FormLabel>
+        <FormControl id="nomeCompleto" isRequired sx={{ ...formStyles.formControl }}>
+          <FormLabel sx={{ ...formStyles.formLabel }}>Nome Completo</FormLabel>
 
 
-          <Input sx={{ ...styles.input }}
+          <Input sx={{ ...formStyles.input }}
             type="text"
             name="nomeCompleto"
             placeholder="Seu nome completo"
             onChange={handleInputChange}
             variant="filled" />
           {formErrors.nomeCompleto &&
-            <Text style={{ ...styles.formError }}>
+            <Text style={{ ...formStyles.formError }}>
               {formErrors.nomeCompleto}
             </Text>
           }
           {errosResponse.name && errosResponse.Name.map((obj) => (
-            <Text style={{ ...styles.formError }}>
+            <Text style={{ ...formStyles.formError }}>
               {obj}
             </Text>
           ))}
         </FormControl>
 
-        <FormControl id="cnpj" sx={{ ...styles.formControl }}>
-          <FormLabel sx={{ ...styles.formLabel }}>CNPJ da Empresa</FormLabel>
-          <Input sx={{ ...styles.input }}
+        <FormControl id="cnpj" sx={{ ...formStyles.formControl }}>
+          <FormLabel sx={{ ...formStyles.formLabel }}>CNPJ da Empresa</FormLabel>
+          <Input sx={{ ...formStyles.input }}
             type="text"
             name="cnpj"
             placeholder="CNPJ da sua empresa"
             onChange={handleInputChange}
             variant="filled" />
-          {formErrors.cnpj && <Text sx={{ ...styles.formError }}>
+          {formErrors.cnpj && <Text sx={{ ...formStyles.formError }}>
             {formErrors.cnpj}
           </Text>
           }
         </FormControl>
 
-        <FormControl id="cpf" isRequired sx={{ ...styles.formControl }}>
-          <FormLabel sx={{ ...styles.formLabel }}>CPF do usuario</FormLabel>
-          <Input sx={{ ...styles.input }}
+        <FormControl id="cpf" isRequired sx={{ ...formStyles.formControl }}>
+          <FormLabel sx={{ ...formStyles.formLabel }}>CPF do usuario</FormLabel>
+          <Input sx={{ ...formStyles.input }}
             type="text"
             name="cpf"
             placeholder="Seu CPF"
             onChange={handleInputChange}
             variant="filled" />
-          {formErrors.cpf && <Text sx={{ ...styles.formError }}>
+          {formErrors.cpf && <Text sx={{ ...formStyles.formError }}>
             {formErrors.cpf}
           </Text>
           }
-           {errosResponse.Cpf && errosResponse.Cpf.length>0?errosResponse.Cpf.map((obj) => (
-            <Text style={{ ...styles.formError }}>
+          {errosResponse.Cpf && errosResponse.Cpf.length > 0 ? errosResponse.Cpf.map((obj) => (
+            <Text style={{ ...formStyles.formError }}>
               {obj}
             </Text>
-          )):null}
+          )) : null}
         </FormControl>
 
-        <FormControl id="email" isRequired sx={{ ...styles.formControl }}>
-          <FormLabel sx={{ ...styles.formLabel }}>Email</FormLabel>
-          <Input sx={{ ...styles.input }}
+        <FormControl id="email" isRequired sx={{ ...formStyles.formControl }}>
+          <FormLabel sx={{ ...formStyles.formLabel }}>Email</FormLabel>
+          <Input sx={{ ...formStyles.input }}
             type="email"
             name="email"
             placeholder="Seu e-mail"
             onChange={handleInputChange}
             variant="filled" />
           {formErrors.email &&
-            <Text style={{ ...styles.formError }}>
+            <Text style={{ ...formStyles.formError }}>
               {formErrors.email}
             </Text>
           }
-             {errosResponse.Email && errosResponse.Email.length>0?errosResponse.Email.map((obj) => (
-            <Text style={{ ...styles.formError }}>
+          {errosResponse.Email && errosResponse.Email.length > 0 ? errosResponse.Email.map((obj) => (
+            <Text style={{ ...formStyles.formError }}>
               {obj}
             </Text>
-          )):null}
+          )) : null}
 
         </FormControl>
-        <FormControl id="password" isRequired sx={{ ...styles.formControl }}>
-          <FormLabel sx={{ ...styles.formLabel }}>Senha</FormLabel>
-          <Input sx={{ ...styles.input }}
+        <FormControl id="password" isRequired sx={{ ...formStyles.formControl }}>
+          <FormLabel sx={{ ...formStyles.formLabel }}>Senha</FormLabel>
+          <Input sx={{ ...formStyles.input }}
             type="password"
             name="password"
             placeholder="Sua senha"
             onChange={handleInputChange}
             variant="filled" />
           {formErrors.password &&
-            <Text style={{ ...styles.formError }}>
+            <Text style={{ ...formStyles.formError }}>
               {formErrors.password}
             </Text>
           }
-          {errosResponse.Password && errosResponse.Password.length>0?errosResponse.Password.map((obj) => (
-            <Text style={{ ...styles.formError }}>
+          {errosResponse.Password && errosResponse.Password.length > 0 ? errosResponse.Password.map((obj) => (
+            <Text style={{ ...formStyles.formError }}>
               {obj}
             </Text>
-          )):null}
+          )) : null}
         </FormControl>
-        <FormControl id="confirmPassword" isRequired sx={{ ...styles.formControl }}>
+        <FormControl id="confirmPassword" isRequired sx={{ ...formStyles.formControl }}>
 
-          <FormLabel sx={{ ...styles.formLabel }}>Confirmar Senha</FormLabel>
+          <FormLabel sx={{ ...formStyles.formLabel }}>Confirmar Senha</FormLabel>
 
-          <Input sx={{ ...styles.input }}
+          <Input sx={{ ...formStyles.input }}
             type="password"
             name="confirmPassword"
             placeholder="Confirmar senha"
             onChange={handleInputChange}
             variant="filled" />
           {formErrors.confirmPassword &&
-            <Text style={{ ...styles.formError }}>
+            <Text style={{ ...formStyles.formError }}>
               {formErrors.confirmPassword}
             </Text>
           }
-          {errosResponse.Password &&errosResponse.Password.length>0?errosResponse.Password.map((obj) => (
-            <Text style={{ ...styles.formError }}>
+          {errosResponse.Password && errosResponse.Password.length > 0 ? errosResponse.Password.map((obj) => (
+            <Text style={{ ...formStyles.formError }}>
               {obj}
             </Text>
-          )):null}
+          )) : null}
         </FormControl>
 
-        <Button sx={{ ...styles.buttonEnviar }}
+        <Button sx={{ ...formStyles.buttonEnviar }}
           onClick={() => {
             handleSubmit()
           }}>
