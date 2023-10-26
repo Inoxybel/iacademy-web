@@ -28,7 +28,10 @@ import axios from 'axios';
 import { AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 
-const apiUrl = 'https://my-json-server.typicode.com/api/configurations';
+
+const api = axios.create({
+  baseURL:"https://iacademy-v1-api.azurewebsites.net"
+})
 
 function Treinamento() {
   const [data, setData] = useState([]);
@@ -48,23 +51,32 @@ function Treinamento() {
   const [inputValue10, setInputValue10] = useState('');
   const [inputValue11, setInputValue11] = useState('');
   const [inputValue12, setInputValue12] = useState('');  
+  const [objNomeConfiguracao, setObjNomeConfiguracao] = useState('');
   const [idConfiguracao, setIdConfiguracao] = useState('');  
+  const [selectedConfig, setSelectedConfig] = useState(null);
  
-
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNTAyMjEsImV4cCI6MTY5ODM1MzgyMSwiaWF0IjoxNjk4MzUwMjIxfQ.VLUkr2391GNcdg5p6NpM9GtMvLrWcCNUmKU00IYzido"
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(apiUrl);
-        setData(response.data);
+        const response = await api.get("/api/configurations", {
+          headers: {
+            'Authorization': 'Bearer ' + token,
+          },
+        }); 
+        setData(response.data.data);
       } catch (error) {
         console.error('Erro ao obter configurações', error);
       }
     };
+  
     fetchData();
   }, []);
 
   const onSelect = (configSelecionada) => {
     if (configSelecionada) {
+      setSelectedConfig(configSelecionada);
       const nmConfig = configSelecionada.name;
       setNomeConfiguracao(nmConfig);
   
@@ -88,21 +100,34 @@ function Treinamento() {
       let response;
   
       if (id) {
-        response = await axios.get(`${apiUrl}/${id}`);
-        const configuracao = response.data;
-        popularEstadosPorId(configuracao);
+        console.log('Fazendo requisição para:', `/api/configurations/${id}`);
+        response = await api.get(`/api/configurations/${id}`, {
+          headers: {
+            'Authorization': 'Bearer ' + token,
+          },
+        });
       } else {
-        response = await axios.get(apiUrl);
+        console.log('Fazendo requisição para:', '/api/configurations');
+        response = await api.get("/api/configurations", {
+          headers: {
+            'Authorization': 'Bearer ' + token,
+          },
+        });
       }
-  
+      const configuracao = response.data;
+      popularEstadosPorId(configuracao);
       console.log('Dados da Configuração obtidos com sucesso:', response.data);
     } catch (error) {
-      console.error('Erro ao buscar dados da configuração:', error);
+      console.error('Erro ao buscar dados da configuração:', error.response?.data || error.message);
     }
   };
   
+  
+  
+  
 
   const popularEstadosPorId = (configuracao) => {
+    console.log('Configuração recebida:', configuracao);
     setInputValue1(configuracao.summary.initialInput);
     setInputValue2(configuracao.summary.finalInput);
     setInputValue3(configuracao.firstContent.initialInput);
@@ -119,7 +144,11 @@ function Treinamento() {
 
   const handleInputChange = (e, identifier) => {
     const inputValue = e.target.value;
+  
     switch (identifier) {
+      case "nomeConfiguracao":
+        setObjNomeConfiguracao(inputValue);
+        break;
       case 1:
         setInputValue1(inputValue);
         break;
@@ -160,6 +189,7 @@ function Treinamento() {
         break;
     }
   };
+  
   const handleTabChange = (index) => {
     setActiveIndex(index);
   };
@@ -174,6 +204,7 @@ function Treinamento() {
 
   function criarObjeto() {
     return {
+      name: objNomeConfiguracao, 
       summary: {
         initialInput: inputValue1,
         finalInput: inputValue2,
@@ -200,33 +231,28 @@ function Treinamento() {
       },
     };
   }
+  
 
   const enviarParaAPI = async () => {
-    const obj = criarObjeto();
-    if (idConfiguracao) {
-      try {
-        const resposta = await axios.put(`https://my-json-server.typicode.com/IgorEverton/fakeApiTest/configuracoes/${idConfiguracao}`, obj);
-        if (resposta.status === 200) {
-          console.log('Configuração atualizada com sucesso!');
-        } else {
-          console.error('Erro ao atualizar configuração:', resposta.statusText);
-        }
-      } catch (erro) {
-        console.error('Erro na requisição:', erro.message);
+    const configuracaoObjeto = criarObjeto();
+    console.log('Configuração Objeto:', configuracaoObjeto);
+  
+    try {
+      const resposta = idConfiguracao
+        ? await api.put(`/api/configurations/${idConfiguracao}`, configuracaoObjeto, { headers: { 'Authorization': 'Bearer ' + token } })
+        : await api.post("/api/configurations", configuracaoObjeto, { headers: { 'Authorization': 'Bearer ' + token } });
+  
+      if (resposta.status === 200 || resposta.status === 201) {
+        console.log('Configuração salva com sucesso!');
+      } else {
+        console.error('Erro ao salvar configuração:', resposta.statusText);
       }
-    } else {
-      try {
-        const resposta = await axios.post('https://my-json-server.typicode.com/IgorEverton/fakeApiTest/configuracoes', obj);
-        if (resposta.status === 201) {
-          console.log('Configuração enviada com sucesso!');
-        } else {
-          console.error('Erro ao enviar configuração:', resposta.statusText);
-        }
-      } catch (erro) {
-        console.error('Erro na requisição:', erro.message);
-      }
+    } catch (erro) {
+      console.error('Erro na requisição:', erro.message);
+      console.log('Detalhes do Erro:', erro.response.data);
     }
-  };  
+  };
+  
 
   const limpaCampos=()=>{
     setInputValue1("");
@@ -250,11 +276,11 @@ function Treinamento() {
       <VStack alignItems={"center"} bg={"#282B38"} p="4" gap="2rem" borderRadius={7}>
         <Heading size={12}>Configuração</Heading>      
         <Select placeholder='Select option' spacing={3} icon={<ChevronDownIcon />} bg="white" color="black" onChange={(e) => onSelect(data.find(config => config.id === e.target.value))}>
-          {data.map((config) => (
-            <option key={config?.id} value={config?.id}>
-              {config?.name}
-            </option>
-          ))}
+        {Array.isArray(data) && data.map((config) => (
+          <option key={config?.id} value={config?.id}>
+            {config?.name}
+          </option>
+        ))} 
         </Select>
         <Flex direction="row" p={0} w="100%" justifyContent="space-between" align={"center"}>
           <IconButton aria-label='Add to friends' icon={<AddIcon />} onClick={onOpen}/>
@@ -287,6 +313,7 @@ function Treinamento() {
               <Tab>Exercício</Tab>
               <Tab>Correção</Tab>
               <Tab>Pendência</Tab>
+              <Tab>Nome Configuração</Tab>
             </TabList>
             <TabPanels >
               <TabPanel >
@@ -441,7 +468,22 @@ function Treinamento() {
                 />
                 <Flex justifyContent={"space-evenly"}>
                 <Button onClick={handlePreviousTab}>Anterior</Button>
-                <Button bg="#0880A2" color="white" onClick={()=>{
+                <Button onClick={handleNextTab}>Próximo</Button>
+                </Flex>
+              </TabPanel>
+              <TabPanel >
+                <Textarea
+                  color={"black"}
+                  bg="white" 
+                  value={objNomeConfiguracao}
+                  onChange={(e) => handleInputChange(e, "nomeConfiguracao")}
+                  placeholder='Digite o nome da configuração'
+                  size='md'
+                  mb="1.5rem"
+                />
+                <Flex justifyContent={"space-evenly"} alignItems={"center"}>
+                  <Button onClick={handlePreviousTab}>Anterior</Button>
+                  <Button bg="#0880A2" color="white" onClick={()=>{
                   enviarParaAPI();
                   onClose();
                   }}>Salvar Alterações</Button>

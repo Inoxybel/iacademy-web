@@ -22,8 +22,11 @@ import { ChevronDownIcon, ArrowBackIcon } from '@chakra-ui/icons';
 import Menu from '../Menu';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import  Treinamento from './treinamento'
 
-const apiUrl = 'https://my-json-server.typicode.com/api/ai/summary/create';
+const api = axios.create({
+  baseURL:"https://iacademy-v1-api.azurewebsites.net"
+})
 
 function NextTreinamento() {
   const [tema, setTema] = useState('');
@@ -34,46 +37,37 @@ function NextTreinamento() {
   const [inputUrl, setInputUrl] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(apiUrl);
-  //       // Ajuste para usar a primeira configuração como imagem inicial
-  //       if (response.data.length > 0) {
-  //         setImageUrl(response.data[0].imageUrl);
-  //       }
-  //     } catch (error) {
-  //       console.error('Erro ao obter configurações', error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNTAyMjEsImV4cCI6MTY5ODM1MzgyMSwiaWF0IjoxNjk4MzUwMjIxfQ.VLUkr2391GNcdg5p6NpM9GtMvLrWcCNUmKU00IYzido"
 
   const criarObj = () => {
     return {
-      tema,
-      categoria,
-      subcategoria,
-      identificacao,
-      imageUrl,
+      theme: tema,
+      category: categoria,
+      subcategory: subcategoria,
+      icon: imageUrl,
+      configurationId: identificacao,
+      shouldGeneratePendency: true,
+
     };
-  };
+};
+
 
   const enviarParaAPI = async () => {
-    const obj = criarObj();
+    const obj = criarObj(Treinamento.idConfiguracao);
+    console.log("objeto que está sendo enviado: ", obj)
 
     try {
-      const resposta = await axios.post(apiUrl, obj);
+      
+      const resposta = await api.post("/api/ai/summary/create", obj, { headers: { 'Authorization': 'Bearer ' + token } });
       if (resposta.status === 201) {
-        console.log('Configuração enviada com sucesso!');
-        // Atualiza a lista de configurações
+        console.log('Base criada com sucesso!');
         fetchData();
       } else {
-        console.error('Erro ao enviar configuração:', resposta.statusText);
+        console.error('Erro ao enviar base:', resposta.statusText);
       }
     } catch (erro) {
       console.error('Erro na requisição:', erro.message);
+      console.log('Detalhes do Erro:', erro.response.data);
     }
   };
 
@@ -96,7 +90,7 @@ function NextTreinamento() {
 
   const setNewImage = () => {
     setImageUrl(inputUrl);
-    setModalOpen(false); // Fecha o modal após definir a imagem
+    setModalOpen(false);
   };
 
   return (
