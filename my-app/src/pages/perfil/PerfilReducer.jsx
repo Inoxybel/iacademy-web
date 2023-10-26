@@ -10,7 +10,7 @@ const estado ={
         id:"",
         name:"",
         companyRef:"",
-        email:'',
+        email:"",
         password:""
     },
     formularioSenha:{

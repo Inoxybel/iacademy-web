@@ -39,15 +39,23 @@ export default function App() {
       gap={"3rem"}
       
     >
+      {
+  !isSmOrMd && (
+    <>
       <IconButton
         background="none"
         _hover={{ background: 'none' }}
-        icon={<HamburgerIcon w={6} h={6} color="white" mt={5} mb={isSmOrMd ? 5 : 3} ml={2}/>}
+        icon={<HamburgerIcon w={6} h={6} color="white" mt={5} mb={isSmOrMd ? 5 : 3} ml={2} />}
       />
-      <Divider 
+      <Divider
         w={isSmOrMd ? '15' : '70%'}
-        alignSelf={"center"}
+        alignSelf="center"
       />
+    </>
+  )
+}
+
+     
       <ChakraLink
         as={RouterLink}
         to="/pendencia"

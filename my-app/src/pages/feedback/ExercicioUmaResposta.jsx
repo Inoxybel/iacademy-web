@@ -48,7 +48,7 @@ const ExercicioUmaRespostas = ({ exercicio }) => {
     const correctOption = getCorrectOption();
   
     return (
-      <Flex flexDir="column"backgroundColor='#2F3142' width='68rem' padding='20px' height='100%' mb={"1rem"}>
+      <Flex flexDir="column"backgroundColor='#2F3142' width='68remz' padding='20px' height='100%' mb={"1rem"}>
         <Text fontSize="16px" fontWeight="bold" mb={'1rem'} >
           {exercicio.identification} - {exercicio.question}
         </Text>
@@ -68,7 +68,7 @@ const ExercicioUmaRespostas = ({ exercicio }) => {
         <Divider 
           alignSelf={"center"}
           mt={"2.5rem"}
-          w={'65rem'}
+          w={'100%'}
         />
       </Flex>
     );

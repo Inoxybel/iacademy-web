@@ -4,9 +4,10 @@ export default {
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
+    color:'white'
   },
   flexFeedback: {
-    w: '85%',
+    w: '70%',
     flexDir: 'column',
   },
 
@@ -14,7 +15,7 @@ export default {
     h: '3rem',
     bg: 'var(--backgroud-form)',
     flexDir: 'row',
-    w: '100%',
+    w: '20rem',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -22,7 +23,7 @@ export default {
   buttonEnviar: {
     h: '2rem',
     minW: '30%',
-    mt: 4,
+    mt: '0.4rem',
     bg: 'var(--backgroud-button)',
     color: 'var(--primary-white)',
     _hover: {

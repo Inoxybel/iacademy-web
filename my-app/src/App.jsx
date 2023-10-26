@@ -13,7 +13,7 @@ import Treinamentos from './pages/empresa/Treinamentos';
 import Cadastro from './pages/Cadastro';
 import NextTreinamento from './pages/CriacaoTreinamento/nextTreinamento';
 import Treinamento from './pages/CriacaoTreinamento/treinamento';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Conteudo from './pages/conteudo/Conteudo';
