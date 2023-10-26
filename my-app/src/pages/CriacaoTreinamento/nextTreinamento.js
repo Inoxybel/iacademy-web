@@ -41,7 +41,7 @@ function NextTreinamento() {
   const [topicoSelecionado, setTopicoSelecionado] = useState('');
   const [subtopicoSelecionado, setSubtopicoSelecionado] = useState('');
   const navigate = useNavigate();
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNTY1OTEsImV4cCI6MTY5ODM2MDE5MSwiaWF0IjoxNjk4MzU2NTkxfQ.6E5PMGKEUcuh-uQTOdRBpIjs4y9TDz4U3HNNaFgOaJk"
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNTkwMTEsImV4cCI6MTY5ODM2MjYxMSwiaWF0IjoxNjk4MzU5MDExfQ.lEcnKfPm2VzVHH4kZajBwjOgnvgksg3bwCdepMdlIx8"
 
   const criarObj = () => {
     return {
@@ -54,9 +54,6 @@ function NextTreinamento() {
       ownerId: "",
     };
   };
-  
-
-
   const enviarParaAPI = async () => {
     const obj = criarObj(Treinamento.idConfiguracao);
     console.log("objeto que está sendo enviado: ", obj)
@@ -91,7 +88,7 @@ function NextTreinamento() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get(`/api/summary/${Treinamento.idConfiguracao}`, {
+        const response = await api.get(`/api/summary/available`, {
           headers: {
             'Authorization': 'Bearer ' + token
           }
