@@ -11,8 +11,8 @@ const usePerfil = ()=>{
   const userCoockie = cookies.get("user");
   const navigate = useNavigate();
   useEffect(() => {
+
     const fetchUserData = async () => {
-        
         const user = await pegarUsuarioPorIdController(userCoockie.id);
         try {
             const obj = {
