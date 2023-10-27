@@ -37,7 +37,24 @@ const Questionario = ({ idExercicio }) => {
     const { cancelRef, toast, CorrecaoPorCorrectionId, CriarCorrecaoPorExerciseId, exercicioEntregado, setExercicioEntregado, setConfirmado, isOpen, onOpen, onClose, exercicioConteudoSelecionado, RedirecionarParaTelaFeedback } = useQuestionarioCustom(idExercicio);
 
     if (!exercicioConteudoSelecionado || exercicioConteudoSelecionado === undefined) {
-        return (<Skeleton h="50vh" />)
+        return (
+            <>
+            <Skeleton>
+                <Box w='100%' h='4rem'></Box>
+             </Skeleton>  
+
+            <Skeleton>
+                <Box w='90%' mt='2rem' mb='2rem'  h='10rem'></Box>
+             </Skeleton>   
+             <Skeleton>
+                <Box w='90%' mt='2rem' mb='2rem'  h='10rem'></Box>
+             </Skeleton>   
+             <Skeleton>
+                <Box w='90%' mt='2rem' mb='2rem'  h='10rem'></Box>
+             </Skeleton>   
+            </>
+
+        )
     }
 
     return (
