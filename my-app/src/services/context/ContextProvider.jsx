@@ -23,7 +23,7 @@ function ContextProvider({ children }) {
             }
         } catch (error) {
            if(error.response.status===401){
-            navigate("/")
+            navigate("/login")
            }
         }
     }
@@ -41,9 +41,13 @@ function ContextProvider({ children }) {
                 return null;
             }
         } catch (error) {
-            if(error.response.status===401){
-                navigate("/")
-               }
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 404) {
+                alert("Não encontrado");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
         }
     }
 
@@ -59,10 +63,13 @@ function ContextProvider({ children }) {
                 throw new Error(`Erro ao buscar dados para o contentID ${contentID}`);
             }
         } catch (error) {
-            console.error(error);
-            if(error.response.status===401){
-                navigate("/")
-               }
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 404) {
+                alert("Não encontrado");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
         }
     }
 
@@ -70,7 +77,7 @@ function ContextProvider({ children }) {
         try {
             const response = await pegarExercicioPorId(exerciseID);
             if(response.status===401){
-                navigate('/')
+                navigate('/login')
             }
             if (response.status === 200) {
                 const exercicio = response.data
@@ -79,9 +86,11 @@ function ContextProvider({ children }) {
                 throw new Error(`Erro ao buscar dados para o exerciseID ${exerciseID}`);
             }
         } catch (error) {
-            if(error.response.status===401){
-                navigate("/")
-               }
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
         }
     }
 
@@ -89,17 +98,20 @@ function ContextProvider({ children }) {
         try {
             const response = await corrigirExercicio(exerciseID,respostas);
             if(response.status===401){
-                navigate('/')
+                navigate('/login')
             }
             if (response.status === 201) {
                 const feedback = response.data;
                 return feedback;
             } 
         } catch (error) {
-            if(error.response.status===401){
-                navigate("/")
-               }
-            console.log(error)
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 404) {
+                alert("Não encontrado");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
          
         }
     }
@@ -108,7 +120,7 @@ function ContextProvider({ children }) {
         try {
             const response = await atualizarConteudo(conteudoId,index);
             if(response.status===401){
-                navigate('/')
+                navigate('/login')
             }
             if (response.status === 204) {
                      
@@ -117,10 +129,13 @@ function ContextProvider({ children }) {
                 console.log(`Erro ao obter novo conteudo criado`);
             }
         } catch (error) {
-            console.error(error);
-            if(error.response.status===401){
-                navigate("/")
-               }
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 404) {
+                alert("Não encontrado");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
         }
     }
     
@@ -128,7 +143,7 @@ function ContextProvider({ children }) {
         try {
             const response = await pegarFeedbackDeExercicio(correctionID);
             if(response.status===401){
-                navigate('/')
+                navigate('/login')
             }
             if (response.status === 200) {
                 const feedback = response.data
@@ -137,10 +152,13 @@ function ContextProvider({ children }) {
                 throw new Error(`Erro ao retornar o feedback ${correctionID}`);
             }
         } catch (error) {
-            console.error(error);
-            if(error.response.status===401){
-                navigate("/")
-               }
+        if (error.response.status === 401) {
+            navigate("/login");
+        } else if (error.response.status === 404) {
+            alert("Não encontrado");
+        } else if (error.response.status === 500) {
+            alert("Ocorreu um erro do nosso lado. Já resolveremos");
+        }
         }
     }
 

@@ -33,7 +33,10 @@ function calcularTotalFeedbacks(listaDeObjetos) {
 }
 
 const MenuPendencia = ({ onSetExercicioPendente }) => {
-  const { data, error, isLoading } = useQuery('exerciciosPendentes', pegarExerciciosPendentes);
+  const { data, error, isLoading } = useQuery('exerciciosPendentes', pegarExerciciosPendentes,   {
+    retry: 1, // retry up to 4 times
+    refetchOnWindowFocus: false
+  });
   const navigate = useNavigate();
 
   if (isLoading) {

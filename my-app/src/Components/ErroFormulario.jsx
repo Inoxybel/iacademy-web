@@ -9,9 +9,9 @@ import React from "react";
 
 const ErroFormulario = ({ error }) => {
     return (
-        <Alert status="error" mb="4" color={"brown"}>
+        <Alert status="error" mb="2" color={"brown"}>
             <AlertIcon />
-            <AlertTitle >{error}</AlertTitle>
+            <AlertTitle fontSize="0.8rem" >{error}</AlertTitle>
         </Alert>
     )
 

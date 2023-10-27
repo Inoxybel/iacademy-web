@@ -12,6 +12,16 @@ max-height: 100vh;
 bottom: 0;
 transition: width 0.3s ease-in-out;
 overflow-x: hidden;
+color:white;
+
+h2 {
+    color:white;
+
+}
+
+Text {
+    color:white;
+}
 
 .container {
     flex:1;
@@ -21,6 +31,8 @@ overflow-x: hidden;
 
 .menu {
     flex-direction:column;
+    color:white;
+
 }
 
 .iconeMenu{
@@ -35,6 +47,8 @@ overflow-x: hidden;
      flex-direction:row;
      margin-top:30px;
      margin-bottom:20px;
+     color:white;
+
      gap:15px;
      align-items:'flex-start'; 
 }
@@ -83,22 +97,19 @@ overflow-x: hidden;
 }
 
 .listaMenu{
-    border:none;
+    border:0px;
     background:#575A77;
-    height:20px; 
     width:100%; 
-    margin-bottom:50px;
+    margin-bottom:3rem;
 }
 
 .itemMenu{
         background-color:#575A77;
         color:white;
-        font-size:18px;
-        font-size: 16px;
-        height:25px;
-        background:#575A77;
-        border-bottom: 1px;
-        border-color: black;
+        font-size:1rem;
+        font-size: 1rem;
+        height:1.5rem;
+        borde:0px;
 }
 
 .conteudoCorpo{

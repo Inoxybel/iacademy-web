@@ -1,7 +1,7 @@
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useReducer} from "react";
 import Cookies from "universal-cookie";
 import { estado,perfilReducer,CAMPO_ALTERAR,LISTA_INICIAR,SENHA_ALTERAR,LIMPAR_SENHA,SENHA_CONFIRMAR,LISTA_ATUALIZAR } from "./PerfilReducer";
-import { atualizarUsuario, pegarUsuarioPorId } from "../../services/Fetchers/FetchersUsuario";
+import { atualizarSenha, atualizarUsuario, pegarUsuarioPorId } from "../../services/Fetchers/FetchersUsuario";
 import { useNavigate } from "react-router-dom";
 
 
@@ -11,8 +11,8 @@ const usePerfil = ()=>{
   const userCoockie = cookies.get("user");
   const navigate = useNavigate();
   useEffect(() => {
+
     const fetchUserData = async () => {
-        
         const user = await pegarUsuarioPorIdController(userCoockie.id);
         try {
             const obj = {
@@ -64,8 +64,7 @@ async function atualizarUsuarioPorIdController(user_id,dados) {
   } catch (error) {
     if (error.response.status === 400) {
         const errorData = error.response.data;
-        return {result:errorData};
-
+        return {result:"ERRO",dados:errorData};
     } else if (error.response.status === 401) {
         navigate("/login");
     } else if (error.response.status === 404) {
@@ -76,11 +75,54 @@ async function atualizarUsuarioPorIdController(user_id,dados) {
     }
   }
 
-  
+  async function atualizarSenhaPorIdController(user_id,dados) {
+   
+    try {
+      const response = await atualizarSenha(user_id,dados);
+    
+      if (response.status === 204) {
+        return {result:"ATUALIZADO",dados:[]};
+      } 
+  } catch (error) {
+    if (error.response.status === 400) {
+        const errorData = error.response.data;
+       
+        return {result:"ERRO",dados:errorData};
+
+    } else if (error.response.status === 401) {
+        navigate("/login");
+    } else if (error.response.status === 404) {
+        alert("Não encontrado");
+    } else if (error.response.status === 500) {
+        alert("Ocorreu um erro do nosso lado. Já resolveremos");  
+    }
+    }
+  }
   
 
+  const verificaSenhasCoincidem = (senha,confirmacao)=>(senha===confirmacao?true:false)
+
+  const verificarCamposVazios = (senha, novaSenha, confirmacaoSenha) => {
+    if (senha !== "" && novaSenha !== "" && confirmacaoSenha !== "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   return{
-    state,dispatch,atualizarUsuarioPorIdController,pegarUsuarioPorIdController,CAMPO_ALTERAR,SENHA_ALTERAR,LIMPAR_SENHA,SENHA_CONFIRMAR,LISTA_ATUALIZAR
+    state,
+    dispatch,
+    atualizarUsuarioPorIdController,
+    atualizarSenhaPorIdController,
+    pegarUsuarioPorIdController,
+    CAMPO_ALTERAR,
+    SENHA_ALTERAR,
+    LIMPAR_SENHA,
+    SENHA_CONFIRMAR,
+    LISTA_ATUALIZAR,
+    verificaSenhasCoincidem,
+    verificarCamposVazios
   }
 }
 
