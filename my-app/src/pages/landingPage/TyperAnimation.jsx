@@ -1,6 +1,7 @@
 // TyperAnimation.js
 import React from "react";
 import { Cursor, useTypewriter } from 'react-simple-typewriter';
+
 import styles from "../styles";
 
 export default function TyperAnimation({frase}) {

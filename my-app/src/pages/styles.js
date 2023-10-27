@@ -128,7 +128,7 @@
      _hover:{ backgroundColor: "whiteAlpha.900", color: "black", textDecoration: "none", borderColor: "blue.700" } 
   },
   typeEffectFrase: {
-    fontSize:["3.5vw", "2.5vw", "2.0vw", "2.0vw", "1.4vw", "1.4vw"],
+    fontSize:["5px", "10px", "15px", "18px", "18px", "18px"],
     position:"relative", maxW:["50%", "90%","90%","90%","90%", "90%"],
     top:5, 
     left:["5%","10%","10%","10%","10%","10%"],

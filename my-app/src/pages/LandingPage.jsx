@@ -5,7 +5,8 @@ import {
     Flex,
     Image,
     Link,
-    Text
+    Text,
+    Heading
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import feedback from '../assets/feedback.png';
@@ -19,6 +20,7 @@ import Footer from "./landingPage/FooterLP.jsx";
 import Menu from "./landingPage/Menu";
 import TextoEImagem from "./landingPage/TextoEImagem";
 import TyperAnimation from "./landingPage/TyperAnimation";
+import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import styles from "./styles";
 
 import { useBreakpointValue } from "@chakra-ui/react";
@@ -62,10 +64,18 @@ export default function LandingPage() {
 
 
 
-                        <Box color="blue.900" h={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={["5%", "5%", "10%", "10%", "10%", "10%"]} top={["5%", "8%"]} maxW={["70%", "60%", "45%", "45%", "50%", "55%"]}>
-                            <Text fontSize={["5vw", "4vw", "2.5vw", "2.5vw", "2.5vw", "2.5vw"]} position={breakpoints <= "sm" ? "relative" : "absolute"} maxW={["100%", "100%", "100%", "100%", "100%", "100%"]}>Desenvolvendo habilidades da sua maneira</Text>
-                            <TyperAnimation key={sequenciaAtual} frase={frases[sequenciaAtual]}></TyperAnimation>
-                            <Button sx={styles.buttonExperimentar} onClick={() => {setSequenciaAtual(sequenciaAtual <= 2 ? sequenciaAtual + 1 : sequenciaAtual == 3 && 0)}}>Experimente!</Button>
+                        <Box color="blue.900" maxH={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={["5%", "5%", "10%", "10%", "10%", "10%"]} top={["5%", "8%"]} maxW={["70%", "60%", "45%", "45%", "50%", "55%"]}>
+                            <Card align='center'>
+                                <CardHeader>
+                                    <Heading fontSize={["5px", "10px", "15px", "28px", "48px", "48px"]} position={breakpoints <= "sm" ? "relative" : "absolute"} maxW={["100%", "100%", "100%", "100%", "100%", "100%"]}>Desenvolvendo habilidades da sua maneira</Heading>
+                                </CardHeader>
+                                <CardBody>
+                                <TyperAnimation fontSize={"12px"}key={sequenciaAtual} frase={frases[sequenciaAtual]}></TyperAnimation>
+                                </CardBody>
+                                <CardFooter>
+                                <Button sx={styles.buttonExperimentar} onClick={() => { setSequenciaAtual(sequenciaAtual <= 2 ? sequenciaAtual + 1 : sequenciaAtual == 3 && 0) }}>Experimente!</Button>
+                                </CardFooter>
+                            </Card>
                         </Box>
                     </Flex>
                 </Container>
