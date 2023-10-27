@@ -22,7 +22,9 @@ import { ChevronDownIcon, ArrowBackIcon } from '@chakra-ui/icons';
 import Menu from '../Menu';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import  Treinamento from './treinamento'
+import  Treinamento from './treinamento';
+
+
 
 const api = axios.create({
   baseURL:"https://iacademy-v1-api.azurewebsites.net"
@@ -40,8 +42,10 @@ function NextTreinamento() {
   const [subtopicos, setSubtopicos] = useState([]);
   const [topicoSelecionado, setTopicoSelecionado] = useState('');
   const [subtopicoSelecionado, setSubtopicoSelecionado] = useState('');
+  const [dados, setDados] = useState({ topics: [] });
   const navigate = useNavigate();
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNTkwMTEsImV4cCI6MTY5ODM2MjYxMSwiaWF0IjoxNjk4MzU5MDExfQ.lEcnKfPm2VzVHH4kZajBwjOgnvgksg3bwCdepMdlIx8"
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTgzNjc3MDYsImV4cCI6MTY5ODM3MTMwNiwiaWF0IjoxNjk4MzY3NzA2fQ.kxxcBKNZJFLEdCxdsZvg9pvpVBwmCjrAu0OpRcbvKKM"
+  const tokenUser = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiMjhhZjQ0OTQtNTA3MC00YmYyLWEzM2YtNmE0OTliYjIwY2JkIiwiRG9jdW1lbnQiOiI4NjkyMzIzMTAxOSIsIkNvbXBhbnlSZWYiOiJpYWNhZGVteSIsIlRleHRHZW5yZXMiOiJbXCJJbmZvcm1hdGl2b1wiLFwiRXhwbGljYXRpdm9cIixcIk5hcnJhdGl2b1wiLFwiQXJndW1lbnRhdGl2b1wiXSIsIm5iZiI6MTY5ODM2NzU3NCwiZXhwIjoxNjk4MzcxMTc0LCJpYXQiOjE2OTgzNjc1NzR9.451MdRmYpY0M0jh-61yW0PZohC8jnQDKDbUWPh6PsGg"
 
   const criarObj = () => {
     return {
@@ -90,38 +94,42 @@ function NextTreinamento() {
       try {
         const response = await api.get(`/api/summary/available`, {
           headers: {
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + tokenUser
           }
         });
-  
-        const dados = response.data;
-        console.log("ID da configuração: ", Treinamento.idConfiguracao);
-  
-        setTopicos(dados.topics.map((topico) => topico.title));
-  
-        if (dados.topics.length > 0) {
-          setSubtopicos(dados.topics[0].subtopics.map((subtopico) => subtopico.title));
+
+        if (response && response.data) {
+          const dados = response.data;
+          setDados(dados);
+          if (dados && dados.topics) {
+            setTopicos(dados.topics.map((topico) => topico.title));
+          }
+          
+          console.log("ID da configuração: ", Treinamento.idConfiguracao);
+        } else {
+          console.error('Resposta não definida ou sem dados.');
         }
       } catch (error) {
         console.error('Erro ao obter dados da API', error);
         console.log('Detalhes do Erro:', error.response.data);
       }
     };
-  
+
     fetchData();
-  }, [Treinamento.idConfiguracao, token]);
+  }, [Treinamento.idConfiguracao, tokenUser]);
+
+  console.log("topicos:", topicos);
+  console.log("Titulo: ",subtopicos.title)
+
+    const handleTopicoChange = (event) => {
+      const novoTopico = event.target.value;
+      setTopicoSelecionado(novoTopico);
   
-
-
-  const handleTopicoChange = (event) => {
-    const novoTopico = event.target.value;
-    setTopicoSelecionado(novoTopico);
-
-    const topicoCorrespondente = dados.topics.find((topico) => topico.title === novoTopico);
-    if (topicoCorrespondente) {
-      setSubtopicos(topicoCorrespondente.subtopics.map((subtopico) => subtopico.title));
-    }
-  };
+      const topicoCorrespondente = dados.topics.find((topico) => topico.title === novoTopico);
+      if (topicoCorrespondente) {
+        setSubtopicos(topicoCorrespondente.subtopics.map((subtopico) => subtopico.title));
+      }
+    };
 
   return (
     <Flex maxW="vw" mx="auto">
@@ -194,8 +202,8 @@ function NextTreinamento() {
                 color="black"
               >
                 {topicos.map((topico) => (
-                  <option key={topico} value={topico}>
-                    {topico}
+                  <option key={topicos} value={topicos}>
+                    {topicos.title}
                   </option>
                 ))}
               </Select>
@@ -210,7 +218,7 @@ function NextTreinamento() {
               >
                 {subtopicos.map((subtopico) => (
                   <option key={subtopico} value={subtopico}>
-                    {subtopico}
+                    {subtopico.title}
                   </option>
                 ))}
               </Select>
