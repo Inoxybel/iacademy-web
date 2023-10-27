@@ -41,9 +41,13 @@ function ContextProvider({ children }) {
                 return null;
             }
         } catch (error) {
-            if(error.response.status===401){
-                navigate("/login")
-               }
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 404) {
+                alert("Não encontrado");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
         }
     }
 
@@ -59,9 +63,13 @@ function ContextProvider({ children }) {
                 throw new Error(`Erro ao buscar dados para o contentID ${contentID}`);
             }
         } catch (error) {
-            if(error.response.status===401){
-                navigate("/login")
-               }
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 404) {
+                alert("Não encontrado");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
         }
     }
 
@@ -78,9 +86,11 @@ function ContextProvider({ children }) {
                 throw new Error(`Erro ao buscar dados para o exerciseID ${exerciseID}`);
             }
         } catch (error) {
-            if(error.response.status===401){
-                navigate("/login")
-               }
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
         }
     }
 
@@ -95,10 +105,13 @@ function ContextProvider({ children }) {
                 return feedback;
             } 
         } catch (error) {
-            if(error.response.status===401){
-                navigate("/login")
-               }
-            console.log(error)
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 404) {
+                alert("Não encontrado");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
          
         }
     }
@@ -116,10 +129,13 @@ function ContextProvider({ children }) {
                 console.log(`Erro ao obter novo conteudo criado`);
             }
         } catch (error) {
-            console.error(error);
-            if(error.response.status===401){
-                navigate("/login")
-               }
+            if (error.response.status === 401) {
+                navigate("/login");
+            } else if (error.response.status === 404) {
+                alert("Não encontrado");
+            } else if (error.response.status === 500) {
+                alert("Ocorreu um erro do nosso lado. Já resolveremos");
+            }
         }
     }
     
@@ -136,10 +152,13 @@ function ContextProvider({ children }) {
                 throw new Error(`Erro ao retornar o feedback ${correctionID}`);
             }
         } catch (error) {
-            console.error(error);
-            if(error.response.status===401){
-                navigate("/login")
-               }
+        if (error.response.status === 401) {
+            navigate("/login");
+        } else if (error.response.status === 404) {
+            alert("Não encontrado");
+        } else if (error.response.status === 500) {
+            alert("Ocorreu um erro do nosso lado. Já resolveremos");
+        }
         }
     }
 
