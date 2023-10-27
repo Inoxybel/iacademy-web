@@ -147,7 +147,6 @@ function NextTreinamento() {
 
   return (
     <Flex maxW="vw" mx="auto">
-      <Menu />
       <Flex>
         <ArrowBackIcon
           w={6}
