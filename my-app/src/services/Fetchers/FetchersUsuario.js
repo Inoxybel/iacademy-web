@@ -38,8 +38,20 @@ const atualizarUsuario = async (id,dados)=>{
     await setAuthorizationHeader(api);
     return api.put("/user/"+id,dados)
 }
+
+const pegarUsuarioPorId = async(id)=>{
+   await setAuthorizationHeader(api)
+   return api.get("/user/"+id)
+}
+
+const atualizarSenha = async(id,dados)=>{
+   await setAuthorizationHeader(api)
+   return api.put("/user/"+id+"/update-password",dados)
+}
 export {
     logar,
     cadastrar,
-    atualizarUsuario
+    atualizarUsuario,
+    pegarUsuarioPorId,
+    atualizarSenha
 }

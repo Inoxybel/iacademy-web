@@ -1,14 +1,18 @@
+import React from 'react'
+
 import {
-  Box, Flex, Icon, useMediaQuery, Text, Grid, Button
+  Flex, useMediaQuery, Text
 } from '@chakra-ui/react';
-import MenuEmpresa from '../../Components/MenuEmpresa';
-import SwitchPendencias from '../../Components/SwitchPendencias';
-import Grupos from '../../Components/Grupos';
-import AddGrupo from '../../Components/AddGrupo';
+import MenuEmpresa from '../../Components/Empresa/MenuEmpresa';
+import Grupos from '../../Components/Empresa/Grupos';
+import AddGrupo from '../../Components/Empresa/AddGrupo';
+import Treinamentos from '../../Components/Empresa/Treinamentos';
+import { useState } from 'react';
 
 export default function App() {
 
   const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
+  const [training, setTraining] = useState()
 
   const styles = {
     flex: {
@@ -21,14 +25,10 @@ export default function App() {
       paddingY: '2rem'
     },
     title: {
+      color: 'var(--primary-white)',
       fontSize: '1.5rem',
       fontWeight: 'bold',
       textAlign: 'center'
-    },
-    subTitle: {
-      fontSize: '1.4rem',
-      fontWeight: 'bold',
-      gridArea: '2 / 1 / 3 / 7',
     },
     trainingFlex: {
       width: '100%',
@@ -45,16 +45,6 @@ export default function App() {
       padding: '1rem',
       borderRadius: '0.2rem'
     },
-    grid: {
-      gridTemplateColumns: 'repeat(6, 1fr)',
-      gridTemplateRows: 'repeat(2, 1fr)',
-      gridColumnGap: '0px',
-      gridRowgap: '0px',
-      backgroundColor: 'var(--background-form)',
-      height: '6rem',
-      borderRadius: '0.2rem',
-      padding: '0.5rem',
-    },
   }
 
   return (
@@ -64,19 +54,12 @@ export default function App() {
       <Flex sx={styles.flex}>
         <Flex sx={styles.trainingFlex}>
           <Text as={'h2'} sx={styles.title}>Treinamentos</Text>
-          <Grid sx={styles.grid}>
-            <Text as={'h3'} sx={styles.subTitle}>{'MongoDB'}</Text>
-            <SwitchPendencias />
-          </Grid>
+          <Treinamentos setTraining={setTraining} />
         </Flex>
-
         <Flex sx={styles.groupsFlex}>
           <Text as={'h2'} sx={styles.title}>Grupos</Text>
-
-          <Grupos />
-
+          <Grupos training={training} />
           <AddGrupo />
-
         </Flex>
       </Flex >
     </>
