@@ -40,6 +40,7 @@ function NextTreinamento() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [topicos, setTopicos] = useState([]);
   const [subtopicos, setSubtopicos] = useState([]);
+  const [allSubtopics, setAllSubtopics] = useState([]);
   const [topicoSelecionado, setTopicoSelecionado] = useState('');
   const [subtopicoSelecionado, setSubtopicoSelecionado] = useState('');
   const [dados, setDados] = useState({ topics: [] });
@@ -64,7 +65,7 @@ function NextTreinamento() {
 
     try {
       
-      const resposta = await api.post("/api/ai/summary/create", obj, { headers: { 'Authorization': 'Bearer ' + token } });
+      const resposta = await api.post("/api/summary/enrolled", obj, { headers: { 'Authorization': 'Bearer ' + token } });
       if (resposta.status === 201) {
         console.log('Base criada com sucesso!');
         
@@ -97,14 +98,21 @@ function NextTreinamento() {
             'Authorization': 'Bearer ' + tokenUser
           }
         });
-
+  
         if (response && response.data) {
           const dados = response.data;
           setDados(dados);
+  
           if (dados && dados.topics) {
-            setTopicos(dados.topics.map((topico) => topico.title));
-          }
+            setTopicos(['Todos', ...dados.topics.map((topico) => topico.title)]);
           
+            const subtópicos = dados.topics.flatMap((topico) =>
+              topico.subtopics ? topico.subtopics.map((subtopico) => subtopico.title) : []
+            );
+          
+            setAllSubtopics(subtópicos);
+          }
+  
           console.log("ID da configuração: ", Treinamento.idConfiguracao);
         } else {
           console.error('Resposta não definida ou sem dados.');
@@ -114,22 +122,28 @@ function NextTreinamento() {
         console.log('Detalhes do Erro:', error.response.data);
       }
     };
-
+  
     fetchData();
   }, [Treinamento.idConfiguracao, tokenUser]);
-
-  console.log("topicos:", topicos);
-  console.log("Titulo: ",subtopicos.title)
-
-    const handleTopicoChange = (event) => {
-      const novoTopico = event.target.value;
-      setTopicoSelecionado(novoTopico);
   
+  const handleTopicoChange = (event) => {
+    const novoTopico = event.target.value;
+    setTopicoSelecionado(novoTopico);
+  
+    // Verifique se dados.topics e subtopicos estão definidos antes de chamar map
+    if (novoTopico === 'Todos') {
+      setSubtopicos(allSubtopics);
+    } else {
       const topicoCorrespondente = dados.topics.find((topico) => topico.title === novoTopico);
-      if (topicoCorrespondente) {
+  
+      if (topicoCorrespondente && topicoCorrespondente.subtopics) {
         setSubtopicos(topicoCorrespondente.subtopics.map((subtopico) => subtopico.title));
+      } else {
+        setSubtopicos([]); // ou qualquer valor padrão desejado se subtopics não estiver definido
       }
-    };
+      console.log()
+    }
+  };
 
   return (
     <Flex maxW="vw" mx="auto">
@@ -192,7 +206,7 @@ function NextTreinamento() {
               Subtópico:
             </Heading>
             <Flex mb={'1rem'}>
-              <Select
+            <Select
                 placeholder="Selecione Tópico"
                 value={topicoSelecionado}
                 onChange={handleTopicoChange}
@@ -202,8 +216,8 @@ function NextTreinamento() {
                 color="black"
               >
                 {topicos.map((topico) => (
-                  <option key={topicos} value={topicos}>
-                    {topicos.title}
+                  <option key={topico} value={topico}>
+                    {topico}
                   </option>
                 ))}
               </Select>
@@ -218,7 +232,7 @@ function NextTreinamento() {
               >
                 {subtopicos.map((subtopico) => (
                   <option key={subtopico} value={subtopico}>
-                    {subtopico.title}
+                    {subtopico}
                   </option>
                 ))}
               </Select>
