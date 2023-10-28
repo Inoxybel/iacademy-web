@@ -47,10 +47,11 @@ function NextTreinamento() {
   const [listaId, setListaId] =useState([]);
   const [id, setId] = useState("");
   const [subtopicIndexMap, setSubtopicIndexMap] = useState({});
+  const [subtopicIndex, setSubtopicIndex] = useState(null);
 
   const navigate = useNavigate();
   
-  const tokenAPI="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0NjgwMzcsImV4cCI6MTY5ODQ3MTYzNywiaWF0IjoxNjk4NDY4MDM3fQ.qa6MMpp3C34n3PeiJydJOk89BAsupmehi_rH0Jgbubs"
+  const tokenAPI="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MDc0OTIsImV4cCI6MTY5ODUxMTA5MiwiaWF0IjoxNjk4NTA3NDkyfQ.zgAHpz6ocMZKeoEJEe1KeGeIvGhonaTkCJoOu7_9FHM"
 
   const cookies = new Cookies();
 
@@ -133,22 +134,23 @@ function NextTreinamento() {
   //     console.log('Detalhes do Erro:', error.response);
   //   }
   // }
-  // buscarAPI();
-  // },[])
-  // function objSelect(
-  //   return{
-  //     subtopicIndex: 
-  //   }
-  // }'
+//  buscarAPI();
+//  },[])
+function objSelect(){
+  return{
+    subtopicIndex: subtopicoSelecionado ? subtopicIndexMap[subtopicoSelecionado] : null
+  }
+}
+
 
   const enviarObjetoPorSubtopico = async () => {
+    const obj = objSelect();
     try {
       console.log("Id que está sendo enviado para create-content-by-subtopic", id)
-      console.log('Objeto enviado com sucesso!', subtopicIndexMap.index);
-      const resposta = await api.post(`/api/ai/summary/${id}/create-content-by-subtopic`,subtopicIndexMap.index, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
+      console.log('Objeto enviado com sucesso!', obj);
+      const resposta = await api.post(`/api/ai/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd/create-content-by-subtopic`,obj, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
       if (resposta.status === 201) {
         console.log('Objeto enviado com sucesso!', subtopicIndexMap);
-        // Faça algo com a resposta se necessário
       } else {
         console.error('Erro ao enviar objeto:', resposta.statusText);
       }
@@ -161,50 +163,58 @@ function NextTreinamento() {
 
 
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const idIdentificacao = localStorage.getItem('id_configuracao');
-      setIdentificacao(idIdentificacao);
-      await setAuthorizationHeader(api);
-      console.log(id);
-      const response = await api.get(`/api/summary/${id}`);
-      if (response && response.data) {
-        const dados = response.data;
-        setDados(dados);
-        if (dados && dados.topics) {
-          const subtopicMap = {};
-
-          // Cria um mapeamento de títulos para índices dos sub-tópicos
-          dados.topics.forEach((topico) => {
-            if (topico.subtopics) {
-              topico.subtopics.forEach((subtopico) => {
-                subtopicMap[subtopico.title] = subtopico.index;
-              });
-            }
-          });
-
-          // Atualiza o estado com o mapeamento
-          setSubtopicIndexMap(subtopicMap);
-
-          setTopicos(['Todos', ...dados.topics.map((topico) => topico.title)]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const idIdentificacao = localStorage.getItem('id_configuracao');
+        setIdentificacao(idIdentificacao);
+        await setAuthorizationHeader(api);
+        const response = await api.get(`/api/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd`);
+        
+        if (response && response.data) {
+          const dados = response.data;
+          setDados(dados);
           
-          const subtópicos = dados.topics.flatMap((topico) =>
-            topico.subtopics ? topico.subtopics.map((subtopico) => subtopico.title) : []
-          );
-          setAllSubtopics(subtópicos);
+          if (dados && dados.topics) {
+            const subtopicMap = {};
+            
+            // Cria um mapeamento de títulos para índices dos sub-tópicos
+            dados.topics.forEach((topico) => {
+              if (topico.subtopics) {
+                topico.subtopics.forEach((subtopico) => {
+                  subtopicMap[subtopico.title] = subtopico.index;
+                });
+              }
+            });
+  
+            // Atualiza o estado com o mapeamento
+            setSubtopicIndexMap(subtopicMap);
+  
+            setTopicos(['Todos', ...dados.topics.map((topico) => topico.title)]);
+            
+            const subtópicos = dados.topics.flatMap((topico) =>
+              topico.subtopics ? topico.subtopics.map((subtopico) => subtopico.title) : []
+            );
+            setAllSubtopics(subtópicos);
+  
+            // Verifica se há um sub-tópico selecionado e atualiza o estado
+            if (subtopicoSelecionado) {
+              const selectedSubtopicIndex = subtopicMap[subtopicoSelecionado];
+              setSubtopicIndex(selectedSubtopicIndex);
+            }
+          }
+        } else {
+          console.error('Resposta não definida ou sem dados.');
         }
-      } else {
-        console.error('Resposta não definida ou sem dados.');
+      } catch (error) {
+        console.error('Erro ao obter dados da API', error);
+        console.log('Detalhes do Erro:', error.response);
       }
-    } catch (error) {
-      console.error('Erro ao obter dados da API', error);
-      console.log('Detalhes do Erro:', error.response);
-    }
-  };
-
-  fetchData();
-}, [id]);
+    };
+  
+    fetchData();
+  }, [id, subtopicoSelecionado]);
+  
 
 
   
@@ -223,8 +233,15 @@ useEffect(() => {
       } else {
         setSubtopicos([]); // ou qualquer valor padrão desejado se subtopics não estiver definido
       }
-      console.log()
     }
+  };
+  
+  const handleSubtopicoChange = (event) => {
+    setSubtopicoSelecionado(event.target.value);
+  
+    // Obtenha o índice do sub-tópico selecionado e atualize o estado
+    const selectedSubtopicIndex = subtopicIndexMap[event.target.value];
+    setSubtopicIndex(selectedSubtopicIndex);
   };
 
   return (

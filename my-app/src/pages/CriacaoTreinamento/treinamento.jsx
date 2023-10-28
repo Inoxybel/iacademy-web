@@ -56,7 +56,7 @@ function Treinamento() {
   const [idConfiguracao, setIdConfiguracao] = useState('');  
   const [selectedConfig, setSelectedConfig] = useState(null);
  
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0NTc0MDUsImV4cCI6MTY5ODQ2MTAwNSwiaWF0IjoxNjk4NDU3NDA1fQ.GzNjlTMP7NgTY0BLZU402kDTmebtsAc6oVWJ1CgVwl4"
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MDc0OTIsImV4cCI6MTY5ODUxMTA5MiwiaWF0IjoxNjk4NTA3NDkyfQ.zgAHpz6ocMZKeoEJEe1KeGeIvGhonaTkCJoOu7_9FHM"
   
   useEffect(() => {
     const fetchData = async () => {
