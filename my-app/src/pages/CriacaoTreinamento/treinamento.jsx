@@ -55,26 +55,25 @@ function Treinamento() {
   const [objNomeConfiguracao, setObjNomeConfiguracao] = useState('');
   const [idConfiguracao, setIdConfiguracao] = useState('');  
   const [selectedConfig, setSelectedConfig] = useState(null);
- 
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MDc0OTIsImV4cCI6MTY5ODUxMTA5MiwiaWF0IjoxNjk4NTA3NDkyfQ.zgAHpz6ocMZKeoEJEe1KeGeIvGhonaTkCJoOu7_9FHM"
-  
+  const tokenAPI = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MTY5NTcsImV4cCI6MTY5ODUyMDU1NywiaWF0IjoxNjk4NTE2OTU3fQ.b9EeyAVCvVPr2XTPU2W4ISFQI2xqC_coBCIEZVWXbkY"
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.get("/api/configurations", {
           headers: {
-            'Authorization': 'Bearer ' + token,
+            'Authorization': 'Bearer ' + tokenAPI,
           },
-        }); 
+        });
         setData(response.data.data);
       } catch (error) {
         console.error('Erro ao obter configurações', error);
+        console.log("o token é: ", tokenAPI);
       }
     };
-  
     fetchData();
   }, []);
-
+  
   const onSelect = (configSelecionada) => {
     if (configSelecionada) {
       setSelectedConfig(configSelecionada);
@@ -104,14 +103,14 @@ function Treinamento() {
         console.log('Fazendo requisição para:', `/api/configurations/${id}`);
         response = await api.get(`/api/configurations/${id}`, {
           headers: {
-            'Authorization': 'Bearer ' + token,
+            'Authorization': 'Bearer ' + tokenAPI,
           },
         });
       } else {
         console.log('Fazendo requisição para:', '/api/configurations');
         response = await api.get("/api/configurations", {
           headers: {
-            'Authorization': 'Bearer ' + token,
+            'Authorization': 'Bearer ' + tokenAPI,
           },
         });
       }
@@ -254,8 +253,8 @@ function Treinamento() {
   
     try {
       const resposta = idConfiguracao
-        ? await api.put(`/api/configurations/${idConfiguracao}`, configuracaoObjeto, { headers: { 'Authorization': 'Bearer ' + token } })
-        : await api.post("/api/configurations", configuracaoObjeto, { headers: { 'Authorization': 'Bearer ' + token } });
+        ? await api.put(`/api/configurations/${idConfiguracao}`, configuracaoObjeto, { headers: { 'Authorization': 'Bearer ' + tokenAPI } })
+        : await api.post("/api/configurations", configuracaoObjeto, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
   
       if (resposta.status === 200 || resposta.status === 201) {
         console.log('Configuração salva com sucesso!');
@@ -294,7 +293,7 @@ function Treinamento() {
       }   localStorage.setItem('id_configuracao', id); }
 
   return (
-    <Flex maxW='vw' mx="auto" direction={"column"} gap="4rem" p={"1rem"}>
+    <Flex maxW='vw' mx="auto" direction={"column"} gap="4rem" p={"1rem"} color="white">
       <Heading>Criar novo Treinamento</Heading>
       <VStack alignItems={"center"} bg={"#282B38"} p="4" gap="2rem" borderRadius={7}>
         <Heading size={12}>Configuração</Heading>      

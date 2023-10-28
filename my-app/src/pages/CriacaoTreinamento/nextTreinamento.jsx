@@ -52,7 +52,8 @@ function NextTreinamento() {
   const [exercicioInfo, setExercicioInfo] = useState({
     question: '',
   });
-  const [tokenAPI, setTokenAPI]=useState("");
+  const tokenAPI = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MTY5NTcsImV4cCI6MTY5ODUyMDU1NywiaWF0IjoxNjk4NTE2OTU3fQ.b9EeyAVCvVPr2XTPU2W4ISFQI2xqC_coBCIEZVWXbkY"
+
   
   const navigate = useNavigate();
   
@@ -129,7 +130,7 @@ const enviarObjetoPorSubtopico = async () => {
   try {
     console.log("Id que está sendo enviado para create-content-by-subtopic", id);
     console.log('Objeto enviado com sucesso!', obj);
-    const resposta = await api.post(`/api/ai/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd/create-content-by-subtopic`, obj, { headers: { 'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MTQ0ODAsImV4cCI6MTY5ODUxODA4MCwiaWF0IjoxNjk4NTE0NDgwfQ.8XeXXFFjL1vZXb1bDI7wAjev4AygJcG-ONZ07W7O70o" } });
+    const resposta = await api.post(`/api/ai/summary/${id}/create-content-by-subtopic`, obj, { headers: { 'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MTQ0ODAsImV4cCI6MTY5ODUxODA4MCwiaWF0IjoxNjk4NTE0NDgwfQ.8XeXXFFjL1vZXb1bDI7wAjev4AygJcG-ONZ07W7O70o" } });
 
     if (resposta.status === 201) {
       console.log('Objeto enviado com sucesso!', subtopicIndexMap);
@@ -154,7 +155,7 @@ useEffect(() => {
       const idIdentificacao = localStorage.getItem('id_configuracao');
       setIdentificacao(idIdentificacao);
       await setAuthorizationHeader(api);
-      const response = await api.get(`/api/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd`);
+      const response = await api.get(`/api/summary/${id}`);
       
       if (response && response.data) {
         const dados = response.data;
@@ -210,28 +211,9 @@ useEffect(() => {
       console.log('Detalhes do Erro:', error.response);
     }
   };
-  const getMasterToken = async () => {
-    try {
-      const response = await api.post('/api/token/get-master-token');
-      const newToken = response.data; // Substitua por como você obtém o token do response
-
-      // Atualize o estado com o novo token
-      setTokenAPI(newToken);
-
-      // Configure um temporizador para a próxima atualização antes que o token expire
-      const nextUpdate = 50 * 60 * 1000; // 50 minutos em milissegundos
-      setTimeout(getMasterToken, nextUpdate);
-    } catch (error) {
-      console.error('Erro ao obter o token master:', error.message);
-    }
-  };
-
-  // Inicialize a primeira chamada para obter o token master
-  getMasterToken();
-
-  // Execute fetchData ao montar o componente e sempre que id, subtopicoSelecionado ou exercicioInfo mudar
+ 
   fetchData();
-}, [id, subtopicoSelecionado, exercicioInfo]);
+}, [id, subtopicoSelecionado, exercicioInfo, tokenAPI]);
 
 
   
