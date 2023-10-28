@@ -44,15 +44,18 @@ function NextTreinamento() {
   const [topicoSelecionado, setTopicoSelecionado] = useState('');
   const [subtopicoSelecionado, setSubtopicoSelecionado] = useState('');
   const [dados, setDados] = useState({ topics: [] });
-  const [listaId, setListaId] =useState([]);
+  const [propriedadesSubtopico, setPropriedadesSubtopico] = useState(null);
   const [id, setId] = useState("");
   const [subtopicIndexMap, setSubtopicIndexMap] = useState({});
   const [subtopicIndex, setSubtopicIndex] = useState(null);
-
+  const [exerciseId, setExercise]=useState("");
+  const [exercicioInfo, setExercicioInfo] = useState({
+    question: '',
+  });
+  const [tokenAPI, setTokenAPI]=useState("");
+  
   const navigate = useNavigate();
   
-  const tokenAPI="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MDc0OTIsImV4cCI6MTY5ODUxMTA5MiwiaWF0IjoxNjk4NTA3NDkyfQ.zgAHpz6ocMZKeoEJEe1KeGeIvGhonaTkCJoOu7_9FHM"
-
   const cookies = new Cookies();
 
 
@@ -143,80 +146,125 @@ function objSelect(){
 }
 
 
-  const enviarObjetoPorSubtopico = async () => {
-    const obj = objSelect();
-    try {
-      console.log("Id que está sendo enviado para create-content-by-subtopic", id)
-      console.log('Objeto enviado com sucesso!', obj);
-      const resposta = await api.post(`/api/ai/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd/create-content-by-subtopic`,obj, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
-      if (resposta.status === 201) {
-        console.log('Objeto enviado com sucesso!', subtopicIndexMap);
-      } else {
-        console.error('Erro ao enviar objeto:', resposta.statusText);
-      }
+const enviarObjetoPorSubtopico = async () => {
+  const obj = objSelect();
+  try {
+    console.log("Id que está sendo enviado para create-content-by-subtopic", id);
+    console.log('Objeto enviado com sucesso!', obj);
+    const resposta = await api.post(`/api/ai/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd/create-content-by-subtopic`, obj, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
 
-    } catch (erro) {
-      console.error('Erro na requisição:', erro.message);
-      console.log('Detalhes do Erro:', erro.response);
+    if (resposta.status === 201) {
+      console.log('Objeto enviado com sucesso!', subtopicIndexMap);
+
+      // Se a operação for bem-sucedida, obtenha as informações do exercício
+      if (subtopicIndexMap.index) {
+        const exerciseInfo = await fetchExerciseInfo(subtopicIndexMap.index);
+        
+        // Armazene as informações do exercício no estado ou em qualquer lugar necessário
+        setExercicioInfo(exerciseInfo);
+      }
+    } else {
+      console.error('Erro ao enviar objeto:', resposta.statusText);
+    }
+  } catch (erro) {
+    console.error('Erro na requisição:', erro.message);
+    console.log('Detalhes do Erro:', erro.response);
+  }
+};
+
+
+
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const idIdentificacao = localStorage.getItem('id_configuracao');
+      setIdentificacao(idIdentificacao);
+      await setAuthorizationHeader(api);
+      const response = await api.get(`/api/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd`);
+      
+      if (response && response.data) {
+        const dados = response.data;
+        setDados(dados);
+        
+        if (dados && dados.topics) {
+          const subtopicMap = {};
+          
+          // Cria um mapeamento de títulos para índices dos sub-tópicos
+          dados.topics.forEach((topico) => {
+            if (topico.subtopics) {
+              topico.subtopics.forEach((subtopico) => {
+                subtopicMap[subtopico.title] = subtopico.index;
+              });
+            }
+          });
+
+          // Atualiza o estado com o mapeamento
+          setSubtopicIndexMap(subtopicMap);
+
+          setTopicos(['Todos', ...dados.topics.map((topico) => topico.title)]);
+          
+          const subtópicos = dados.topics.flatMap((topico) =>
+            topico.subtopics ? topico.subtopics.map((subtopico) => subtopico.title) : []
+          );
+          setAllSubtopics(subtópicos);
+
+          // Verifica se há um sub-tópico selecionado e atualiza o estado
+          if (subtopicoSelecionado) {
+            const selectedSubtopicIndex = subtopicMap[subtopicoSelecionado];
+            setSubtopicIndex(selectedSubtopicIndex);
+          }
+        }
+      } else {
+        console.error('Resposta não definida ou sem dados.');
+      }
+    } catch (error) {
+      console.error('Erro ao obter dados da API', error);
+      console.log('Detalhes do Erro:', error.response);
+    }
+  };
+  const getMasterToken = async () => {
+    try {
+      const response = await api.post('/api/token/get-master-token');
+      const newToken = response.data; // Substitua por como você obtém o token do response
+
+      // Atualize o estado com o novo token
+      setTokenAPI(newToken);
+
+      // Configure um temporizador para a próxima atualização antes que o token expire
+      const nextUpdate = 50 * 60 * 1000; // 50 minutos em milissegundos
+      setTimeout(getMasterToken, nextUpdate);
+    } catch (error) {
+      console.error('Erro ao obter o token master:', error.message);
     }
   };
 
+  // Inicialize a primeira chamada para obter o token master
+  getMasterToken();
+
+  // Execute fetchData ao montar o componente e sempre que id, subtopicoSelecionado ou exercicioInfo mudar
+  fetchData();
+}, [id, subtopicoSelecionado, exercicioInfo]);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const idIdentificacao = localStorage.getItem('id_configuracao');
-        setIdentificacao(idIdentificacao);
-        await setAuthorizationHeader(api);
-        const response = await api.get(`/api/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd`);
-        
-        if (response && response.data) {
-          const dados = response.data;
-          setDados(dados);
-          
-          if (dados && dados.topics) {
-            const subtopicMap = {};
-            
-            // Cria um mapeamento de títulos para índices dos sub-tópicos
-            dados.topics.forEach((topico) => {
-              if (topico.subtopics) {
-                topico.subtopics.forEach((subtopico) => {
-                  subtopicMap[subtopico.title] = subtopico.index;
-                });
-              }
-            });
-  
-            // Atualiza o estado com o mapeamento
-            setSubtopicIndexMap(subtopicMap);
-  
-            setTopicos(['Todos', ...dados.topics.map((topico) => topico.title)]);
-            
-            const subtópicos = dados.topics.flatMap((topico) =>
-              topico.subtopics ? topico.subtopics.map((subtopico) => subtopico.title) : []
-            );
-            setAllSubtopics(subtópicos);
-  
-            // Verifica se há um sub-tópico selecionado e atualiza o estado
-            if (subtopicoSelecionado) {
-              const selectedSubtopicIndex = subtopicMap[subtopicoSelecionado];
-              setSubtopicIndex(selectedSubtopicIndex);
-            }
-          }
-        } else {
-          console.error('Resposta não definida ou sem dados.');
-        }
-      } catch (error) {
-        console.error('Erro ao obter dados da API', error);
-        console.log('Detalhes do Erro:', error.response);
-      }
-    };
-  
-    fetchData();
-  }, [id, subtopicoSelecionado]);
   
 
-
+  const fetchExerciseInfo = async (exerciseId) => {
+    try {
+      await setAuthorizationHeader(api);
+      const exerciseResponse = await api.get(`/api/exercise/${exerciseId}`);
+      const exerciseData = exerciseResponse.data;
+  
+      return {
+        question: exerciseData.exercises[0].question,
+        // outras propriedades que você deseja retornar
+      };
+    } catch (error) {
+      console.error('Erro ao obter informações do exercício', error);
+      throw error;
+    }
+  };
+  
   
   const handleTopicoChange = (event) => {
     const novoTopico = event.target.value;
@@ -338,7 +386,13 @@ function objSelect(){
                   </option>
                 ))}
               </Select>
-              <Button ml="5" bg="#3C485A" color={'white'} onClick={enviarObjetoPorSubtopico}>
+              <Button
+                ml="5"
+                bg="#3C485A"
+                color={'white'}
+                onClick={enviarObjetoPorSubtopico}
+                disabled={!propriedadesSubtopico}
+              >
                 Criar
               </Button>
             </Flex>
@@ -348,7 +402,16 @@ function objSelect(){
             <Heading as="h3" size="sm" mb="0.5rem">
               Exercícios:
             </Heading>
-            <Textarea placeholder="Here is a sample placeholder" size="lg" bg="white" minH="390px" color="black" />
+            <Textarea
+                placeholder="Here is a sample placeholder"
+                size="lg"
+                bg="white"
+                minH="340px"
+                color="black"
+                value={exercicioInfo.question}
+                readOnly={!exercicioInfo.question}
+              />
+
           </GridItem>
         </Grid>
       </Flex>
