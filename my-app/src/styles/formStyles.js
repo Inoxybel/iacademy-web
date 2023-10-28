@@ -22,11 +22,11 @@ export default {
   formTitle: {
     as: 'h1',
     my: '15',
-    color: 'var(--primary-white)',
+    color: 'var(--primary-fontColor)',
   },
 
   formLink: {
-    color: 'var(--tertiary-color)',
+    color: 'var(--primary-color)',
   },
 
   formLabel: {
@@ -50,7 +50,7 @@ export default {
     color: 'white',
     display: 'flex',
     flexDirection: 'column',
-    bg: 'var(--backgroud-form)',
+    bg: 'var(--background-form)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -68,21 +68,9 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignSelf: 'center',
-    bg: 'var(--backgroud-form)',
+    bg: 'var(--background-form)',
     mt: 5,
     mb: 6,
-  },
-
-  buttonEnviar: {
-    h: '2rem',
-    minW: '30%',
-    mt: 4,
-    bg: 'var(--backgroud-button)',
-    color: 'var(--primary-white)',
-    _hover: {
-      color: 'var(--primary-black)',
-      backgroundColor: 'var(--primary-white)',
-    },
   },
 
   formError: {

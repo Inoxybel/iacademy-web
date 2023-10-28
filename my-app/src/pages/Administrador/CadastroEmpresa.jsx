@@ -83,7 +83,7 @@ function Cadastro() {
             name="companyName"
             placeholder="Nome da Empresa"
             onChange={handleInputChange}
-            variant="filled" />
+          />
         </FormControl>
         <FormControl id="cnpj"  >
           <FormLabel >CNPJ</FormLabel>
@@ -93,7 +93,7 @@ function Cadastro() {
             name="cnpj"
             placeholder="CNPJ"
             onChange={handleInputChange}
-            variant="filled" />
+          />
         </FormControl>
         <FormControl id="email" >
           <FormLabel >Email</FormLabel>
@@ -103,7 +103,7 @@ function Cadastro() {
             name="email"
             placeholder="E-mail"
             onChange={handleInputChange}
-            variant="filled" />
+          />
         </FormControl>
         <FormControl id="password" >
           <FormLabel >Senha</FormLabel>
@@ -113,7 +113,7 @@ function Cadastro() {
             name="password"
             placeholder="Senha"
             onChange={handleInputChange}
-            variant="filled" />
+          />
         </FormControl>
         <FormControl id="confirmPassword" >
           <FormLabel >Confirmar Senha</FormLabel>
@@ -123,7 +123,7 @@ function Cadastro() {
             name="confirmPassword"
             placeholder="Confirmar senha"
             onChange={handleInputChange}
-            variant="filled" />
+          />
         </FormControl>
         <Button
           onClick={() => {

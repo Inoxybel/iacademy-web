@@ -1,4 +1,6 @@
 import React from 'react'
+import Cookies from 'universal-cookie';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, FormControl, FormLabel, Icon, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay, Switch, useDisclosure } from '@chakra-ui/react';
 import { BsDownload } from 'react-icons/bs';
@@ -9,13 +11,23 @@ export default function () {
     height: '2rem',
     width: '2rem',
     background: "none",
-    color: "var(--primary-white)",
+    color: "var(--primary-fontColor)",
     cursor: 'pointer',
     _hover: {
-      color: 'var(--background-button)'
+      color: 'var(--background-color)',
     }
   }
 
+  const cookies = new Cookies()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    cookies.remove('token');
+    cookies.remove('token');
+    cookies.remove('tokenExpiration');
+    onClose();
+    navigate('/empresa/login');
+  };
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -38,7 +50,7 @@ export default function () {
             <Button size='sm' mr={3} onClick={onClose}>
               Nao
             </Button>
-            <Button size='sm' colorScheme='green' onClick={onClose}>Sim</Button>
+            <Button size='sm' colorScheme='green' onClick={handleLogout}>Sim</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -18,16 +18,36 @@ async function setAuthorizationHeader(api) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
 }
-const api = axios.create({
-  baseURL: 'https://iacademy-company-v1-api.azurewebsites.net/api',
+
+const userApi = axios.create({
+  baseURL: 'https://iacademy-user-v1-api.azurewebsites.net/api',
 });
 
+const api = axios.create({
+  baseURL: 'https://iacademy-v1-api.azurewebsites.net/api',
+});
+
+const getTrainings = async () => {
+  await setAuthorizationHeader(api);
+  return api.get('/summary/company/available');
+};
+
+const getCompanyById = async id => {
+  let token = await getTokenAsync();
+  return userApi.get(`/company/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
 const companyLogin = dados => {
-  return api.post(`/company/login`, dados);
+  return userApi.post(`/company/login`, dados);
 };
 
 const companyRegister = dados => {
-  return api.post('/company', dados, {
+  return userApi.post('/company', dados, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -37,12 +57,13 @@ const companyRegister = dados => {
 
 const editCompany = async (id, dados) => {
   await setAuthorizationHeader(api);
-  return api.put('/company/' + id, dados);
+  return userApi.put('/company/' + id, dados);
 };
 
-const getCompanyById = async id => {
-  await setAuthorizationHeader(api);
-  return api.get('/company/' + id);
+export {
+  getTrainings,
+  companyLogin,
+  companyRegister,
+  editCompany,
+  getCompanyById,
 };
-
-export { companyLogin, companyRegister, editCompany, getCompanyById };

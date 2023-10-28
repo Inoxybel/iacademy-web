@@ -103,7 +103,7 @@ function Login({ setAuthenticated }) {
           Entrar
         </Button>
       </Box>
-      <Text sx={{ m: 3, color: 'var(--primary-white)' }}>
+      <Text sx={{ m: 3, color: 'var(--primary-fontColor)' }}>
         Não tem uma conta? <Link onClick={() => navigate("/cadastro")} as={'span'} sx={formStyles.formLink}>Cadastre-se aqui</Link>
       </Text>
     </Container>

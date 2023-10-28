@@ -12,11 +12,10 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import AddColaborador from './AddColaborador'
-import data from "../../../json/grupos.json"
 import { useState } from 'react'
-import axios from 'axios';
-import { useQuery } from 'react-query';
-import { getCompanyById } from '../../services/Fetchers/FetchersCompany';
+import { getCompanyById } from '../../services/Fetchers/FetchersCompany'
+import { useQuery } from 'react-query'
+import Cookies from 'universal-cookie'
 
 export default function ({ training }) {
 
@@ -26,12 +25,10 @@ export default function ({ training }) {
     setGroup()
   }
 
-  const grupos = data.Items
-
   const styles = {
     card: {
       backgroundColor: 'var(--background-card)',
-      color: 'var(--primary-white)',
+      color: 'var(--primary-fontColor)',
       padding: '0.5rem',
       height: '5rem',
       borderRadius: '0.2rem',
@@ -44,34 +41,38 @@ export default function ({ training }) {
     },
     modal: {
       backgroundColor: 'var(--background-form)',
-      color: 'var(--primary-color)'
     }
   }
 
-  // GET DA EMPRESA PARA ACESSAR E LISTAR GRUPOS
+  const cookies = new Cookies();
 
-  // const api = axios.create({ baseURL: "https://iacademy-company-v1-api.azurewebsites.net/api" })
+  const token = cookies.get('token');
 
-  // const { isLoading, error, data } = useQuery('companyData', getCompanyById)
+  const jwtPayload = JSON.parse(atob(token.split('.')[1]));
+  const companyId = jwtPayload.Id;
 
-  // if (isLoading) return 'Loading...'
+  const { isLoading, error, data } = useQuery('companyData', getCompanyById(companyId))
 
-  // if (error) return 'An error has occurred: ' + error.message
+  if (isLoading) return 'Loading...'
+
+  if (error) return 'An error has occurred: ' + error.message
+
+  let companyGroups = data.groups
+  console.log(companyGroups)
 
   return (
+
     <Flex sx={{ flexDirection: 'column', gap: '1rem' }}>
-      {
-        grupos.filter(elem => training ? training.GroupsId.includes(elem.id) : true).map((elem, index) =>
-          <Box as='button' key={index} onClick={() => {
-            setGroup(elem)
-          }} sx={styles.card}>
-            <Box>
-              <Text as={'h3'} sx={styles.subTitle2}>{elem.GroupName}</Text>
-              <Text as={'span'}> {elem.TotalAcess} Acessos / {elem.Employees.length} Colaboradores</Text>
-            </Box>
-          </Box >
-        )
-      }
+      {!companyGroups ? <Text sx={{ color: 'var(--primary-fontColor)' }}>Nao ha grupo de Colaboradores Vinculados a este Treinamento.</Text> : companyGroups.filter(elem => training ? training.GroupsId.includes(elem.id) : true).map((elem, index) =>
+        <Box as='button' key={index} onClick={() => {
+          setGroup(elem)
+        }} sx={styles.card}>
+          <Box>
+            <Text as={'h3'} sx={styles.subTitle2}>{elem.GroupName}</Text>
+            <Text as={'span'}> {elem.TotalAcess} Acessos / {elem.Employees.length} Colaboradores</Text>
+          </Box>
+        </Box >
+      )}
       <Modal isOpen={Boolean(group)} onClose={close} size='lg' colorScheme='gray'>
         <ModalOverlay />
         <ModalContent>

@@ -26,7 +26,7 @@ function Login({ setAuthenticated }) {
       py: 8,
     },
     formTitle: {
-      color: 'var(--primary-white)'
+      color: 'var(--primary-fontColor)'
     },
     formControl: {
       w: '15rem',
@@ -57,7 +57,7 @@ function Login({ setAuthenticated }) {
       color: 'white',
       display: 'flex',
       flexDirection: 'column',
-      bg: 'var(--backgroud-form)',
+      bg: 'var(--background-form)',
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -75,7 +75,7 @@ function Login({ setAuthenticated }) {
       flexDirection: 'column',
       justifyContent: 'center',
       alignSelf: 'center',
-      bg: 'var(--backgroud-form)',
+      bg: 'var(--background-form)',
       mt: 5,
       mb: 6,
     },
@@ -120,12 +120,10 @@ function Login({ setAuthenticated }) {
 
     cookies.remove('token');
     cookies.remove('tokenExpiration');
-    cookies.remove('company');
 
     try {
       const response = await companyLogin(formData)
       const token = response.data.token;
-      const companyData = response.data;
 
       if (token) {
         const sessionDuration = 60 * 60;
@@ -133,7 +131,6 @@ function Login({ setAuthenticated }) {
 
         cookies.set('token', token, { path: '/' });
         cookies.set('tokenExpiration', tokenExpiration, { path: '/' });
-        cookies.set('company', JSON.stringify(companyData), { path: '/' });
 
         setAuthenticated(true);
         navigate('/empresa/treinamentos');
@@ -164,7 +161,6 @@ function Login({ setAuthenticated }) {
             name="cnpj"
             value={formData.cnpj}
             onChange={handleInputChange}
-            variant="filled"
           />
         </FormControl>
         <FormControl id="password" isRequired sx={styles.formControl}>
@@ -176,7 +172,6 @@ function Login({ setAuthenticated }) {
             name="password"
             value={formData.password}
             onChange={handleInputChange}
-            variant="filled"
           />
         </FormControl>
         <Button onClick={handleLogin} sx={styles.buttonEnviar}>

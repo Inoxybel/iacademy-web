@@ -4,7 +4,7 @@ export default {
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
-    color:'white'
+    color: 'white',
   },
   flexFeedback: {
     w: '70%',
@@ -13,23 +13,11 @@ export default {
 
   cabecalhoFeedback: {
     h: '3rem',
-    bg: 'var(--backgroud-form)',
+    bg: 'var(--background-form)',
     flexDir: 'row',
     w: '20rem',
     alignItems: 'center',
     justifyContent: 'flex-start',
-  },
-
-  buttonEnviar: {
-    h: '2rem',
-    minW: '30%',
-    mt: '0.4rem',
-    bg: 'var(--backgroud-button)',
-    color: 'var(--primary-white)',
-    _hover: {
-      color: '--primary-black',
-      backgroundColor: 'var(--primary-white)',
-    },
   },
 };
 

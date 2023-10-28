@@ -40,10 +40,10 @@ export default function App() {
       height: '2rem',
       width: '2rem',
       background: "none",
-      color: "var(--primary-white)",
+      color: "var(--primary-fontColor)",
       cursor: 'pointer',
       _hover: {
-        color: 'var(--background-button)'
+        color: 'var(--background-color)'
       },
     }
   }
@@ -52,10 +52,10 @@ export default function App() {
     <Flex
       sx={styles.stylesFlex}
     >
-      <Box sx={styles.stylesBox} bg={match && 'var(--background-black)'}>
+      <Box sx={styles.stylesBox} bg={match && 'var(--background-card)'}>
         <Icon onClick={() => navigate('/empresa')} as={BsBuildings} sx={styles.stylesButton} />
       </Box>
-      <Box sx={styles.stylesBox} bg={match ?? 'var(--background-black)'}>
+      <Box sx={styles.stylesBox} bg={match ?? 'var(--background-card)'}>
         <Icon onClick={() => navigate('/empresa/treinamentos')} as={BsClipboard2Data} sx={styles.stylesButton} />
       </Box>
       <Box sx={styles.stylesBox}>

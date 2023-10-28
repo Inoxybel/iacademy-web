@@ -1,10 +1,6 @@
 import React from 'react'
-
-import {
-  Flex, useMediaQuery, Text, Box, List, ListItem, Img
-} from '@chakra-ui/react';
+import { Flex, useMediaQuery, Text, Box, Img } from '@chakra-ui/react';
 import MenuEmpresa from '../../Components/Empresa/MenuEmpresa';
-
 
 export default function App() {
 
@@ -12,7 +8,7 @@ export default function App() {
 
   const styles = {
     flex: {
-      color: 'var(--primary-white)',
+      color: 'var(--primary-fontColor)',
       width: '100vw',
       flexDirection: isSmallerThan768 ? 'column' : 'row',
       justifyContent: isSmallerThan768 ? 'space-evenly' : 'space-between',
@@ -26,7 +22,7 @@ export default function App() {
       textAlign: 'center'
     },
     groupsFlex: {
-      backgroundColor: 'var(--background-form)',
+      backgroundColor: 'var(--background-card)',
       width: '100%',
       flexDirection: 'column',
       gap: '1rem',
