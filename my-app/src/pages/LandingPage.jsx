@@ -60,14 +60,14 @@ export default function LandingPage() {
 
     const [sequenciaAtual, setSequenciaAtual] = useState(0);
 
-    const frases = [["Na nossa plataforma, os cursos se adaptam ao seu ritmo de aprendizado, garantindo uma experiência de ensino personalizada."], ["Imagine um tutor virtual que entende o seu progresso e se ajusta para atender às suas necessidades de aprendizado. Com a nossa IA avançada, isso é uma realidade."], ["Acreditamos que a aprendizagem personalizada é o futuro da educação. Nossos cursos adaptáveis garantem que você alcance seus objetivos de forma eficaz e eficiente."], ["Em um mundo onde a tecnologia e o aprendizado se entrelaçam, nossa plataforma oferece uma narrativa única. Você faz parte de uma jornada educacional personalizada, onde cada curso se molda às suas preferências, tornando o aprendizado uma experiência envolvente e única."]]
+    const frases = [["Na nossa plataforma, os cursos se adaptam ao seu ritmo de aprendizado, garantindo uma experiência de ensino personalizada. Ainda não entendeu? Experimente nosso recurso que te explicaremos como funciona!"], ["Imagine um tutor virtual que entende o seu progresso e se ajusta para atender às suas necessidades de aprendizado. Com a nossa IA avançada, isso é uma realidade. Caso você precise de outra abordagem para aprender, te fornecemos novos exemplos. Quer outro exemplo? Experimente de novo! "], ["Em um mundo onde a tecnologia e o aprendizado se entrelaçam, nossa plataforma oferece uma narrativa única. Você faz parte de uma jornada educacional personalizada, onde cada curso se molda às suas preferências, tornando o aprendizado uma experiência envolvente e única. Qual tipo de abordagem mais soma com seu aprendizado?"], ["Acreditamos que a aprendizagem personalizada é o futuro da educação. Nossos cursos adaptáveis garantem que você alcance seus objetivos de forma eficaz e eficiente. Se precisar de outro exemplo sobre o conteúdo nossa plataforma te fornece, economizando seu tempo de pesquisa!"]]
     const breakpoint = useBreakpointValue(breakpoints);
 
     return (
         <Box backgroundColor={"white"} overflowY={"hidden"} >
             <Flex bg="white" boxShadow={"1px 1px 5px gray"} w="100vw" position={"fixed"} zIndex="5" h={["4rem", "4rem", "4rem", "5.9rem", "5.9rem", "6rem"]}>
-                <Flex alignItems="center" justifyContent="space-between" px={["5rem", "4rem"]} w="100%">
-                    <Link href="/"><Image w={["80px", "100px", "180px", "180px", "200px", "200px"]} src={logo_iacademy} /></Link>
+                <Flex alignItems="center" justifyContent="space-between" px={["3rem", "4rem"]} w="100%">
+                    <Link href="/"><Image w={["100px", "100px", "160px", "160px", "200px", "200px"]} src={logo_iacademy} /></Link>
 
                     <Menu breakpoint={breakpoint} breakpoints={breakpoints} />
 
@@ -80,15 +80,15 @@ export default function LandingPage() {
                 <Container maxW={"100vw"} p={0}>
                     <Flex alignItems="center" justifyContent="center">
                         <Box h={["100vh"]} />
-                        <Flex justifyContent={"flex-end"} top={["5%", "5%", "5%", "5%", "5%", "10%"]} right={[5, 5, 5, 20, 20, 20]} position={breakpoints <= "md" ? "absolute" : "relative"} >
+                        {breakpoint >= breakpoints.md && <> <Flex justifyContent={"flex-end"} top={["5%", "5%", "5%", "5%", "5%", "10%"]} right={[5, 5, 5, 20, 20, 20]} position={breakpoints <= "md" ? "absolute" : "relative"} >
                             <Image w={["45vw", "30vw", "28vw", "25vw", "25vw", "25vw"]} src={undraw_reading} position={"relative"} top={["15vw", "20vw", "10vw", "10vw", "3vw", "-8vw"]} right={["-5vw", "3vw", "10vw", "3vw", "3vw", "3vw"]} />
-                        </Flex>
+                        </Flex></>}
 
 
-                        <Box color="blue.900" maxH={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"} position="absolute" left={["5%", "5%", "5%", "6%", "6%", "6%"]} top={["5%", "5%"]} maxW={["70%", "60%", "45%", "45%", "50%", "55%"]}>
-                            <Card align='center' p={5} boxShadow={"2xl"} bg={"blue.50"} borderWidth={1} borderColor={"blue.100"} h={400} w={750}>
+                        <Box color="blue.900" maxH={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"}  position={breakpoint >= breakpoints.md ? "absolute" : "relative"} align={breakpoint <= breakpoints.md && "flex-start"} left={["0", "5%", "5%", "6%", "6%", "6%"]} top={["10%", "5%","5%", "5%","5%", "5%"]} maxW={["70%", "60%", "45%", "45%", "50%", "55%"]}>
+                            <Card align='center' p={[2,2,3,4,5,5]} boxShadow={"2xl"} bg={"blue.50"} borderWidth={1} borderColor={"blue.100"} h={[320,400,350,300,400,400]} w={[250,250,400,500,750,750]}>
                                 <CardHeader>
-                                    <Heading fontSize={["5px", "10px", "15px", "28px", "36px", "36px"]} position={breakpoints <= "sm" ? "relative" : "absolute"} maxW={["100%", "100%", "100%", "100%", "100%", "100%"]}>Desenvolvendo habilidades da sua maneira</Heading>
+                                    <Heading fontSize={["14px", "14px", "18px", "28px", "36px", "36px"]} position={breakpoints <= "sm" ? "relative" : "absolute"} maxW={["100%", "100%", "100%", "100%", "100%", "100%"]}>Desenvolvendo o conhecimento da sua maneira</Heading>
                                 </CardHeader>
                                 <CardBody>
                                     <TyperAnimation key={sequenciaAtual} frase={frases[sequenciaAtual]}></TyperAnimation>
@@ -102,9 +102,9 @@ export default function LandingPage() {
                 </Container>
             </Box>
 
-            <TextoEImagem titulo={"Estude onde desejar!"} descricao={"A tecnologia ao seu alcance a todo momento"} imagem={undraw_lugares} reverso={false} />
-            <TextoEImagem titulo={"Organize seus estudos com facilidade"} descricao={"Suas pendencias facilmente gerenciadas"} imagem={undraw_organization} reverso={true} />
-            <TextoEImagem titulo={"Aprimore suas skills"} descricao={"Seu desenvolvimento baseado no progresso evolui gradativamente"} imagem={undraw_skills} reverso={false} />
+            <TextoEImagem titulo={"Estude onde e como desejar!"} descricao={"A tecnologia ao seu alcance e a seu gosto a todo momento."} imagem={undraw_lugares} reverso={false} />
+            <TextoEImagem titulo={"Organize seus estudos com facilidade"} descricao={"Suas pendencias facilmente gerenciadas e organizadas na nossa plataforma"} imagem={undraw_organization} reverso={true} />
+            <TextoEImagem titulo={"Aprimore suas skills"} descricao={"Seu desenvolvimento é melhorado exponencialmente baseado no seu jeito de aprender"} imagem={undraw_skills} reverso={false} />
 
 
 
