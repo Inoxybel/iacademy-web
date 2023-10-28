@@ -1,5 +1,5 @@
 // theme.js
-export default {
+ const styles ={
   colors: {
     transparent: "transparent",
     background: "#1A1922",
@@ -107,12 +107,36 @@ export default {
   
   buttonEnviar: {
     h: "2rem",
-    minW:"30%",
+    w:"10rem",
     mt: 4,
     bg: "#0880A2",
     color: "white",
     _hover: { color: "black", backgroundColor: "white"}
   },
+  buttonExperimentar: {
+    w: ["24vw", "18vw", "13vw", "10vw", "10vw", "10vw"] ,
+    h: ["4vw", "3vw", "2.5vw", "2vw", "2vw", "2vw"], 
+    top:["10", "10", "10", "10", "0", "0"], 
+    left:["30%", "70%", "70%", "70%", "150%", "120%"] ,
+    fontSize:["2vw", "1.2vw", "1vw", "0.9vw", "0.9vw", "0.9vw"] ,
+    p:["1", "1.6", "0.2vw", "0.2vw", "0.2vw", "0.2vw"],
+     px:["1vw", "1vw", "1vw", "1vw", "1vw", "1vw"] ,
+     borderRadius:["1.2vw", "0.8vw", "0.4vw"] ,
+     borderWidth:1 ,
+     backgroundColor:"blue.300" ,
+     color:"white",
+     _hover:{ backgroundColor: "whiteAlpha.900", color: "black", textDecoration: "none", borderColor: "blue.700" } 
+  },
+  typeEffectFrase: {
+    width: "700px",
+    fontSize:["5px", "10px", "15px", "18px", "20px", "20px"],
+    position:"relative", 
+    maxW:["50%", "90%","90%","90%","90%", "90%"],
+    top:5, 
+    left:["5%","6%","8%","8%","8%","8%"],
+    color:"gray.700",
+    textShadow11:"2px 2px 2px white"
+  }
 }
  
 export const previousButton = {
@@ -132,3 +156,6 @@ export const botaoVoltarCadastro = {
     margin: 35,
     position: "absolute"
   }
+
+
+  export default styles
