@@ -27,6 +27,7 @@ Text {
     flex:1;
     flex-direction:column;
     margin:1rem;
+    widht:100%;
 }
 
 .menu {
