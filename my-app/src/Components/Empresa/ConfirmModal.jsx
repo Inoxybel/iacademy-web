@@ -22,11 +22,11 @@ export default function () {
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    cookies.remove('token');
-    cookies.remove('token');
-    cookies.remove('tokenExpiration');
+    cookies.remove('token', { path: '/' });
+    cookies.remove('token', { path: '/empresa' });
+    cookies.remove('tokenExpiration', { path: '/' });
     onClose();
-    navigate('/empresa/login');
+    navigate('/');
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure()

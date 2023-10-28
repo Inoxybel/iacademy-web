@@ -52,7 +52,7 @@ export default function App({ setTraining }) {
       flexDirection: 'column', gap: '1rem',
     }}>
       {
-        apiData.map((elem, index) =>
+        apiData?.map((elem, index) =>
           <Box key={index} onClick={() => setTraining(elem)} role='button' sx={styles.box}>
             <Flex sx={styles.flex} >
               <Box dangerouslySetInnerHTML={{ __html: elem.icon }} sx={styles.icon} />

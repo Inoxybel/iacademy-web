@@ -58,7 +58,6 @@ export default function ({ training }) {
   if (error) return 'An error has occurred: ' + error.message
 
   let companyGroups = data.groups
-  console.log(companyGroups)
 
   return (
 

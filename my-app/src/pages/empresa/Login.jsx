@@ -45,7 +45,6 @@ function Login({ setAuthenticated }) {
     input: {
       h: '6',
       fontSize: 14,
-      color: 'gray',
       _placeholder: { fontSize: 12 },
     },
     formCadastro: {

@@ -1,6 +1,9 @@
 import React from 'react'
 import { Flex, useMediaQuery, Text, Box, Img } from '@chakra-ui/react';
 import MenuEmpresa from '../../Components/Empresa/MenuEmpresa';
+import Cookies from 'universal-cookie';
+import { useQuery } from 'react-query';
+import { getCompanyById } from '../../services/Fetchers/FetchersCompany';
 
 export default function App() {
 
@@ -31,19 +34,34 @@ export default function App() {
     },
   }
 
+  const cookies = new Cookies();
+
+  const token = cookies.get('token');
+  const jwtPayload = JSON.parse(atob(token.split('.')[1]));
+  const companyId = jwtPayload.Id;
+
+  const { isLoading, error, data } = useQuery('companyData', () => getCompanyById(companyId))
+
+  if (isLoading) return 'Loading...'
+
+  if (error) return 'An error has occurred: ' + error.message
+
+  console.log(data)
+
   return (
 
     <>
       <MenuEmpresa />
       <Box>
-        <Flex padding='2rem 0 0 5.1rem'>
-          <Img w='7rem' src='https://t.ctcdn.com.br/rN4f2Z8fsqpbKVA6eAmaiFNjv9Y=/400x400/smart/i490024.jpeg' />
-        </Flex>
         <Flex sx={styles.flex}>
           <Box sx={styles.groupsFlex}>
-            <Text>Nome da Empresa</Text>
-            <Text>CNPJ</Text>
-            <Text>Infomacoes do Plano</Text>
+            <Text>Empresa: {data.data.name}</Text>
+            <Text>CNPJ: {data.data.cnpj}</Text>
+            <br />
+            <Text>Informações do Plano</Text>
+            <Text>Limite de Acessos: <span>{data.data.limitPlan}</span></Text>
+            <br />
+            <Text>Obsevações: Para quaisquer alterações em Planos ou Acessos, é necessario entrar em contato conosco.</Text>
           </Box>
         </Flex >
       </Box>
