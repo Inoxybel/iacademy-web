@@ -48,7 +48,7 @@ function NextTreinamento() {
   const [id, setId] = useState("");
   const [subtopicIndexMap, setSubtopicIndexMap] = useState({});
   const [subtopicIndex, setSubtopicIndex] = useState(null);
-  const [exerciseId, setExercise]=useState("");
+  const [exerciseId, setExerciseId]=useState("");
   const [exercicioInfo, setExercicioInfo] = useState({
     question: '',
   });
@@ -117,28 +117,6 @@ function NextTreinamento() {
     setModalOpen(false);
   };
 
-  // useEffect(()=>{
-  //   const buscarAPI = async ()=>{
-  //     const response = await api.get(`/api/summary/company/available`, {
-  //       headers: {
-  //         'Authorization': 'Bearer ' + tokenAPI,
-  //       },
-  //     });
-  //   try {
-  //     if(response){
-  //       const novaLista=[]
-  //       const Ids = response.data
-  //       novaLista.push(Ids)
-  //       setListaId(novaLista);
-  //       console.log("Lista de IDs: ",listaId)
-  //     }
-  //   } catch (error) {
-  //     console.error('Erro ao obter dados da API', error);
-  //     console.log('Detalhes do Erro:', error.response);
-  //   }
-  // }
-//  buscarAPI();
-//  },[])
 function objSelect(){
   return{
     subtopicIndex: subtopicoSelecionado ? subtopicIndexMap[subtopicoSelecionado] : null
@@ -151,18 +129,13 @@ const enviarObjetoPorSubtopico = async () => {
   try {
     console.log("Id que está sendo enviado para create-content-by-subtopic", id);
     console.log('Objeto enviado com sucesso!', obj);
-    const resposta = await api.post(`/api/ai/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd/create-content-by-subtopic`, obj, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
+    const resposta = await api.post(`/api/ai/summary/614201d5-a639-4a60-9abb-3a8fbb3ca4dd/create-content-by-subtopic`, obj, { headers: { 'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MTQ0ODAsImV4cCI6MTY5ODUxODA4MCwiaWF0IjoxNjk4NTE0NDgwfQ.8XeXXFFjL1vZXb1bDI7wAjev4AygJcG-ONZ07W7O70o" } });
 
     if (resposta.status === 201) {
       console.log('Objeto enviado com sucesso!', subtopicIndexMap);
 
       // Se a operação for bem-sucedida, obtenha as informações do exercício
-      if (subtopicIndexMap.index) {
-        const exerciseInfo = await fetchExerciseInfo(subtopicIndexMap.index);
-        
-        // Armazene as informações do exercício no estado ou em qualquer lugar necessário
-        setExercicioInfo(exerciseInfo);
-      }
+      
     } else {
       console.error('Erro ao enviar objeto:', resposta.statusText);
     }
@@ -213,7 +186,21 @@ useEffect(() => {
           if (subtopicoSelecionado) {
             const selectedSubtopicIndex = subtopicMap[subtopicoSelecionado];
             setSubtopicIndex(selectedSubtopicIndex);
+            const selectedSubtopic = dados.topics
+              .flatMap((topico) => topico.subtopics || [])
+              .find((subtopico) => subtopico.title === subtopicoSelecionado);
+
+            if (
+              selectedSubtopic &&
+              selectedSubtopic.exercises &&
+              selectedSubtopic.exercises.length > 0 &&
+              selectedSubtopic.exercises[0].exerciseId
+            ) {
+              const exerciseId = selectedSubtopic.exercises[0].exerciseId;
+              setExerciseId(exerciseId);
+              console.log("id do exercicio",exerciseId)
           }
+        }
         }
       } else {
         console.error('Resposta não definida ou sem dados.');
@@ -249,17 +236,13 @@ useEffect(() => {
 
   
 
-  const fetchExerciseInfo = async (exerciseId) => {
+  const fetchExerciseInfo = async () => {
     try {
       await setAuthorizationHeader(api);
       console.log("id do exercicio",exerciseId)
       const exerciseResponse = await api.get(`/api/exercise/${exerciseId}`);
       const exerciseData = exerciseResponse.data;
-  
-      return {
-        question: exerciseData.exercises[0].question,
-        // outras propriedades que você deseja retornar
-      };
+      setExercicioInfo(exerciseData.exercises[0].question)
     } catch (error) {
       console.error('Erro ao obter informações do exercício', error);
       throw error;
@@ -284,14 +267,7 @@ useEffect(() => {
       }
     }
   };
-  
-  const handleSubtopicoChange = (event) => {
-    setSubtopicoSelecionado(event.target.value);
-  
-    // Obtenha o índice do sub-tópico selecionado e atualize o estado
-    const selectedSubtopicIndex = subtopicIndexMap[event.target.value];
-    setSubtopicIndex(selectedSubtopicIndex);
-  };
+
 
   return (
     <Flex maxW="vw" mx="auto" color="white">
@@ -391,7 +367,7 @@ useEffect(() => {
                 ml="5"
                 bg="#3C485A"
                 color={'white'}
-                onClick={enviarObjetoPorSubtopico}
+                onClick={()=>{enviarObjetoPorSubtopico(); fetchExerciseInfo();}}
                 disabled={!propriedadesSubtopico}
               >
                 Criar
