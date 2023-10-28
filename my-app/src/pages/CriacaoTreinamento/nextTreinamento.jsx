@@ -136,20 +136,19 @@ function NextTreinamento() {
   // buscarAPI();
   // },[])
 
-  function objSelect(){
-    return{
-      subtopicIndex: "1.2"
-    }
-  }
+  // function objSelect(){
+  //   return{
+  //     subtopicIndex: 
+  //   }
+  // }
 
   const enviarObjetoPorSubtopico = async () => {
     try {
       console.log("Id que está sendo enviado para create-content-by-subtopic", id)
-      console.log('Objeto enviado com sucesso!', subtopicIndex);
-      const obj = objSelect();
-      const resposta = await api.post(`/api/ai/summary/${id}/create-content-by-subtopic`,obj, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
+      console.log('Objeto enviado com sucesso!', subtopicIndexMap.index);
+      const resposta = await api.post(`/api/ai/summary/${id}/create-content-by-subtopic`,subtopicIndexMap.index, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
       if (resposta.status === 201) {
-        console.log('Objeto enviado com sucesso!', subtopicIndex);
+        console.log('Objeto enviado com sucesso!', subtopicIndexMap);
         // Faça algo com a resposta se necessário
       } else {
         console.error('Erro ao enviar objeto:', resposta.statusText);
@@ -196,7 +195,6 @@ useEffect(() => {
           );
           setAllSubtopics(subtópicos);
         }
-        console.log("ID da configuração: ", Treinamento.idConfiguracao);
       } else {
         console.error('Resposta não definida ou sem dados.');
       }
