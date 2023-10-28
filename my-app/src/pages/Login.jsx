@@ -83,7 +83,10 @@ function Login({ setAuthenticated }) {
             placeholder="Seu e-mail"
             name="email"
             value={formData.email}
-            onChange={handleInputChange}
+            onChange={(e)=>{
+              handleInputChange(e)
+              setError(null)
+            }}
             variant="filled"
           />
         </FormControl>
@@ -95,7 +98,10 @@ function Login({ setAuthenticated }) {
             placeholder="Sua senha"
             name="password"
             value={formData.password}
-            onChange={handleInputChange}
+            onChange={(e)=>{
+              handleInputChange(e)
+              setError(null)
+            }}
             variant="filled"
           />
         </FormControl>

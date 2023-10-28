@@ -18,30 +18,20 @@ export default {
     alignItems: 'center',
     mb: '2',
   },
-
-  formTitle: {
-    as: 'h1',
-    my: '15',
-    color: 'var(--primary-fontColor)',
-  },
-
-  formLink: {
-    color: 'var(--primary-color)',
-  },
-
   formLabel: {
-    alignSelf: 'flex-start',
-    position: 'relative',
-    left: '2',
-    fontSize: 14,
+    alignSelf: "flex-start",
+    position: "relative",
+    left: "2",
+    fontSize: 14
   },
-  input: {
-    h: '6',
+  input:{
+    h: "6",
     fontSize: 14,
-    color: 'gray',
-    _placeholder: { fontSize: 12 },
+    color: "gray",
+    _placeholder: { fontSize: 12 }
   },
   formCadastro: {
+    mt: '1rem',
     p: 5,
     borderWidth: 1,
     borderRadius: 'md',
@@ -53,7 +43,17 @@ export default {
     bg: 'var(--background-form)',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: "md",
+    w: "22rem",
+    minH: "28rem",
+    color: "white",
+    display: "flex",
+    flexDirection: "column",
+    bg: "#2F3142",
+    justifyContent: "center",
+    alignItems: "center",
   },
+  
   formLogin: {
     p: 9,
     borderWidth: 1,
@@ -71,6 +71,24 @@ export default {
     bg: 'var(--background-form)',
     mt: 5,
     mb: 6,
+
+  formError: {
+    color: "brown",
+    position: "relative",
+    alignSelf: "flex-start",
+  },
+
+
+  buttonEnviar: {
+    h: '2rem',
+    w: '10rem',
+    mt: 4,
+    bg: 'var(--backgroud-button)',
+    color: 'var(--primary-white)',
+    _hover: {
+      color: 'var(--primary-black)',
+      backgroundColor: 'var(--primary-white)',
+    },
   },
 
   formError: {

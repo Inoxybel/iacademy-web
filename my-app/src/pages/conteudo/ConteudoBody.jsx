@@ -18,9 +18,9 @@ const EstiloConteudoPrincipal = styled.div`
   code {
     max-width: 100%;
   }
-  /* pre{
-    max-width: 55rem;
-} */
+  pre{
+    max-width: '100%';
+} 
 h3{
     font-weight: bold;
     font-size: 20px;
@@ -96,53 +96,56 @@ const ConteudoBody = () => {
 
     } else {
         return (
-            <Flex className='conteudo' fontSize={fonte} flexDir='column' h='100%' bg='#474859'>
-                <Flex className='cabecalho' bg='#262734' minH='100px' alignItems="center" justifyContent="center" p='10px'>
-                    <Text textAlign="center" color='white' fontWeight={'bold'} ml="1.5rem" fontSize={['16px', '16px', '16px', '26px']} >{conteudoSelecionado.title}</Text>
-                </Flex>
-                <Flex className='corpoConteudo' flexWrap='wrap' flexDir='column' m='10px' h='100%' alignItems='center'>
-                    {conteudoRenderizadoAtual ? (
-                        <EstiloConteudoPrincipal>
-                            {
-                            conteudoRenderizadoAtual.map((obj, index) => {
-                                const  i = index;
-                                return <ConteudoItem position={i} key={index} conteudo={obj} idConteudo={conteudoSelecionado.id} />;
-                            })}
-                        </EstiloConteudoPrincipal>
-                    ) : (
-                       <></>
-                    )}
-                </Flex>
+            <Flex className='conteudo' fontSize={fonte} w='100%' flexDir='column' bg='#474859' minH='100vh'>
+  <Flex className='cabecalho' bg='#262734' minH='100px' alignItems="center" justifyContent="center" p='10px'>
+    <Text textAlign="center" color='white' fontWeight='bold' ml={['0.5rem', '1.5rem']} fontSize={['16px', '26px']} >{conteudoSelecionado.title}</Text>
+  </Flex>
+  
+  <Flex className='corpoConteudo' flexWrap='wrap' flexDir='column' m='0.5rem' alignItems='center'>
+    {conteudoRenderizadoAtual ? (
+      <EstiloConteudoPrincipal>
+        {conteudoRenderizadoAtual.map((obj, index) => {
+          return <ConteudoItem key={index} conteudo={obj} idConteudo={conteudoSelecionado.id} />;
+        })}
+      </EstiloConteudoPrincipal>
+    ) : (
+      <></>
+    )}
+  </Flex>
 
-                <Flex
-                    style={{
-                        position: "fixed",
-                        right: "0",
-                        bottom: "0",
-                        transform: "translateY(-50%)",
-                        zIndex: "999",
-                        opacity: "50%"
-                    }}>
-                    <Tooltip label='Aumentar zoom' fontSize='md'>
-                        <IconButton
-                            bg="none"
-                            _hover="none"
-                            color="white"
-                            size="lg"
-                            onClick={zoom}
-                            icon={< HiOutlineZoomIn />} />
-                    </Tooltip>
-                    <Tooltip label='Diminuir zoom' fontSize='md'>
-                        <IconButton
-                            bg="none"
-                            _hover="none"
-                            color="white"
-                            size="lg"
-                            onClick={diminuir}
-                            icon={<HiZoomOut />} />
-                    </Tooltip>
-                </Flex>
-            </Flex>
+  <Flex
+    style={{
+      position: "fixed",
+      right: "0",
+      bottom: "0",
+      transform: "translateY(-50%)",
+      zIndex: "999",
+      opacity: "50%"
+    }}
+  >
+    <Tooltip label='Aumentar zoom' fontSize='md'>
+      <IconButton
+        bg="none"
+        _hover="none"
+        color="white"
+        size="lg"
+        onClick={zoom}
+        icon={<HiOutlineZoomIn />}
+      />
+    </Tooltip>
+    <Tooltip label='Diminuir zoom' fontSize='md'>
+      <IconButton
+        bg="none"
+        _hover="none"
+        color="white"
+        size="lg"
+        onClick={diminuir}
+        icon={<HiZoomOut />}
+      />
+    </Tooltip>
+  </Flex>
+       </Flex>
+
         )
     }
 }

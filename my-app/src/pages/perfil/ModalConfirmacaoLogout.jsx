@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie"; 
+import formStyles from '../../styles/formStyles';
 
 
 const ModalConfirmacaoLogout = ({isOpen,cancelRef,onClose})=>{
@@ -21,9 +22,10 @@ const ModalConfirmacaoLogout = ({isOpen,cancelRef,onClose})=>{
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
         onClose={onClose}
+     
       >
         <AlertDialogOverlay>
-          <AlertDialogContent>
+          <AlertDialogContent bg="#2F3142" color='white'>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
             Sair da sessão
             </AlertDialogHeader>
