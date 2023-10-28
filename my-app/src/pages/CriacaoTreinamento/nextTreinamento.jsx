@@ -135,12 +135,11 @@ function NextTreinamento() {
   // }
   // buscarAPI();
   // },[])
-
-  // function objSelect(){
+  // function objSelect(
   //   return{
   //     subtopicIndex: 
   //   }
-  // }
+  // }'
 
   const enviarObjetoPorSubtopico = async () => {
     try {
