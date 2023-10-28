@@ -1,7 +1,7 @@
 // TyperAnimation.js
 import React from "react";
 import { Cursor, useTypewriter } from 'react-simple-typewriter';
-
+import { Text } from "@chakra-ui/react";
 import styles from "../styles";
 
 export default function TyperAnimation({frase}) {
@@ -14,11 +14,9 @@ export default function TyperAnimation({frase}) {
   });
 
   return (
-    <div>
+    <div >
       <h1>
-        
-        <span sx={styles.typeEffectFrase}>{typeEffect}</span>
-        <Cursor></Cursor>
+        <Text sx={styles.typeEffectFrase}>{typeEffect}</Text>
       </h1>
     </div>
   )
