@@ -44,10 +44,13 @@ function NextTreinamento() {
   const [topicoSelecionado, setTopicoSelecionado] = useState('');
   const [subtopicoSelecionado, setSubtopicoSelecionado] = useState('');
   const [dados, setDados] = useState({ topics: [] });
+  const [listaId, setListaId] =useState([]);
   const [id, setId] = useState("");
+  const [subtopicIndexMap, setSubtopicIndexMap] = useState({});
+
   const navigate = useNavigate();
   
-  const tokenAPI="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0NTMxNjksImV4cCI6MTY5ODQ1Njc2OSwiaWF0IjoxNjk4NDUzMTY5fQ.3E2XhgckHkfZZgmSKDiQ8YNCedn_3zyKVgvFNhNPKYw"
+  const tokenAPI="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0NjI3NTEsImV4cCI6MTY5ODQ2NjM1MSwiaWF0IjoxNjk4NDYyNzUxfQ.fJeQbRUm03a2jkGJ22K3VNjFSF2VggDMdjbnntewc58"
 
   const cookies = new Cookies();
 
@@ -110,38 +113,105 @@ function NextTreinamento() {
     setModalOpen(false);
   };
 
+  // useEffect(()=>{
+  //   const buscarAPI = async ()=>{
+  //     const response = await api.get(`/api/summary/company/available`, {
+  //       headers: {
+  //         'Authorization': 'Bearer ' + tokenAPI,
+  //       },
+  //     });
+  //   try {
+  //     if(response){
+  //       const novaLista=[]
+  //       const Ids = response.data
+  //       novaLista.push(Ids)
+  //       setListaId(novaLista);
+  //       console.log("Lista de IDs: ",listaId)
+  //     }
+  //   } catch (error) {
+  //     console.error('Erro ao obter dados da API', error);
+  //     console.log('Detalhes do Erro:', error.response);
+  //   }
+  // }
+  // buscarAPI();
+  // },[])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const idIdentificacao = localStorage.getItem('id_configuracao')
-        setIdentificacao(idIdentificacao);
-        await setAuthorizationHeader(api);
-        console.log(id)
-        const response = await api.get(`/api/summary/${id}`);
-        if (response && response.data) {
-          const dados = response.data;
-          setDados(dados);
-          if (dados && dados.topics) {
-            setTopicos(['Todos', ...dados.topics.map((topico) => topico.title)]);
-          
-            const subtópicos = dados.topics.flatMap((topico) =>
-              topico.subtopics ? topico.subtopics.map((subtopico) => subtopico.title) : []
-            );
-            setAllSubtopics(subtópicos);
-          }
-          console.log("ID da configuração: ", Treinamento.idConfiguracao);
-        } else {
-          console.error('Resposta não definida ou sem dados.');
-        }
-      } catch (error) {
-        console.error('Erro ao obter dados da API', error);
-        console.log('Detalhes do Erro:', error.response);
+  function objSelect(){
+    return{
+      subtopicIndex: "1.2"
+    }
+  }
+
+  const enviarObjetoPorSubtopico = async () => {
+    try {
+      console.log("Id que está sendo enviado para create-content-by-subtopic", id)
+      console.log('Objeto enviado com sucesso!', subtopicIndex);
+      const obj = objSelect();
+      const resposta = await api.post(`/api/ai/summary/${id}/create-content-by-subtopic`,obj, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
+      if (resposta.status === 201) {
+        console.log('Objeto enviado com sucesso!', subtopicIndex);
+        // Faça algo com a resposta se necessário
+      } else {
+        console.error('Erro ao enviar objeto:', resposta.statusText);
       }
-    };
-  
-    fetchData();
-  }, [id]);
+
+    } catch (erro) {
+      console.error('Erro na requisição:', erro.message);
+      console.log('Detalhes do Erro:', erro.response);
+    }
+  };
+
+
+  const subtopicIndex = selectedSubtopic ? subtopicIndexMap[selectedSubtopic.title]?.toString() : null;
+
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const idIdentificacao = localStorage.getItem('id_configuracao');
+      setIdentificacao(idIdentificacao);
+      await setAuthorizationHeader(api);
+      console.log(id);
+      const response = await api.get(`/api/summary/${id}`);
+      if (response && response.data) {
+        const dados = response.data;
+        setDados(dados);
+        if (dados && dados.topics) {
+          const subtopicMap = {};
+
+          // Cria um mapeamento de títulos para índices dos sub-tópicos
+          dados.topics.forEach((topico) => {
+            if (topico.subtopics) {
+              topico.subtopics.forEach((subtopico) => {
+                subtopicMap[subtopico.title] = subtopico.index;
+              });
+            }
+          });
+
+          // Atualiza o estado com o mapeamento
+          setSubtopicIndexMap(subtopicMap);
+
+          setTopicos(['Todos', ...dados.topics.map((topico) => topico.title)]);
+          
+          const subtópicos = dados.topics.flatMap((topico) =>
+            topico.subtopics ? topico.subtopics.map((subtopico) => subtopico.title) : []
+          );
+          setAllSubtopics(subtópicos);
+        }
+        console.log("ID da configuração: ", Treinamento.idConfiguracao);
+      } else {
+        console.error('Resposta não definida ou sem dados.');
+      }
+    } catch (error) {
+      console.error('Erro ao obter dados da API', error);
+      console.log('Detalhes do Erro:', error.response);
+    }
+  };
+
+  fetchData();
+}, [id]);
+
+
   
   const handleTopicoChange = (event) => {
     const novoTopico = event.target.value;
@@ -241,11 +311,25 @@ function NextTreinamento() {
               <Select
                 placeholder="Selecione Subtópico"
                 value={subtopicoSelecionado}
-                onChange={(event) => setSubtopicoSelecionado(event.target.value)}
+                onChange={(event) => {
+                  const selectedIndex = event.target.selectedIndex;
+                  const selectedSubtopicIndex = dados.topics
+                    .flatMap((topico) => topico.subtopics || [])
+                    .findIndex((subtopico) => subtopico.title === event.target.value);
+              
+                  setSelectedSubtopic({
+                    index: selectedSubtopicIndex,
+                    title: event.target.value,
+                    // outras informações relevantes
+                  });
+                }}
                 spacing={3}
                 icon={<ChevronDownIcon />}
                 bg="white"
                 color="black"
+                onClick={(e)=>{
+                  e.target.ind
+                }}
               >
                 {subtopicos.map((subtopico) => (
                   <option key={subtopico} value={subtopico}>
@@ -253,7 +337,7 @@ function NextTreinamento() {
                   </option>
                 ))}
               </Select>
-              <Button ml="5" bg="#3C485A" color={'white'}>
+              <Button ml="5" bg="#3C485A" color={'white'} onClick={enviarObjetoPorSubtopico}>
                 Criar
               </Button>
             </Flex>
@@ -264,7 +348,6 @@ function NextTreinamento() {
               Exercícios:
             </Heading>
             <Textarea placeholder="Here is a sample placeholder" size="lg" bg="white" minH="390px" color="black" />
-            <Button>Aplicar</Button>
           </GridItem>
         </Grid>
       </Flex>
