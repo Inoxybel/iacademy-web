@@ -50,7 +50,7 @@ function NextTreinamento() {
 
   const navigate = useNavigate();
   
-  const tokenAPI="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0NjI3NTEsImV4cCI6MTY5ODQ2NjM1MSwiaWF0IjoxNjk4NDYyNzUxfQ.fJeQbRUm03a2jkGJ22K3VNjFSF2VggDMdjbnntewc58"
+  const tokenAPI="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0NjgwMzcsImV4cCI6MTY5ODQ3MTYzNywiaWF0IjoxNjk4NDY4MDM3fQ.qa6MMpp3C34n3PeiJydJOk89BAsupmehi_rH0Jgbubs"
 
   const cookies = new Cookies();
 
@@ -161,8 +161,6 @@ function NextTreinamento() {
     }
   };
 
-
-  const subtopicIndex = selectedSubtopic ? subtopicIndexMap[selectedSubtopic.title]?.toString() : null;
 
 
 useEffect(() => {
@@ -311,18 +309,7 @@ useEffect(() => {
               <Select
                 placeholder="Selecione Subtópico"
                 value={subtopicoSelecionado}
-                onChange={(event) => {
-                  const selectedIndex = event.target.selectedIndex;
-                  const selectedSubtopicIndex = dados.topics
-                    .flatMap((topico) => topico.subtopics || [])
-                    .findIndex((subtopico) => subtopico.title === event.target.value);
-              
-                  setSelectedSubtopic({
-                    index: selectedSubtopicIndex,
-                    title: event.target.value,
-                    // outras informações relevantes
-                  });
-                }}
+                onChange={(event) => setSubtopicoSelecionado(event.target.value)}
                 spacing={3}
                 icon={<ChevronDownIcon />}
                 bg="white"
