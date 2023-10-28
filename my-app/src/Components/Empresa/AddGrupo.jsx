@@ -17,19 +17,25 @@ import {
   Stack,
   Checkbox,
 } from '@chakra-ui/react'
+import Cookies from 'universal-cookie';
 
 export default function () {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  // PUT - RECUPERAR DADOS DA EMPRESA E ACESSAR A LISTA DE GRUPOS PARA ADICIONAR NOVO
+  const cookies = new Cookies();
 
-  // const api = axios.create({ baseURL: "https://iacademy-company-v1-api.azurewebsites.net/api" })
+  const token = cookies.get('token');
 
-  // const { isLoading, error, data } = useQuery('companyData', getCompanyById)
+  const jwtPayload = JSON.parse(atob(token.split('.')[1]));
+  const companyId = jwtPayload.Id;
 
-  // if (isLoading) return 'Loading...'
+  const { isLoading, error, data } = useQuery('companyData', getCompanyById(companyId))
 
-  // if (error) return 'An error has occurred: ' + error.message
+  if (isLoading) return 'Loading...'
+
+  if (error) return 'An error has occurred: ' + error.message
+
+  console.log(data.data)
 
   return (
     <>
