@@ -17,7 +17,7 @@ const TextoEImagem = ({
 
     return (
 
-        <Container maxW="100vw" py={8} color={"black"} backgroundColor={"blue.50"}>
+        <Container maxW="100vw" py={8} color={"black"} backgroundColor={"blue.100"}>
             <Flex
                 direction={['column', 'column', reverso ? 'row' : 'row-reverse']}
                 justifyContent="space-between"
