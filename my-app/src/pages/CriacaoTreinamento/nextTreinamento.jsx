@@ -252,6 +252,7 @@ useEffect(() => {
   const fetchExerciseInfo = async (exerciseId) => {
     try {
       await setAuthorizationHeader(api);
+      console.log("id do exercicio",exerciseId)
       const exerciseResponse = await api.get(`/api/exercise/${exerciseId}`);
       const exerciseData = exerciseResponse.data;
   
