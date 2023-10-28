@@ -11,7 +11,7 @@ const estilos = {
     padding: '3rem',
     display: 'flex',
     flexDirection: 'row',
-    height: '10%',
+    height: '5rem',
     alignItems: 'center',
     justifyContent: 'space-between',
   },

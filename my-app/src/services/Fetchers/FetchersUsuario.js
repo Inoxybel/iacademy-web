@@ -29,7 +29,7 @@ const cadastrar = (dados) => {
     return api.post("/user", dados, {
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json", // Adicione o cabeçalho Accept aqui
+        Accept: "application/json", 
       },
 });
 };

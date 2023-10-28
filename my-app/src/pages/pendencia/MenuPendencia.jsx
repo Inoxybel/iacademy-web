@@ -45,21 +45,29 @@ const MenuPendencia = ({ onSetExercicioPendente }) => {
     )
   }
 
-  if (error) {
+  if (error && error.response && error.response.status) {
     if (error.response.status === 401) {
-      navigate('/')
+      navigate('/');
     } else if (error.response.status === 400) {
-      return(
-       <MenuPendenciasError mensagem='Ocorreu algum erro inesperado,tente novamente em alguns minutos...'/>
-      )
+      return (
+        <MenuPendenciasError mensagem='Ocorreu algum erro inesperado, tente novamente em alguns minutos...' />
+      );
+    } else if (error.response.status === 404) {
+      return (
+        <MenuPendenciasError mensagem='Você ainda não possui exercícios pendentes...' />
+      );
+    } else {
+      return (
+        <MenuPendenciasError mensagem='Ocorreu algum erro inesperado, tente novamente em alguns minutos...' />
+      );
     }
-    else if (error.response.status === 404) {
-      return(
-        <MenuPendenciasError mensagem='Você ainda não possui exercícios pendêntes...'/>
-      )
-    }
+  } else {
+    return (
+      <MenuPendenciasError mensagem='Resposta inválida da API' />
+    );
   }
-
+  
+  
   if(data){
    return(
     <Flex sx={estilos.containerMenuPendencia}>
