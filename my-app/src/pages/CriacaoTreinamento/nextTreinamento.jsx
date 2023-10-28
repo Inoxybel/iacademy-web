@@ -44,14 +44,19 @@ function NextTreinamento() {
   const [topicoSelecionado, setTopicoSelecionado] = useState('');
   const [subtopicoSelecionado, setSubtopicoSelecionado] = useState('');
   const [dados, setDados] = useState({ topics: [] });
-  const [listaId, setListaId] =useState([]);
+  const [propriedadesSubtopico, setPropriedadesSubtopico] = useState(null);
   const [id, setId] = useState("");
   const [subtopicIndexMap, setSubtopicIndexMap] = useState({});
+  const [subtopicIndex, setSubtopicIndex] = useState(null);
+  const [exerciseId, setExerciseId]=useState("");
+  const [exercicioInfo, setExercicioInfo] = useState({
+    question: '',
+  });
+  const tokenAPI = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MTY5NTcsImV4cCI6MTY5ODUyMDU1NywiaWF0IjoxNjk4NTE2OTU3fQ.b9EeyAVCvVPr2XTPU2W4ISFQI2xqC_coBCIEZVWXbkY"
 
+  
   const navigate = useNavigate();
   
-  const tokenAPI="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0NjgwMzcsImV4cCI6MTY5ODQ3MTYzNywiaWF0IjoxNjk4NDY4MDM3fQ.qa6MMpp3C34n3PeiJydJOk89BAsupmehi_rH0Jgbubs"
-
   const cookies = new Cookies();
 
 
@@ -113,51 +118,34 @@ function NextTreinamento() {
     setModalOpen(false);
   };
 
-  // useEffect(()=>{
-  //   const buscarAPI = async ()=>{
-  //     const response = await api.get(`/api/summary/company/available`, {
-  //       headers: {
-  //         'Authorization': 'Bearer ' + tokenAPI,
-  //       },
-  //     });
-  //   try {
-  //     if(response){
-  //       const novaLista=[]
-  //       const Ids = response.data
-  //       novaLista.push(Ids)
-  //       setListaId(novaLista);
-  //       console.log("Lista de IDs: ",listaId)
-  //     }
-  //   } catch (error) {
-  //     console.error('Erro ao obter dados da API', error);
-  //     console.log('Detalhes do Erro:', error.response);
-  //   }
-  // }
-  // buscarAPI();
-  // },[])
-  // function objSelect(
-  //   return{
-  //     subtopicIndex: 
-  //   }
-  // }'
+function objSelect(){
+  return{
+    subtopicIndex: subtopicoSelecionado ? subtopicIndexMap[subtopicoSelecionado] : null
+  }
+}
 
-  const enviarObjetoPorSubtopico = async () => {
-    try {
-      console.log("Id que está sendo enviado para create-content-by-subtopic", id)
-      console.log('Objeto enviado com sucesso!', subtopicIndexMap.index);
-      const resposta = await api.post(`/api/ai/summary/${id}/create-content-by-subtopic`,subtopicIndexMap.index, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
-      if (resposta.status === 201) {
-        console.log('Objeto enviado com sucesso!', subtopicIndexMap);
-        // Faça algo com a resposta se necessário
-      } else {
-        console.error('Erro ao enviar objeto:', resposta.statusText);
-      }
 
-    } catch (erro) {
-      console.error('Erro na requisição:', erro.message);
-      console.log('Detalhes do Erro:', erro.response);
+const enviarObjetoPorSubtopico = async () => {
+  const obj = objSelect();
+  try {
+    console.log("Id que está sendo enviado para create-content-by-subtopic", id);
+    console.log('Objeto enviado com sucesso!', obj);
+    const resposta = await api.post(`/api/ai/summary/${id}/create-content-by-subtopic`, obj, { headers: { 'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg1MTQ0ODAsImV4cCI6MTY5ODUxODA4MCwiaWF0IjoxNjk4NTE0NDgwfQ.8XeXXFFjL1vZXb1bDI7wAjev4AygJcG-ONZ07W7O70o" } });
+
+    if (resposta.status === 201) {
+      console.log('Objeto enviado com sucesso!', subtopicIndexMap);
+
+      // Se a operação for bem-sucedida, obtenha as informações do exercício
+      
+    } else {
+      console.error('Erro ao enviar objeto:', resposta.statusText);
     }
-  };
+  } catch (erro) {
+    console.error('Erro na requisição:', erro.message);
+    console.log('Detalhes do Erro:', erro.response);
+  }
+};
+
 
 
 
@@ -167,14 +155,15 @@ useEffect(() => {
       const idIdentificacao = localStorage.getItem('id_configuracao');
       setIdentificacao(idIdentificacao);
       await setAuthorizationHeader(api);
-      console.log(id);
       const response = await api.get(`/api/summary/${id}`);
+      
       if (response && response.data) {
         const dados = response.data;
         setDados(dados);
+        
         if (dados && dados.topics) {
           const subtopicMap = {};
-
+          
           // Cria um mapeamento de títulos para índices dos sub-tópicos
           dados.topics.forEach((topico) => {
             if (topico.subtopics) {
@@ -193,6 +182,26 @@ useEffect(() => {
             topico.subtopics ? topico.subtopics.map((subtopico) => subtopico.title) : []
           );
           setAllSubtopics(subtópicos);
+
+          // Verifica se há um sub-tópico selecionado e atualiza o estado
+          if (subtopicoSelecionado) {
+            const selectedSubtopicIndex = subtopicMap[subtopicoSelecionado];
+            setSubtopicIndex(selectedSubtopicIndex);
+            const selectedSubtopic = dados.topics
+              .flatMap((topico) => topico.subtopics || [])
+              .find((subtopico) => subtopico.title === subtopicoSelecionado);
+
+            if (
+              selectedSubtopic &&
+              selectedSubtopic.exercises &&
+              selectedSubtopic.exercises.length > 0 &&
+              selectedSubtopic.exercises[0].exerciseId
+            ) {
+              const exerciseId = selectedSubtopic.exercises[0].exerciseId;
+              setExerciseId(exerciseId);
+              console.log("id do exercicio",exerciseId)
+          }
+        }
         }
       } else {
         console.error('Resposta não definida ou sem dados.');
@@ -202,11 +211,26 @@ useEffect(() => {
       console.log('Detalhes do Erro:', error.response);
     }
   };
-
+ 
   fetchData();
-}, [id]);
+}, [id, subtopicoSelecionado, exercicioInfo, tokenAPI]);
 
 
+  
+
+  const fetchExerciseInfo = async () => {
+    try {
+      await setAuthorizationHeader(api);
+      console.log("id do exercicio",exerciseId)
+      const exerciseResponse = await api.get(`/api/exercise/${exerciseId}`);
+      const exerciseData = exerciseResponse.data;
+      setExercicioInfo(exerciseData.exercises[0].question)
+    } catch (error) {
+      console.error('Erro ao obter informações do exercício', error);
+      throw error;
+    }
+  };
+  
   
   const handleTopicoChange = (event) => {
     const novoTopico = event.target.value;
@@ -223,9 +247,9 @@ useEffect(() => {
       } else {
         setSubtopicos([]); // ou qualquer valor padrão desejado se subtopics não estiver definido
       }
-      console.log()
     }
   };
+
 
   return (
     <Flex maxW="vw" mx="auto" color="white">
@@ -321,7 +345,13 @@ useEffect(() => {
                   </option>
                 ))}
               </Select>
-              <Button ml="5" bg="#3C485A" color={'white'} onClick={enviarObjetoPorSubtopico}>
+              <Button
+                ml="5"
+                bg="#3C485A"
+                color={'white'}
+                onClick={()=>{enviarObjetoPorSubtopico(); fetchExerciseInfo();}}
+                disabled={!propriedadesSubtopico}
+              >
                 Criar
               </Button>
             </Flex>
@@ -331,7 +361,16 @@ useEffect(() => {
             <Heading as="h3" size="sm" mb="0.5rem">
               Exercícios:
             </Heading>
-            <Textarea placeholder="Here is a sample placeholder" size="lg" bg="white" minH="390px" color="black" />
+            <Textarea
+                placeholder="Here is a sample placeholder"
+                size="lg"
+                bg="white"
+                minH="340px"
+                color="black"
+                value={exercicioInfo.question}
+                readOnly={!exercicioInfo.question}
+              />
+
           </GridItem>
         </Grid>
       </Flex>
