@@ -25,7 +25,11 @@ const useQuestionarioCustom = (idExercicio) => {
             try {
                 await SolicitarExercicioPorID(idExercicio);
             } catch (error) {
-
+                if (error.response.status === 401) {
+                    navigate("/login");
+                } else if (error.response.status === 500) {
+                    alert("Ocorreu um erro do nosso lado. Já resolveremos");
+                }
             }
         };
         fetchData();

@@ -20,6 +20,8 @@ function FormataDados(dados) {
     "name": dados.nomeCompleto,
     "email": dados.email,
     "cpf": dados.cpf,
+    "cellphoneNumberWithDDD": dados.cellphoneNumberWithDDD,
+    "confirmPassword": dados.confirmPassword,
     "password": dados.password,
     "companyRef": dados.cnpj
   }
@@ -27,9 +29,9 @@ function FormataDados(dados) {
 }
 
 async function solicitacaoCadastroUsuario(dados) {
-
   try {
     const response = await cadastrar(dados);
+    console.log(response)
     if (response.status === 201) {
       return { "status": response.status, "dados": response.data }
     }
@@ -48,6 +50,7 @@ function Cadastro() {
     Name: [],
     Cpf: [],
     Email: [],
+    CellphoneNumberWithDDD:[],
     Password: [],
   })
 
@@ -55,6 +58,7 @@ function Cadastro() {
     nomeCompleto: "",
     cnpj: "",
     cpf: "",
+    cellphoneNumberWithDDD:"",
     email: "",
     password: "",
     confirmPassword: "",
@@ -64,6 +68,7 @@ function Cadastro() {
     nomeCompleto: "",
     cnpj: "",
     cpf: "",
+    cellphoneNumberWithDDD:"",
     email: "",
     password: "",
     confirmPassword: "",
@@ -79,10 +84,7 @@ function Cadastro() {
 
   const toast = useToast()
 
-  // Verificar se os campos obrigatórios não estão vazios
   const handleSubmit = async () => {
-
-
     const errors = {};
     let hasErrors = false;
 
@@ -101,6 +103,11 @@ function Cadastro() {
       hasErrors = true;
     }
 
+    if (!formData.cellphoneNumberWithDDD.trim()) {
+      errors.cellphoneNumberWithDDD = "Campo obrigatório";
+      hasErrors = true;
+    }
+
     if (!formData.password.trim()) {
       errors.password = "Campo obrigatório";
       hasErrors = true;
@@ -115,20 +122,17 @@ function Cadastro() {
       hasErrors = true;
     }
 
-
+    console.log(errors)
     setFormErrors(errors);
 
     if (!hasErrors) {
       const request = FormataDados(formData)
-
       const response = await solicitacaoCadastroUsuario(request);
-
-      // Se a resposta tiver erros de validação (status 400), atualize o estado com esses erros
       if (response.status === 201) {
         toast({
           title: 'Conta criada',
           position: 'top',
-          description: 'Seja bem-vindo(a) ao IAcademy.',
+          description: 'Seja bem-vindo(a) ao IAcademy. Solicite a ativação da sua conta conosco',
           status: 'success',
           duration: 9000,
           isClosable: true,
@@ -152,8 +156,6 @@ function Cadastro() {
 
         <FormControl id="nomeCompleto" isRequired sx={{ ...formStyles.formControl }}>
           <FormLabel sx={{ ...formStyles.formLabel }}>Nome Completo</FormLabel>
-
-
           <Input sx={{ ...formStyles.input }}
             type="text"
             name="nomeCompleto"
@@ -205,6 +207,25 @@ function Cadastro() {
           )) : null}
         </FormControl>
 
+        <FormControl id="cellphoneNumberWithDDD" isRequired sx={{ ...formStyles.formControl }}>
+          <FormLabel sx={{ ...formStyles.formLabel }}>Telefone</FormLabel>
+          <Input sx={{ ...formStyles.input }}
+            type="text"
+            name="cellphoneNumberWithDDD"
+            placeholder="Seu telefone"
+            onChange={handleInputChange}
+            variant="filled" />
+          {formErrors.CellphoneNumberWithDDD&& <Text sx={{ ...formStyles.formError }}>
+            {formErrors.CellphoneNumberWithDDD}
+          </Text>
+          }
+          {errosResponse.CellphoneNumberWithDDD && errosResponse.CellphoneNumberWithDDD.length > 0 ? errosResponse.CellphoneNumberWithDDD.map((obj) => (
+            <Text style={{ ...formStyles.formError }}>
+              {obj}
+            </Text>
+          )) : null}
+        </FormControl>
+          
         <FormControl id="email" isRequired sx={{ ...formStyles.formControl }}>
           <FormLabel sx={{ ...formStyles.formLabel }}>Email</FormLabel>
           <Input sx={{ ...formStyles.input }}
@@ -268,6 +289,7 @@ function Cadastro() {
 
         <Button sx={{ ...formStyles.buttonEnviar }}
           onClick={() => {
+            console.log('apertou')
             handleSubmit()
           }}>
           Cadastrar

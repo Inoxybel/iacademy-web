@@ -82,7 +82,7 @@ return (
                              _hover="none"
                              color='#70728C'
                              size="lg"
-                             icon={<AiOutlineEdit style={{ width: '20px', height: '20px' }} />}
+                             icon={<AiOutlineEdit style={{ width: '1rem', height: '1rem' }} />}
                              onClick={async () => {
                                  try {
                                      toast({
@@ -124,7 +124,7 @@ return (
                                  _hover='none'
                                  as={IconButton}
                                  aria-label='Options'
-                                 icon={<BiHistory color='#70728C' style={{ width: '20px', height: '20px' }} />}
+                                 icon={<BiHistory color='#70728C' style={{ width: '1rem', height: '1rem' }} />}
                              />
                          </Tooltip>
                          <MenuList bg="#2F3142" p='0.3rem' flexDir='row' justifyContent='flex-start]'>
@@ -148,11 +148,11 @@ return (
              </Flex>
         )}
         {!conteudoAtualRenderizado&&(<Skeleton h={10} w='70vw'/>)}  
-        <Flex className='corpoConteudo' color='white' margin='none' w='100%' flexDir='column' h='100%'>
-            <ReactMarkdown components={customRenderers}>
-                {conteudoAtualRenderizado}
-            </ReactMarkdown>
-        </Flex>
+        <Flex style={{ wordWrap: 'break-word' }} color='white' margin='none' w={['350px','600px','100%']} flexDir='column' h='100%'>
+    <ReactMarkdown components={customRenderers}>
+        {conteudoAtualRenderizado}
+    </ReactMarkdown>
+</Flex>
     </Flex>
 )
 }
