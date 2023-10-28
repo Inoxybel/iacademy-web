@@ -22,7 +22,6 @@ import {
   Textarea,
   Text,
 } from "@chakra-ui/react";
-import styles from "../styles.js";
 import Menu from "../Menu.jsx";
 import axios from 'axios';
 import { AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
@@ -51,11 +50,13 @@ function Treinamento() {
   const [inputValue10, setInputValue10] = useState('');
   const [inputValue11, setInputValue11] = useState('');
   const [inputValue12, setInputValue12] = useState('');  
+  const [inputValue13, setInputValue13] = useState('');  
+  const [inputValue14, setInputValue14] = useState('');  
   const [objNomeConfiguracao, setObjNomeConfiguracao] = useState('');
   const [idConfiguracao, setIdConfiguracao] = useState('');  
   const [selectedConfig, setSelectedConfig] = useState(null);
  
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0Mjc3ODMsImV4cCI6MTY5ODQzMTM4MywiaWF0IjoxNjk4NDI3NzgzfQ.X6bNiqZ3MfeKDTolu-NeLuanfnjmpKGSRgw-iP20tWE"
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0NTMxNjksImV4cCI6MTY5ODQ1Njc2OSwiaWF0IjoxNjk4NDUzMTY5fQ.3E2XhgckHkfZZgmSKDiQ8YNCedn_3zyKVgvFNhNPKYw"
   
   useEffect(() => {
     const fetchData = async () => {
@@ -136,12 +137,14 @@ function Treinamento() {
     setInputValue4(configuracao.firstContent.finalInput);
     setInputValue5(configuracao.newContent.initialInput);
     setInputValue6(configuracao.newContent.finalInput);
-    setInputValue7(configuracao.exercise.initialInput);
-    setInputValue8(configuracao.exercise.finalInput);
-    setInputValue9(configuracao.correction.initialInput);
-    setInputValue10(configuracao.correction.finalInput);
-    setInputValue11(configuracao.pendency.initialInput);
-    setInputValue12(configuracao.pendency.finalInput);
+    setInputValue7(configuracao.newContentWithChat.initialInput);
+    setInputValue8(configuracao.newContentWithChat.finalInput);
+    setInputValue9(configuracao.exercise.initialInput);
+    setInputValue10(configuracao.exercise.finalInput);
+    setInputValue11(configuracao.correction.initialInput);
+    setInputValue12(configuracao.correction.finalInput);
+    setInputValue13(configuracao.pendency.initialInput);
+    setInputValue14(configuracao.pendency.finalInput);
   };
 
   const handleInputChange = (e, identifier) => {
@@ -187,6 +190,12 @@ function Treinamento() {
       case 12:
         setInputValue12(inputValue);
         break;
+      case 13:
+        setInputValue13(inputValue);
+        break;
+      case 14:
+        setInputValue14(inputValue);
+        break;
       default:
         break;
     }
@@ -197,7 +206,7 @@ function Treinamento() {
   };
 
   const handleNextTab = () => {
-    setActiveIndex((prevIndex) => Math.min(prevIndex + 1, 5));
+    setActiveIndex((prevIndex) => Math.min(prevIndex + 1, 7));
   };
 
   const handlePreviousTab = () => {
@@ -219,17 +228,21 @@ function Treinamento() {
         initialInput: inputValue5,
         finalInput: inputValue6,
       },
-      exercise: {
+      newContentWithChat: {
         initialInput: inputValue7,
         finalInput: inputValue8,
       },
-      correction: {
+      exercise: {
         initialInput: inputValue9,
         finalInput: inputValue10,
       },
-      pendency: {
+      correction: {
         initialInput: inputValue11,
         finalInput: inputValue12,
+      },
+      pendency: {
+        initialInput: inputValue13,
+        finalInput: inputValue14,
       },
     };
   }
@@ -269,7 +282,16 @@ function Treinamento() {
     setInputValue10("");
     setInputValue11("");
     setInputValue12("");
+    setInputValue13("");
+    setInputValue14("");
+
   }
+
+
+  function criarOuSubstituirChave(id) {   
+    if (localStorage.getItem('id_configuracao')) {
+           localStorage.removeItem('id_configuracao');
+      }   localStorage.setItem('id_configuracao', id); }
 
   return (
     <Flex maxW='vw' mx="auto" direction={"column"} gap="4rem" p={"1rem"}>
@@ -285,7 +307,10 @@ function Treinamento() {
         </Select>
         <Flex direction="row" p={0} w="100%" justifyContent="space-between" align={"center"}>
           <IconButton aria-label='Add to friends' icon={<AddIcon />} onClick={onOpen}/>
-          <Button bg="#0880A2" color="white" onClick={() => navigate("/NextTreinamento")}>Próximo</Button>
+          <Button bg="#0880A2" color="white" onClick={() => {
+            navigate("/NextTreinamento")
+            criarOuSubstituirChave(idConfiguracao)}}
+          >Próximo</Button>
         </Flex>
       </VStack>
       <Modal
@@ -293,7 +318,7 @@ function Treinamento() {
         onClose={onClose} 
         isOpen={isOpen} 
         isCentered 
-        size="3xl" 
+        size="4xl" 
         >
         <ModalOverlay />
         <ModalContent bg="#282B38" color="white">
@@ -311,6 +336,7 @@ function Treinamento() {
               <Tab>Sumário</Tab>
               <Tab>Primeiro Conteúdo</Tab>
               <Tab>Novo Conteúdo</Tab>
+              <Tab>Novo Conteúdo Chat</Tab>
               <Tab>Exercício</Tab>
               <Tab>Correção</Tab>
               <Tab>Pendência</Tab>
@@ -433,7 +459,7 @@ function Treinamento() {
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
-                  color={"black"}
+                  color="black"
                   bg="white" 
                   value={inputValue10}
                   onChange={(e) => handleInputChange(e, 10)}
@@ -459,10 +485,36 @@ function Treinamento() {
                 />
                 <Text mb='8px'>Input Final</Text>
                 <Textarea
-                  color="black"
+                  color={"black"}
                   bg="white" 
                   value={inputValue12}
                   onChange={(e) => handleInputChange(e, 12)}
+                  placeholder='Digite o input final'
+                  size='md'
+                  mb="1.5rem"
+                />
+                <Flex justifyContent={"space-evenly"} alignItems={"center"}>
+                  <Button onClick={handlePreviousTab}>Anterior</Button>
+                  <Button onClick={handleNextTab}>Próximo</Button>
+                </Flex>
+              </TabPanel>
+              <TabPanel >
+                <Text mb='8px'>Input Inicial</Text>
+                <Textarea
+                  color="black"
+                  bg="white"
+                  value={inputValue13}
+                  onChange={(e) => handleInputChange(e, 13)}
+                  placeholder='Digite o input inicial'
+                  size='md'
+                  mb="1.5rem"
+                />
+                <Text mb='8px'>Input Final</Text>
+                <Textarea
+                  color="black"
+                  bg="white" 
+                  value={inputValue14}
+                  onChange={(e) => handleInputChange(e, 14)}
                   placeholder='Digite o input final'
                   size='md'
                   mb="1.5rem"

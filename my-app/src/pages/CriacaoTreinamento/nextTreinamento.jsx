@@ -23,8 +23,7 @@ import Menu from '../Menu';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import  Treinamento from './treinamento';
-
-
+import Cookies from "universal-cookie";
 
 const api = axios.create({
   baseURL:"https://iacademy-v1-api.azurewebsites.net"
@@ -35,6 +34,7 @@ function NextTreinamento() {
   const [categoria, setCategoria] = useState('');
   const [subcategoria, setSubcategoria] = useState('');
   const [identificacao, setIdentificacao] = useState('');
+  const [conteudo, setConteudo] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [inputUrl, setInputUrl] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
@@ -44,10 +44,30 @@ function NextTreinamento() {
   const [topicoSelecionado, setTopicoSelecionado] = useState('');
   const [subtopicoSelecionado, setSubtopicoSelecionado] = useState('');
   const [dados, setDados] = useState({ topics: [] });
+  const [id, setId] = useState("");
   const navigate = useNavigate();
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0Mjc3ODMsImV4cCI6MTY5ODQzMTM4MywiaWF0IjoxNjk4NDI3NzgzfQ.X6bNiqZ3MfeKDTolu-NeLuanfnjmpKGSRgw-iP20tWE"
-  const tokenUser = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiMjhhZjQ0OTQtNTA3MC00YmYyLWEzM2YtNmE0OTliYjIwY2JkIiwiRG9jdW1lbnQiOiI4NjkyMzIzMTAxOSIsIkNvbXBhbnlSZWYiOiJpYWNhZGVteSIsIlRleHRHZW5yZXMiOiJbXCJJbmZvcm1hdGl2b1wiLFwiRXhwbGljYXRpdm9cIixcIk5hcnJhdGl2b1wiLFwiQXJndW1lbnRhdGl2b1wiXSIsIm5iZiI6MTY5ODQyNzc0NSwiZXhwIjoxNjk4NDMxMzQ1LCJpYXQiOjE2OTg0Mjc3NDV9.gmXWgPlpioy5WxksYcSYxDVvjQ1G16wjQMgCRncgY5I"
+  
+  const tokenAPI="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJPd25lcklkIjoiaWFjYWRlbXkiLCJUZXh0R2VucmVzIjoiW1wiSW5mb3JtYXRpdm9cIixcIkV4cGxpY2F0aXZvXCIsXCJOYXJyYXRpdm9cIixcIkFyZ3VtZW50YXRpdm9cIl0iLCJuYmYiOjE2OTg0NTMxNjksImV4cCI6MTY5ODQ1Njc2OSwiaWF0IjoxNjk4NDUzMTY5fQ.3E2XhgckHkfZZgmSKDiQ8YNCedn_3zyKVgvFNhNPKYw"
 
+  const cookies = new Cookies();
+
+
+  async function getTokenAsync() {
+     try {
+        const token = await cookies.get("token");
+        return token;
+     } catch (error) {
+        throw error;
+     }
+  }
+
+  
+  async function setAuthorizationHeader(api) {
+     const token = await getTokenAsync();
+     if (token) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+     }
+  }
   const criarObj = () => {
     return {
       theme: tema,
@@ -56,6 +76,7 @@ function NextTreinamento() {
       icon: imageUrl,
       configurationId: identificacao,
       shouldGeneratePendency: true,
+      NewContentWithChat: conteudo,
       ownerId: "iacademy",
     };
   };
@@ -64,18 +85,18 @@ function NextTreinamento() {
     console.log("objeto que está sendo enviado: ", obj)
 
     try {
-      
-      const resposta = await api.post("/api/summary/enrolled", obj, { headers: { 'Authorization': 'Bearer ' + token } });
+      const resposta = await api.post("/api/ai/summary/create", obj, { headers: { 'Authorization': 'Bearer ' + tokenAPI } });
       if (resposta.status === 201) {
         console.log('Base criada com sucesso!');
-        
-        fetchData();
+        console.log(resposta)
+        const id = (resposta.data)
+        setId(id);
       } else {
         console.error('Erro ao enviar base:', resposta.statusText);
       }
     } catch (erro) {
       console.error('Erro na requisição:', erro.message);
-      console.log('Detalhes do Erro:', erro.response.data);
+      console.log('Detalhes do Erro:', erro.response);
     }
   };
 
@@ -93,38 +114,34 @@ function NextTreinamento() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get(`/api/summary/available`, {
-          headers: {
-            'Authorization': 'Bearer ' + tokenUser
-          }
-        });
-  
+        const idIdentificacao = localStorage.getItem('id_configuracao')
+        setIdentificacao(idIdentificacao);
+        await setAuthorizationHeader(api);
+        console.log(id)
+        const response = await api.get(`/api/summary/${id}`);
         if (response && response.data) {
           const dados = response.data;
           setDados(dados);
-  
           if (dados && dados.topics) {
             setTopicos(['Todos', ...dados.topics.map((topico) => topico.title)]);
           
             const subtópicos = dados.topics.flatMap((topico) =>
               topico.subtopics ? topico.subtopics.map((subtopico) => subtopico.title) : []
             );
-          
             setAllSubtopics(subtópicos);
           }
-  
           console.log("ID da configuração: ", Treinamento.idConfiguracao);
         } else {
           console.error('Resposta não definida ou sem dados.');
         }
       } catch (error) {
         console.error('Erro ao obter dados da API', error);
-        console.log('Detalhes do Erro:', error.response.data);
+        console.log('Detalhes do Erro:', error.response);
       }
     };
   
     fetchData();
-  }, [Treinamento.idConfiguracao, tokenUser]);
+  }, [id]);
   
   const handleTopicoChange = (event) => {
     const novoTopico = event.target.value;
@@ -146,7 +163,7 @@ function NextTreinamento() {
   };
 
   return (
-    <Flex maxW="vw" mx="auto">
+    <Flex maxW="vw" mx="auto" color="white">
       <Flex>
         <ArrowBackIcon
           w={6}
@@ -187,6 +204,7 @@ function NextTreinamento() {
               mx="auto"
             />
             <Input
+              isDisabled={true}
               value={identificacao}
               onChange={(e) => setIdentificacao(e.target.value)}
               placeholder="Identificação"
@@ -246,6 +264,7 @@ function NextTreinamento() {
               Exercícios:
             </Heading>
             <Textarea placeholder="Here is a sample placeholder" size="lg" bg="white" minH="390px" color="black" />
+            <Button>Aplicar</Button>
           </GridItem>
         </Grid>
       </Flex>
