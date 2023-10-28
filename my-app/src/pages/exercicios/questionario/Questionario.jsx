@@ -40,11 +40,11 @@ const Questionario = ({ idExercicio }) => {
         return (
             <>
             <Skeleton>
-                <Box w='100%' h='4rem'></Box>
+                <Box w='100%' h='5rem'></Box>
              </Skeleton>  
 
             <Skeleton>
-                <Box w='90%' mt='2rem' mb='2rem'  h='10rem'></Box>
+                <Box w='60%' mt='2rem' mb='2rem'  h='10rem'></Box>
              </Skeleton>   
              <Skeleton>
                 <Box w='90%' mt='2rem' mb='2rem'  h='10rem'></Box>
