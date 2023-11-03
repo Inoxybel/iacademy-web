@@ -1,24 +1,21 @@
 import React from 'react'
 
 import {
-  Box, Flex, Icon, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon,
+  Box, Flex, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, ListItem, List,
 } from '@chakra-ui/react';
 import SwitchPendencias from './SwitchPendencias';
-import data from "../../../json/treinamentos.json"
+import { useQuery } from 'react-query';
+import { getTrainings } from '../../services/Fetchers/FetchersCompany';
 
 export default function App({ setTraining }) {
 
-  const treinamentos = data.Items
-
   const styles = {
     flex: {
-      backgroundColor: 'var(--background-form)',
-      borderRadius: '0.2rem',
-      justifyContent: 'space-between',
-      padding: '0.5rem 0.5rem 0.5rem 0.5rem '
+      padding: '0.5rem 0.5rem 0 0',
+      position: 'relative'
     },
     box: {
-      backgroundColor: 'var(--background-form)',
+      backgroundColor: 'var(--background-card)',
       borderRadius: '0.2rem',
 
       _hover: {
@@ -28,33 +25,44 @@ export default function App({ setTraining }) {
     },
 
     icon: {
-      width: '5rem',
-      height: '5rem',
-      backgroundColor: 'var(--primary-white)',
-      borderRadius: '0.5rem',
+      transform: 'scale(0.6)',
     },
     h2: {
-      fontSize: '1.5rem',
+      fontSize: '1.25rem'
+    },
+    h3: {
+      fontSize: '1.15rem',
+      fontWeight: 'bold',
+      marginTop: '0.5rem'
     },
     text: {
-      width: '100%'
     },
-
   }
+
+  const { isLoading, error, data } = useQuery('companyData', getTrainings)
+
+  if (isLoading) return 'Loading...'
+
+  if (error) return 'An error has occurred: ' + error.message
+
+  let apiData = data.data.data
 
   return (
     <Flex sx={{
-      flexDirection: 'column', gap: '1rem', color: 'var(--primary-white)',
+      flexDirection: 'column', gap: '1rem',
     }}>
       {
-        treinamentos.map((elem, index) =>
+        apiData?.map((elem, index) =>
           <Box key={index} onClick={() => setTraining(elem)} role='button' sx={styles.box}>
             <Flex sx={styles.flex} >
-              <Icon sx={styles.icon}>{elem.TrainingIcon}</Icon>
-              <Text as={'h2'} sx={styles.h2}>{elem.TrainingName}</Text>
+              <Box dangerouslySetInnerHTML={{ __html: elem.icon }} sx={styles.icon} />
+              <Flex sx={{ flexDir: 'column', justifyContent: 'center' }}>
+                <Text as={'h2'} sx={styles.h2}>{elem.theme}</Text>
+                <Text>Categoria: {elem.subcategory}</Text>
+              </Flex>
               <Box as={SwitchPendencias} />
             </Flex>
-            <Box sx={styles.text}>
+            <Box>
               <Accordion allowToggle>
                 <AccordionItem>
                   <h2>
@@ -65,16 +73,24 @@ export default function App({ setTraining }) {
                       <AccordionIcon />
                     </AccordionButton>
                   </h2>
-                  <AccordionPanel pb={4} >
+                  <AccordionPanel pb={4} marginBottom='4rem'>
 
-                    <Text >{elem.TrainingDescription}</Text>
-                    <Text>Duracao do curso: {elem.Duration}</Text>
-
-                  </AccordionPanel>
+                    <List>
+                      <Text as='h3' sx={styles.h3}>Conteudo</Text>
+                      {
+                        elem.topics.map((elem, index) =>
+                          <ListItem key={index}>
+                            <Text as='h3' sx={styles.h3}>{elem.title}:</Text>
+                            <Text>{elem.description}</Text>
+                          </ListItem>
+                        )
+                      }
+                    </List>
+                  </AccordionPanel >
                 </AccordionItem>
               </Accordion>
             </Box>
-          </Box>
+          </Box >
         )
       }
     </Flex >

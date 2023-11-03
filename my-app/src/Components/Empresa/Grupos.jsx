@@ -12,8 +12,10 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import AddColaborador from './AddColaborador'
-import data from "../../../json/grupos.json"
 import { useState } from 'react'
+import { getCompanyById } from '../../services/Fetchers/FetchersCompany'
+import { useQuery } from 'react-query'
+import Cookies from 'universal-cookie'
 
 export default function ({ training }) {
 
@@ -23,12 +25,10 @@ export default function ({ training }) {
     setGroup()
   }
 
-  const grupos = data.Items
-
   const styles = {
     card: {
       backgroundColor: 'var(--background-card)',
-      color: 'var(--primary-white)',
+      color: 'var(--primary-fontColor)',
       padding: '0.5rem',
       height: '5rem',
       borderRadius: '0.2rem',
@@ -41,24 +41,37 @@ export default function ({ training }) {
     },
     modal: {
       backgroundColor: 'var(--background-form)',
-      color: 'var(--primary-color)'
     }
   }
 
+  const cookies = new Cookies();
+
+  const token = cookies.get('token');
+
+  const jwtPayload = JSON.parse(atob(token.split('.')[1]));
+  const companyId = jwtPayload.Id;
+
+  const { isLoading, error, data } = useQuery('companyData', getCompanyById(companyId))
+
+  if (isLoading) return 'Loading...'
+
+  if (error) return 'An error has occurred: ' + error.message
+
+  let companyGroups = data.groups
+
   return (
+
     <Flex sx={{ flexDirection: 'column', gap: '1rem' }}>
-      {
-        grupos.filter(elem => training ? training.GroupsId.includes(elem.id) : true).map((elem, index) =>
-          <Box as='button' key={index} onClick={() => {
-            setGroup(elem)
-          }} sx={styles.card}>
-            <Box>
-              <Text as={'h3'} sx={styles.subTitle2}>{elem.GroupName}</Text>
-              <Text as={'span'}> {elem.TotalAcess} Acessos / {elem.Employees.length} Colaboradores</Text>
-            </Box>
-          </Box >
-        )
-      }
+      {!companyGroups ? <Text sx={{ color: 'var(--primary-fontColor)' }}>Nao ha grupo de Colaboradores Vinculados a este Treinamento.</Text> : companyGroups.filter(elem => training ? training.GroupsId.includes(elem.id) : true).map((elem, index) =>
+        <Box as='button' key={index} onClick={() => {
+          setGroup(elem)
+        }} sx={styles.card}>
+          <Box>
+            <Text as={'h3'} sx={styles.subTitle2}>{elem.GroupName}</Text>
+            <Text as={'span'}> {elem.TotalAcess} Acessos / {elem.Employees.length} Colaboradores</Text>
+          </Box>
+        </Box >
+      )}
       <Modal isOpen={Boolean(group)} onClose={close} size='lg' colorScheme='gray'>
         <ModalOverlay />
         <ModalContent>

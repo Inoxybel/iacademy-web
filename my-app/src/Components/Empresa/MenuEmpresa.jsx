@@ -6,7 +6,8 @@ import {
   Icon,
   useMediaQuery
 } from '@chakra-ui/react';
-import { BsBuildings, BsClipboard2Data } from 'react-icons/bs';
+import { BsBuildings, BsClipboard2Data, BsDownload } from 'react-icons/bs';
+import ConfirmModal from './ConfirmModal';
 
 
 export default function App() {
@@ -39,10 +40,10 @@ export default function App() {
       height: '2rem',
       width: '2rem',
       background: "none",
-      color: "var(--primary-white)",
+      color: "var(--primary-fontColor)",
       cursor: 'pointer',
       _hover: {
-        color: 'var(--background-button)'
+        color: 'var(--background-color)'
       },
     }
   }
@@ -51,14 +52,15 @@ export default function App() {
     <Flex
       sx={styles.stylesFlex}
     >
-      <Box sx={styles.stylesBox} bg={match && 'var(--background-black)'}>
+      <Box sx={styles.stylesBox} bg={match && 'var(--background-card)'}>
         <Icon onClick={() => navigate('/empresa')} as={BsBuildings} sx={styles.stylesButton} />
       </Box>
-      <Box sx={styles.stylesBox} bg={match ?? 'var(--background-black)'}>
+      <Box sx={styles.stylesBox} bg={match ?? 'var(--background-card)'}>
         <Icon onClick={() => navigate('/empresa/treinamentos')} as={BsClipboard2Data} sx={styles.stylesButton} />
       </Box>
-      {/* Icone e funcoes de edicao para empresa ? */}
-
+      <Box sx={styles.stylesBox}>
+        <ConfirmModal />
+      </Box>
     </Flex>
 
   );

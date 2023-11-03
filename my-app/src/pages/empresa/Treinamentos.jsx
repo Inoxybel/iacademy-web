@@ -25,7 +25,7 @@ export default function App() {
       paddingY: '2rem'
     },
     title: {
-      color: 'var(--primary-white)',
+      color: 'var(--primary-fontColor)',
       fontSize: '1.5rem',
       fontWeight: 'bold',
       textAlign: 'center'
@@ -37,13 +37,14 @@ export default function App() {
       gap: '1rem',
     },
     groupsFlex: {
-      backgroundColor: 'var(--background-form)',
+      backgroundColor: 'var(--background-color)',
       width: '100%',
       height: '100%',
       flexDirection: 'column',
       gap: '1rem',
       padding: '1rem',
-      borderRadius: '0.2rem'
+      borderRadius: '0.2rem',
+      marginBottom: '5rem'
     },
   }
 

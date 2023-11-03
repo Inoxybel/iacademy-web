@@ -21,10 +21,10 @@ import Questionario from './pages/exercicios/questionario/Questionario';
 import Feedback from './pages/feedback/Feedback';
 import Pendencia from './pages/pendencia/Pendencia';
 import Perfil from './pages/perfil/Perfil';
+import CadastroEmpresa from './pages/Administrador/CadastroEmpresa';
 import {
   QueryClient,
   QueryClientProvider,
-  useQuery,
 } from 'react-query';
 
 
@@ -36,27 +36,27 @@ function PrivateRoute({ element, authenticated }) {
 
 function App() {
   const queryClient = new QueryClient();
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const token = cookies.get('token');
+  const token = cookies.get('token');
 
-    if (token) {
-      const sessionDuration = 60 * 60;
-      const tokenExpiration = Date.now() / 1000 + sessionDuration;
-      cookies.set('token', token, {
-        expires: new Date(tokenExpiration * 1000),
-      });
+  if (token) {
+    const sessionDuration = 60 * 60;
+    const tokenExpiration = Date.now() / 1000 + sessionDuration;
+    cookies.set('token', token, {
+      expires: new Date(tokenExpiration * 1000),
+    });
+    if (!authenticated) {
       setAuthenticated(true);
     }
-  }, []);
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
 
       <ChakraProvider>
         <CSSReset />
-        <Flex minW='100vw' minH='100vh' bg='var(--background-black)'>
+        <Flex minW='100vw' minH='100vh' bg='var(--background-color)'>
           <Router>
             <Routes>
               <Route
@@ -142,13 +142,17 @@ function App() {
                 }
               ></Route>
               <Route
-                path="/empresa/login"
+                path="/empresa/cadastro"
                 element={
                   <PrivateRoute
-                    element={<CompanyLogin />}
+                    element={<CadastroEmpresa />}
                     authenticated={authenticated}
                   />
                 }
+              />
+              <Route
+                path="/empresa/login"
+                element={<CompanyLogin setAuthenticated={setAuthenticated} />}
               />
               <Route
                 path="/empresa"
