@@ -3,4 +3,4 @@
       "rewrite": "/index.html",
       "exclude": ["src/assets/*"]
     }
-  }
+}
