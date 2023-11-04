@@ -2,11 +2,11 @@
 export default {
   colors: {
     transparent: 'transparent',
-    background: 'var(--backgroud-black)',
-    botao: 'var(background-button)',
-    input: 'var(background-button)',
-    fontColor: 'var(--secundary-white)',
-    fontColorLink: 'var(--tertiary-white)',
+    background: 'var(--backgroud-color)',
+    botao: 'var(--background-button)',
+    input: 'var(--background-button)',
+    fontColor: 'var(--primary-fontColor)',
+    fontColorLink: 'var(--primary-white)',
   },
 
   header: {

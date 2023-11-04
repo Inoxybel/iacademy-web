@@ -6,20 +6,14 @@ export default function () {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
-
   const styles = {
-
-    flex: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      gridArea: '1 / 3 / 4 / 7',
-    },
+    position: 'absolute',
+    right: '0.5rem',
   }
 
   return (
-    <Flex sx={styles.flex}>
-      <Button size='xs' onClick={onOpen}>Configurar</Button>
+    <>
+      <Button sx={styles} size='xs' onClick={onOpen}>Configurar</Button>
       <Modal isOpen={isOpen} onClose={onClose} colorScheme='gray' size='xs' isCentered>
         <ModalOverlay />
         <ModalContent >
@@ -41,7 +35,7 @@ export default function () {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </Flex>
+    </>
 
 
   )
