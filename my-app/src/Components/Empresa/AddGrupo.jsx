@@ -1,5 +1,7 @@
 import React from 'react'
-
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import { getCompanyById } from '../../services/Fetchers/FetchersCompany';
 import {
   Modal,
   ModalOverlay,
@@ -15,9 +17,25 @@ import {
   Stack,
   Checkbox,
 } from '@chakra-ui/react'
+import Cookies from 'universal-cookie';
 
 export default function () {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const cookies = new Cookies();
+
+  const token = cookies.get('token');
+
+  const jwtPayload = JSON.parse(atob(token.split('.')[1]));
+  const companyId = jwtPayload.Id;
+
+  const { isLoading, error, data } = useQuery('companyData', getCompanyById(companyId))
+
+  if (isLoading) return 'Loading...'
+
+  if (error) return 'An error has occurred: ' + error.message
+
+  console.log(data.data)
 
   return (
     <>

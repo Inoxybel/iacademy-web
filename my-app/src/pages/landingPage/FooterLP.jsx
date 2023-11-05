@@ -89,19 +89,19 @@ export default function LargeWithLogoLeft() {
 
           <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>
-            <Link _hover={{ cursor: "pointer"}} href={'#'}>
+            <Link _hover={{ cursor: "pointer"}} href={'https://www.linkedin.com/in/th-agomatos/'}>
               Thiago Matos
             </Link>
-            <Box as="a" href={'#'}>
+            <Box as="a" href={'https://www.linkedin.com/in/dev-lucas-costa/'}>
               Lucas Costa
             </Box>
-            <Box as="a" href={'#'}>
+            <Box as="a" href={'https://www.linkedin.com/in/igor-everton-s-479a90105/'}>
               Igor Everton
             </Box>
-            <Box as="a" href={'#'}>
+            <Box as="a" href={'https://www.linkedin.com/in/andrew-rian-27a0b6228/'}>
               Andrew Maia
             </Box>
-            <Box as="a" href={'#'}>
+            <Box as="a" href={'https://www.linkedin.com/in/vinicius-prado-mendes/'}>
               Vinicius Prado
             </Box>
           </Stack>
@@ -110,14 +110,11 @@ export default function LargeWithLogoLeft() {
             <Box as="a" href={'#'}>
               Privacy Policy
             </Box>
-            <Box as="a" href={'#'}>
-              Satus
-            </Box>
           </Stack>
           <Stack align={'flex-start'}>
           <ListHeader>Partners</ListHeader>
             <Box as={"a"} >
-              can you be the first =)
+              you can be the first =)
             </Box>
           </Stack>
         </SimpleGrid>

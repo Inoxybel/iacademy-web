@@ -1,5 +1,7 @@
 import React from 'react'
-
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import { getCompanyById } from '../../services/Fetchers/FetchersCompany';
 import {
   Modal,
   ModalOverlay,
@@ -18,6 +20,16 @@ import {
 
 export default function () {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  // PUT - RECUPERAR DADOS DA EMPRESA E ACESSAR A LISTA DE GRUPOS ADICIONAR OU REMOVER COLABORADOR
+
+  // const api = axios.create({ baseURL: "https://iacademy-company-v1-api.azurewebsites.net/api" })
+
+  // const { isLoading, error, data } = useQuery('companyData', getCompanyById)
+
+  // if (isLoading) return 'Loading...'
+
+  // if (error) return 'An error has occurred: ' + error.message
 
   return (
     <>
