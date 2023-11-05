@@ -39,7 +39,6 @@ async function solicitacaoCadastroUsuario(dados) {
     console.log(error)
     return { "status": error.response.status, "dados": error.response.data }
   }
-
 }
 
 function Cadastro() {

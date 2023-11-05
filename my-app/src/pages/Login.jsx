@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import formStyles from '../styles/formStyles';
 import { logar } from "../services/Fetchers/FetchersUsuario.js";
-import Cookies from "universal-cookie"; // Importe a biblioteca Universal Cookie
+import Cookies from "universal-cookie";
 
 function Login({ setAuthenticated }) {
   const navigate = useNavigate();
