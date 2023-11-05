@@ -29,7 +29,7 @@ var respostas = {
 }
 
 function mandarParaListaDeRespostas(id, resposta) {
-    const novaRespostaExercicio = {identification: id, answer: resposta}
+    const novaRespostaExercicio = { identification: id, answer: resposta }
     respostas.exercises.push(novaRespostaExercicio);
 }
 
@@ -39,19 +39,19 @@ const Questionario = ({ idExercicio }) => {
     if (!exercicioConteudoSelecionado || exercicioConteudoSelecionado === undefined) {
         return (
             <>
-            <Skeleton>
-                <Box w='100%' h='5rem'></Box>
-             </Skeleton>  
+                <Skeleton>
+                    <Box w='100%' h='5rem'></Box>
+                </Skeleton>
 
-            <Skeleton>
-                <Box w='60%' mt='2rem' mb='2rem'  h='10rem'></Box>
-             </Skeleton>   
-             <Skeleton>
-                <Box w='90%' mt='2rem' mb='2rem'  h='10rem'></Box>
-             </Skeleton>   
-             <Skeleton>
-                <Box w='90%' mt='2rem' mb='2rem'  h='10rem'></Box>
-             </Skeleton>   
+                <Skeleton>
+                    <Box w='60%' mt='2rem' mb='2rem' h='10rem'></Box>
+                </Skeleton>
+                <Skeleton>
+                    <Box w='90%' mt='2rem' mb='2rem' h='10rem'></Box>
+                </Skeleton>
+                <Skeleton>
+                    <Box w='90%' mt='2rem' mb='2rem' h='10rem'></Box>
+                </Skeleton>
             </>
 
         )
@@ -61,7 +61,7 @@ const Questionario = ({ idExercicio }) => {
         <Flex sx={estilos.container}>
             <Flex style={estilos.cabecalho}>
                 {exercicioConteudoSelecionado.status === "Finished" ? <CheckCircleIcon sx={estilos.iconeConfirmado} /> : <WarningIcon sx={estilos.iconeAviso} />}
-                <Text>{exercicioConteudoSelecionado.title} </Text>
+                <Text as='h2' color='var(--background-color)' fontWeight='700'>{exercicioConteudoSelecionado.title} </Text>
                 <Flex sx={estilos.conjuntoBotoes}>
 
                     <Button isDisabled={exercicioConteudoSelecionado.status === "Finished" ? false : true} colorScheme="blue" size='xs' onClick={
@@ -141,7 +141,6 @@ const Questionario = ({ idExercicio }) => {
                                     >
                                         Entregar
                                     </Button>
-
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialogOverlay>
@@ -167,7 +166,7 @@ const Questionario = ({ idExercicio }) => {
                             case "SingleChoice":
                                 return (
                                     <ExercicioUmaResposta
-                                       status={exercicioConteudoSelecionado.status}
+                                        status={exercicioConteudoSelecionado.status}
                                         exercicioEntregado={exercicioEntregado}
                                         key={key}
                                         question={item.question}
@@ -192,7 +191,7 @@ const Questionario = ({ idExercicio }) => {
                                 return <Text>Sem questão</Text>;
                         }
                     })
-                ) : (<Box>Não há questões para esse topico. </Box>)}
+                ) : (<Text color='var(--background-color)'>Não há questões para esse topico. </Text>)}
             </VStack>
         </Flex>
     );

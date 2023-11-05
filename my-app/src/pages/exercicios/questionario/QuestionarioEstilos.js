@@ -6,7 +6,7 @@ const estilos = {
     color: 'var(--primary-white)',
   },
   cabecalho: {
-    backgroundColor: '#262734',
+    backgroundColor: 'var(--tertiary-color)',
     width: '100%',
     padding: '3rem',
     display: 'flex',
@@ -39,13 +39,13 @@ const estilos = {
   conjuntoExercicios: {
     alignItems: 'center',
     w: '100%',
-    bg: '#474859',
+    bg: 'var(--tertiary-color)',
     padding: '1%',
     h: '100%',
   },
 
   texto: {
-    color: 'white',
+    color: 'var(--primary-fontColor)',
     fontWeight: 'bold',
     flexWrap: 'wrap',
     maxWidth: '89%',
@@ -53,7 +53,7 @@ const estilos = {
     fontSize: '12px',
   },
   conteudo: {
-    backgroundColor: '#2F3142',
+    backgroundColor: 'var(--background-color)',
     width: '100%',
     padding: '20px',
     height: '100%',
@@ -62,7 +62,7 @@ const estilos = {
     fontSize: '10px',
   },
   cabecalhoSumario: {
-    backgroundColor: '#262734',
+    backgroundColor: 'var(--background-color)',
     width: '60%',
     padding: '10px',
     borderRadius: '3px',
@@ -72,7 +72,7 @@ const estilos = {
     flexDirection: 'column',
   },
   cabecalhoSumario1: {
-    backgroundColor: '#262734',
+    backgroundColor: 'var(--background-color)',
     width: '100%',
     padding: '10px',
     borderRadius: '3px',
@@ -80,7 +80,7 @@ const estilos = {
     flexDirection: 'row',
   },
   sumario: {
-    backgroundColor: '#2F3142',
+    backgroundColor: 'var(--background-color)',
     width: '60%',
     padding: '20px',
     height: '34rem',
