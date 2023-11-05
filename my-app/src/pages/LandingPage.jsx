@@ -85,8 +85,8 @@ export default function LandingPage() {
                         </Flex></>}
 
 
-                        <Box color="blue.900" maxH={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"}  position={breakpoint >= breakpoints.md ? "absolute" : "relative"} align={breakpoint <= breakpoints.md && "flex-start"} left={["0", "5%", "5%", "6%", "6%", "6%"]} top={["10%", "5%","5%", "5%","5%", "5%"]} maxW={["70%", "60%", "45%", "45%", "50%", "55%"]}>
-                            <Card align='center' p={[2,2,3,4,5,5]} boxShadow={"2xl"} bg={"blue.50"} borderWidth={1} borderColor={"blue.100"} h={[320,400,350,300,400,400]} w={[250,250,400,500,750,750]}>
+                        <Box color="blue.900" maxH={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"} position={breakpoint >= breakpoints.md ? "absolute" : "relative"} align={breakpoint <= breakpoints.md && "flex-start"} left={["0", "5%", "5%", "6%", "6%", "6%"]} top={["10%", "5%", "5%", "5%", "5%", "5%"]} maxW={["70%", "60%", "45%", "45%", "50%", "55%"]}>
+                            <Card align='center' p={[2, 2, 3, 4, 5, 5]} boxShadow={"2xl"} bg={"blue.50"} borderWidth={1} borderColor={"blue.100"} w={[250, 250, 400, 500, 750, 750]}>
                                 <CardHeader>
                                     <Heading fontSize={["14px", "14px", "18px", "28px", "36px", "36px"]} position={breakpoints <= "sm" ? "relative" : "absolute"} maxW={["100%", "100%", "100%", "100%", "100%", "100%"]}>Desenvolvendo o conhecimento da sua maneira</Heading>
                                 </CardHeader>

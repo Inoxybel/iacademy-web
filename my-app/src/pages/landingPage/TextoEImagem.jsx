@@ -11,7 +11,7 @@ const TextoEImagem = ({
     titulo,
     descricao,
     imagem,
-    reverso}
+    reverso }
 ) => {
 
 
@@ -27,9 +27,9 @@ const TextoEImagem = ({
                     flex={['1', '1', '2']}
                     alignItems="center"
                     justifyContent="center"
-                    >
+                >
 
-                    <Image src={imagem} alt={`Image for ${titulo}`} maxW={["220px","280px","300px","300px","300px","450px"]} />
+                    <Image src={imagem} alt={`Image for ${titulo}`} maxW={["220px", "280px", "300px", "300px", "300px", "450px"]} />
                 </Flex>
                 <Flex
                     flex={['1', '1', '2']}
@@ -37,10 +37,10 @@ const TextoEImagem = ({
                     alignItems="center"
                     textAlign={['center', 'center', 'left']}
                     mb={[2, 4, 32]}>
-                    <Text fontSize={["md","2xl","32","36","35","40"]} fontWeight="bold" mb={4}>
+                    <Text fontSize={["md", "2xl", "32", "36", "35", "40"]} fontWeight="bold" mb={4}>
                         {titulo}
                     </Text>
-                    <Text fontSize={["sm","md","20","22","20","24"]}>{descricao}</Text>
+                    <Text fontSize={["sm", "md", "20", "22", "20", "24"]}>{descricao}</Text>
                 </Flex>
             </Flex>
         </Container>
