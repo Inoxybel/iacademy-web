@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 
 
 
-const ExercicioUmaResposta = ({status,question, complementation, identification, exercicioEntregado,mandarParaListaDeRespostas }) => {
+const ExercicioUmaResposta = ({ status, question, complementation, identification, exercicioEntregado, mandarParaListaDeRespostas }) => {
     const [alternativaSelecionada, setAlternativaSelecionada] = useState("");
 
 
@@ -19,13 +19,13 @@ const ExercicioUmaResposta = ({status,question, complementation, identification,
     }
 
     return (
-        <Box style={{backgroundColor:"#2F3142",width:'100%',padding:'20px'}}>
+        <Box style={{ backgroundColor: "var(--background-color)", width: '100%', padding: '20px' }}>
             <Text fontSize="sm" fontWeight="semibold" mb={'1rem'}>
                 {identification} - {question}
             </Text>
             <RadioGroup>
                 <Flex alignItems='flex-start' direction="column" rowGap={'1rem'} mb={'2rem'}>
-                    <RadioGroup onChange={setAlternativaSelecionada} isDisabled={status==='Finished'?true:false} value={alternativaSelecionada} alignItems='flex-start'>
+                    <RadioGroup onChange={setAlternativaSelecionada} isDisabled={status === 'Finished' ? true : false} value={alternativaSelecionada} alignItems='flex-start'>
                         <VStack direction='row' alignItems='flex-start'>
                             {complementation.map((option, key) => (
                                 <Radio key={key} value={option}>{option}</Radio>
