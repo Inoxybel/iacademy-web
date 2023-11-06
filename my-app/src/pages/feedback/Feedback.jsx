@@ -51,11 +51,11 @@ const Feedback = ({ idFeedback }) => {
 
       <Text fontSize='3rem' sx={{ ...feedbackStyles.header }}>Feedback</Text>
 
-      <Flex w="80%" flexDir='column'>
-        <Flex h="3rem" bg="#262734" flexDir="row" w="100%" alignItems="center" justifyContent='flex-start'>
+      <Flex w="80%" flexDir='column' bg= 'var(--background-menu)' >
+        <Flex h="3rem" bg= 'var(--background-form)' color='white' flexDir="row" w="100%" alignItems="center" justifyContent='flex-start'>
           <Text ml="1rem">Correção:</Text>
         </Flex>
-        <Flex flexDir="column" padding="0.5rem" bg="#2F3142" fontSize={"1rem"} fontWeight={"bold"}>
+        <Flex flexDir="column" padding="0.5rem" fontSize={"1rem"} fontWeight={"bold"}>
           {feedback.corrections.map((correcao) => {
             if (correcao.complementation.length > 0) {
               return <ExercicioUmaRespostas exercicio={correcao} />

@@ -84,11 +84,11 @@ const Questionario = ({ idExercicio }) => {
 
                     <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} >
                         <AlertDialogOverlay>
-                            <AlertDialogContent bg='#2F3142' color='white'>
+                            <AlertDialogContent bg='var(--background-form)' color='white' >
                                 <AlertDialogHeader fontSize='lg' fontWeight='bold'>Entregar exercícios</AlertDialogHeader>
                                 <AlertDialogBody>Tem certeza que deseja entregar o exercício?</AlertDialogBody>
                                 <AlertDialogFooter >
-                                    <Button color='white' ref={cancelRef} bg='#0880A2' onClick={() => {
+                                    <Button ref={cancelRef}  onClick={() => {
                                         setExercicioEntregado(false)
                                         onClose()
                                     }}>

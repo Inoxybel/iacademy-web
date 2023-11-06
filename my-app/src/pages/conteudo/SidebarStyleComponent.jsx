@@ -4,29 +4,23 @@ const SidebarStyledComponent = styled.div`
 
 top: 0; /* Coloca a barra no topo da tela */
 left: 0; /* Coloca a barra no lado esquerdo da tela */
-width: ${({ isSidebarVisible }) => (isSidebarVisible ? '20rem' : '0')}; /* Largura desejada da barra lateral */
-background-color: #2F3142;
+width: ${({ isSidebarVisible }) => (isSidebarVisible ? '20rem' : '0')};
+background-color: var(--background-menu);
 position: fixed;
 overflow-y:auto;
-max-height: 100vh;
 bottom: 0;
 transition: width 0.3s ease-in-out;
 overflow-x: hidden;
 color:white;
+heigth:'100%';
 
-h2 {
-    color:white;
 
-}
-
-Text {
-    color:white;
-}
 
 .container {
     flex:1;
     flex-direction:column;
     margin:1rem;
+    heigth:'100%';
     widht:100%;
 }
 
@@ -48,8 +42,6 @@ Text {
      flex-direction:row;
      margin-top:30px;
      margin-bottom:20px;
-     color:white;
-
      gap:15px;
      align-items:'flex-start'; 
 }
@@ -80,8 +72,7 @@ Text {
 
 
 .botaoMenu{
-    
-     background:#575A77;
+     background:var(--background-form);
      height:20px;
      width:100%;
      display:flex;
@@ -90,23 +81,22 @@ Text {
 }
 
 .topicoAtualBotaoMenu{
+    color:white;
     display:flex;
     flex-direction:row;
     justify-content:space-between;
     align-items: center;
-    color:white;
 }
 
 .listaMenu{
     border:0px;
-    background:#575A77;
+    background:var(--background-form);
     width:100%; 
     margin-bottom:3rem;
 }
 
 .itemMenu{
-        background-color:#575A77;
-        color:white;
+        background-color:var(--background-form);
         font-size:1rem;
         font-size: 1rem;
         height:1.5rem;
@@ -124,7 +114,6 @@ Text {
     gap:10px;
     margin-bottom:0.5rem ;
     align-items:center;
-    color:#696D8F;
 }
 
 .topicosExercicios{
@@ -143,7 +132,6 @@ Text {
     margin-bottom:10px;
     cursor:pointer; 
     gap:10px;
-    color:#5762C0;
 }
 `;
 

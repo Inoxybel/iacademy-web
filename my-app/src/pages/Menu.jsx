@@ -21,7 +21,7 @@ export default function App() {
     h={isSmOrMd ? '50px' : '100vh'}
     w={isSmOrMd ? '100vw' : '45px'}
     flexDirection={isSmOrMd ? 'column' : 'row'}
-    bg="#262734"
+    bg="var(--background-menu)"
     left="0"
     right={isSmOrMd ? 'none' : '0'}
     zIndex="999"
@@ -45,7 +45,7 @@ export default function App() {
       <IconButton
         background="none"
         _hover={{ background: 'none' }}
-        icon={<HamburgerIcon w={6} h={6} color="white" mt={5} mb={isSmOrMd ? 5 : 3} ml={2} />}
+        icon={<HamburgerIcon w={6} h={6}  mt={5} mb={isSmOrMd ? 5 : 3} ml={2} />}
       />
       <Divider
         w={isSmOrMd ? '15' : '70%'}
@@ -65,7 +65,7 @@ export default function App() {
         w="100%"
       >
         <Flex alignItems="center">
-          <Icon as={BiBook} fontSize="xl" color="#0880A2" h={5} w={5} />
+          <Icon as={BiBook} fontSize="xl" h={5} w={5} />
         </Flex>
       </ChakraLink>
       <Divider 
@@ -81,7 +81,7 @@ export default function App() {
         w="100%"
       >
         <Flex alignItems="center">
-          <Icon as={AiFillHome} fontSize="xl" color="#0880A2" h={5} w={5} />
+          <Icon as={AiFillHome} fontSize="xl"  h={5} w={5} />
         </Flex>
       </ChakraLink>
       <Divider 
@@ -97,7 +97,7 @@ export default function App() {
         w="100%"
       >
         <Flex alignItems="center">
-          <Icon as={BsFillPersonFill} fontSize="xl" color="#0880A2" h={6} w={6} />
+          <Icon as={BsFillPersonFill} fontSize="xl" h={6} w={6} />
         </Flex>
       </ChakraLink>
     </Flex>

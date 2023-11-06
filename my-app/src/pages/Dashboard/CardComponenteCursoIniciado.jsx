@@ -28,15 +28,14 @@ const CardComponentCursoIniciado = ({ curso }) => {
       <Card
         flexDirection="row"
         overflow="hidden"
-        bg="#262734"
         w='20rem'
-        color="white"
+        background="var(--background-card)"
+
         p={isSmOrMd ? 1 : 2}
       >
         <Image
           objectFit="cover"
           src={`data:image/svg+xml;utf8,${encodeURIComponent(curso.icon)}`}
-          bg="white"
           borderRadius="5"
           alignSelf={'center'}
           w="5rem"
@@ -65,8 +64,8 @@ const CardComponentCursoIniciado = ({ curso }) => {
               mr={isSmOrMd ? "10" : "0"}
               p={2}
               variant="solid"
-              colorScheme="#0880A2;"
               w='90%'
+              bg="#0880A2" color="white"
               size={isSmOrMd ? "sm" : "md"}
               fontSize={isSmOrMd ? 11 : 13}
               onClick={() => {

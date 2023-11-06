@@ -4,10 +4,10 @@ export default {
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
-    color: 'white',
   },
   flexFeedback: {
     w: '70%',
+    bg: 'var(--background-form)',
     flexDir: 'column',
   },
 

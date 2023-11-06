@@ -25,7 +25,7 @@ const ModalConfirmacaoLogout = ({isOpen,cancelRef,onClose})=>{
      
       >
         <AlertDialogOverlay>
-          <AlertDialogContent bg="#2F3142" color='white'>
+          <AlertDialogContent bg="var(--background-form)" color='white'>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
             Sair da sessão
             </AlertDialogHeader>

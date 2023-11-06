@@ -7,11 +7,11 @@ const estilos = {
     w: '100%',
     alignItems: 'center',
     color: 'var(--primary-white)',
+    background:'var(--background-card)'
   },
   cabecalhoMenuPendencias: {
     flexDir: 'column',
     h: '8rem',
-    bg: '#3C485A',
     gap: '2rem',
     w: '100%',
     alignItems: 'center',
