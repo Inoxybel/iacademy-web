@@ -100,7 +100,7 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                             </Box>
                         </Flex>
                         <Box >
-                            <Progress w='100%' borderRadius='10px' size='sm' bg="#4E506F" colorScheme='whatsapp' value={0} />
+                            <Progress w='100%' borderRadius='10px' size='sm' bg="var( --secundary-color)"  value={0} />
                         </Box>
                     </Flex>
 
@@ -117,10 +117,10 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                                     {listaSumario.topics.map((obj) => (
                                         <MenuItem className='itemMenu'
                                             onMouseEnter={(e) => {
-                                                e.target.style.backgroundColor = '#4E506F'; 
+                                                e.target.style.backgroundColor = 'var(--background-card)'; 
                                             }}
                                             onMouseLeave={(e) => {
-                                                e.target.style.backgroundColor = '#575A77'; 
+                                                e.target.style.backgroundColor = 'var(--background-form)'; 
                                             }}
                                             onClick={() => { setTopicoAtual(obj) }}> 
                                             {obj.title}
@@ -149,7 +149,7 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                                                 handleClickConteudo()
                                             }}>
                                                 <FaClipboardList/>
-                                                <Text color='white'>{obj.index}-{obj.title}</Text>
+                                                <Text >{obj.index}-{obj.title}</Text>
                                             </Box>
                                             <Divider />
                                             <Box  className='itemSelecionavelTopicosExercicios'  
@@ -159,7 +159,7 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                                                 handleClickExercicio()
                                             }} >
                                                 <FaPencilAlt/>
-                                                <Text color='white'>{obj.index}-Exercícios</Text>
+                                                <Text>{obj.index}-Exercícios</Text>
                                             </Box>
                                         </Flex>
                                     ))

@@ -35,9 +35,9 @@ const customRenderers = {
 
 const ExercicioDescritivo =({exercicio})=>{
     return(
-      <Flex flexDir="column" borderRadius="3px" gap="10px" justify="flex-start" padding="20px" mb={"1rem"}>
+      <Flex flexDir="column" w='100%' borderRadius="3px" gap="10px" justify="flex-start" padding="20px" mb={"1rem"}>
         <Text fontSize="16px" fontWeight={"bold"}>{exercicio.identification} - {exercicio.question}</Text>
-        <Flex mb='10px' flexDirection="row" justifyContent='space-between' alignItems='center' border="0.5px solid" borderColor={exercicio.isCorrect ? "green" : "red"} borderRadius="5px" bg="#262734" p="10px" color="grey">
+        <Flex mb='10px' flexDirection="row" justifyContent='space-between' alignItems='center' border="0.5px solid" borderColor={exercicio.isCorrect ? "green" : "red"} borderRadius="5px" bg="var(--background-form)" p="10px" color="grey">
           <Text>{exercicio.answer}</Text>
           {exercicio.isCorrect ? <CheckCircleIcon color="green" /> : <WarningIcon color="red" />}
         </Flex>

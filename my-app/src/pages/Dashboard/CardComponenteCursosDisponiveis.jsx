@@ -31,23 +31,20 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
     return (
       <Card
         flexDir={'row'}
-        bg="#1A1922"
         mb={5}
-  
+        w='23rem'
+        background="var(--background-card)"
       >
         <Image
           borderRadius={5}
-          objectFit="fill"
+          objectFit="cover"
           w="5rem"
           h="5rem"
           src={`data:image/svg+xml;utf8,${encodeURIComponent(svgIcon)}`}
           mr={isSmOrMd ? 0 : 4}
-          bg="white"
           style={{ borderRadius: '5' }}
         />
         <Stack
-          bg="#262734"
-          color="white"
           direction="row"
           overflow={"hidden"}
           borderRadius={5}
@@ -64,10 +61,9 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
             mr={"1rem"}
             alignSelf={"flex-end"}
             variant="solid"
-            bg="#0880A2"
-            colorScheme="blue"
+            bg="#0880A2" color="white"
             size={isSmOrMd ? "md" : "lg"}
-            fontSize={isSmOrMd ? 11 : 13}
+            fontSize={isSmOrMd ? "0.5rem" : "1rem"}
             fontWeight="bold"
             onClick={async () => {
               try {
@@ -83,27 +79,26 @@ const CardComponentCursosDisponiveis = ({ obj }) => {
   
           <Button
             alignSelf={"flex-end"}
+            bg="#0880A2" color="white"
             variant="solid"
-            bg="#0880A2"
-            colorScheme="blue"
             size={isSmOrMd ? "md" : "lg"}
-            fontSize={isSmOrMd ? 11 : 13}
+            fontSize={isSmOrMd ? "0.5rem" : "1rem"}
             fontWeight="bold"
             onClick={() => {
               onOpen();
             }}
           >
-            ver detalhes
+            Detalhes
           </Button>
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent color="white" bg="#262734">
+            <ModalContent style={{background:'var(--background-menu)'}}>
               <ModalHeader>Detalhes do treinamento</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 {obj.topics.map((item, index) => {
                   return (
-                    <div key={index}>
+                    <div key={index} >
                       <Text fontSize="15px" fontWeight="bold">
                         {item.index}-{item.title}
                       </Text>

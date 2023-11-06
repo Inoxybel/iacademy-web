@@ -57,17 +57,19 @@ const ConteudoItem = ({ position, conteudo, idConteudo }) => {
     useEffect(() => {
 
     if (conteudoSelecionado) {   
-        const conteudoMaisRecente = conteudo.subcontentHistory.find((obj) => obj.disabledDate === "0001-01-01T00:00:00Z") ;
-        if (conteudoMaisRecente && conteudoMaisRecente.content) {
-            setConteudoAtualRenderizado(conteudoMaisRecente.content);
-            if (conteudoMaisRecente.content.startsWith('##')) {
-              setMostrarCabecalho(false);
-            } else {
-              setMostrarCabecalho(true);
-            }
-          } else {
-            setConteudoAtualRenderizado(" "); 
+        var conteudoMaisRecente = conteudo.subcontentHistory.find((obj) => obj.disabledDate === "0001-01-01T00:00:00Z") ;
+
+         if (!conteudoMaisRecente) {
+            conteudoMaisRecente = conteudo.subcontentHistory[0];
           }
+
+          setConteudoAtualRenderizado(conteudoMaisRecente.content);
+          if (conteudoMaisRecente.content.startsWith('##')) {
+            setMostrarCabecalho(false);
+          } else {
+            setMostrarCabecalho(true);
+          }
+
     }
 }, [conteudoSelecionado, conteudo.subcontentHistory,setConteudoAtualRenderizado]);
 
@@ -127,9 +129,9 @@ return (
                                  icon={<BiHistory color='#70728C' style={{ width: '1rem', height: '1rem' }} />}
                              />
                          </Tooltip>
-                         <MenuList bg="#2F3142" p='0.3rem' flexDir='row' justifyContent='flex-start]'>
+                         <MenuList  p='0.3rem' flexDir='row' justifyContent='flex-start]'>
                              {conteudo.subcontentHistory.map((obj, index) => (
-                                 <MenuItem key={index} bg='#2F3142' _hover={{ bg: "#075E81" }} _active={{ bg: "#054B60" }} onClick={() => {
+                                 <MenuItem key={index}  _hover={{ bg: "var(--background-menu)",color:'white' }} _active={{ bg: "var(--background-form)" }} onClick={() => {
                                      setConteudoAtualRenderizado(obj.content);
                                  }}>
                                      <Flex flexDir='row' alignSelf='center' padding='0' justifyContent='space-around' gap='2rem'>
@@ -148,7 +150,7 @@ return (
              </Flex>
         )}
         {!conteudoAtualRenderizado&&(<Skeleton h={10} w='70vw'/>)}  
-        <Flex style={{ wordWrap: 'break-word' }} color='white' margin='none' w={['350px','600px','100%']} flexDir='column' h='100%'>
+        <Flex style={{ wordWrap: 'break-word' }}  margin='none' w={['350px','600px','100%']} flexDir='column' h='100%'>
     <ReactMarkdown components={customRenderers}>
         {conteudoAtualRenderizado}
     </ReactMarkdown>

@@ -39,7 +39,6 @@ h3{
   p {
     margin-bottom: 16px;
     margin-left: 5px;
-    color: #EDEDED;
     word-wrap: break-word; /* Quebra palavras longas em várias linhas */
   }
   
@@ -96,9 +95,9 @@ const ConteudoBody = () => {
 
     } else {
         return (
-            <Flex className='conteudo' fontSize={fonte} w='100%' flexDir='column' bg='#474859' minH='100vh'>
-  <Flex className='cabecalho' bg='#262734' minH='100px' alignItems="center" justifyContent="center" p='10px'>
-    <Text textAlign="center" color='white' fontWeight='bold' ml={['0.5rem', '1.5rem']} fontSize={['16px', '26px']} >{conteudoSelecionado.title}</Text>
+            <Flex className='conteudo' fontSize={fonte} w='100%' flexDir='column'  h='100%'>
+  <Flex className='cabecalho'  minH='100px' alignItems="center" justifyContent="center" p='10px'>
+    <Text textAlign="center"  fontWeight='bold' ml={['0.5rem', '1.5rem']} fontSize={['16px', '26px']} >{conteudoSelecionado.title}</Text>
   </Flex>
   
   <Flex className='corpoConteudo' flexWrap='wrap' flexDir='column' m='0.5rem' alignItems='center'>

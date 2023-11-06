@@ -48,11 +48,11 @@ const ExercicioUmaRespostas = ({ exercicio }) => {
     const correctOption = getCorrectOption();
   
     return (
-      <Flex flexDir="column"backgroundColor='#2F3142' width='68remz' padding='20px' height='100%' mb={"1rem"}>
+      <Flex flexDir="column"  width='100%' padding='20px' height='100%' mb={"1rem"}>
         <Text fontSize="16px" fontWeight="bold" mb={'1rem'} >
           {exercicio.identification} - {exercicio.question}
         </Text>
-        <RadioGroup mb='10px' value={correctOption} border="0.5px solid" isReadOnly borderColor={exercicio.isCorrect ? "green" : "red"} borderRadius="5px" bg="#262734" p="10px" width="100%" color="grey" padding='10px'>
+        <RadioGroup mb='10px' value={correctOption} border="0.5px solid" isReadOnly borderColor={exercicio.isCorrect ? "green" : "red"} borderRadius="5px" bg="var(--background-form)" p="10px" width="100%" color="grey" padding='10px'>
           <VStack direction='row' alignItems='flex-start'>
             {exercicio.complementation.map((option, index) => (
               <Radio colorScheme={exercicio.isCorrect ? 'green' : 'red'} variant='' key={index} value={index}>
