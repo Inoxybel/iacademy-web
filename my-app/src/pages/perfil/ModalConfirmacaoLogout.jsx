@@ -43,6 +43,8 @@ const ModalConfirmacaoLogout = ({isOpen,cancelRef,onClose})=>{
                     cookies.remove('token');
                     cookies.remove('tokenExpiration');
                     cookies.remove('user');
+                    cookies.remove('topico_selecionado');
+                    cookies.remove('conteudo_atual');
                     navigate("/login")
                     onClose();
                     }

@@ -9,7 +9,9 @@ import {
     Text
 } from '@chakra-ui/react';
 import React from 'react';
+import Cookies from "universal-cookie";
 
+const cookies = new Cookies();
 import useDasboard from './UseDasboard';
 
 function salvaIdMemoria(chave, valor) {
@@ -17,6 +19,17 @@ function salvaIdMemoria(chave, valor) {
     localStorage.removeItem(chave);
   }
   localStorage.setItem(chave, valor);
+}
+
+function verificarTopicoAtualExibe (){
+  var topicoAtual = cookies.get("topico_selecionado")
+  if(topicoAtual){
+    return "Você está vendo " + topicoAtual.title
+  }
+  else{
+    return " "
+  }
+
 }
 
 
@@ -77,17 +90,7 @@ const CardComponentCursoIniciado = ({ curso }) => {
             </Button>
           </Flex>
           <Flex alignItems="center" gap="10px" justifyContent="space-between">
-            <Text fontSize="10px">{0}%</Text>
-  
-            <Progress
-              colorScheme="whiteAlpha"
-              size="md"
-              h="2px"
-              value={0}
-              flex="1"
-              mr={2}
-              bg="grey"
-            />
+            <Text fontSize="0.8rem" fontWeight='bold'>{verificarTopicoAtualExibe()}</Text>
           </Flex>
         </Stack>
       </Card>

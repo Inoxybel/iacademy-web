@@ -35,8 +35,8 @@ function mandarParaListaDeRespostas(id, resposta) {
 
 const Questionario = ({ idExercicio }) => {
     const { cancelRef, toast, CorrecaoPorCorrectionId, CriarCorrecaoPorExerciseId, exercicioEntregado, setExercicioEntregado, setConfirmado, isOpen, onOpen, onClose, exercicioConteudoSelecionado, RedirecionarParaTelaFeedback } = useQuestionarioCustom(idExercicio);
-
-    if (!exercicioConteudoSelecionado || exercicioConteudoSelecionado === undefined) {
+    console.log(exercicioConteudoSelecionado)
+    if (!exercicioConteudoSelecionado) {
         return (
             <>
             <Skeleton>

@@ -8,7 +8,7 @@ export const useSelecaoContext = () => {
 
 
 export const SelecaoProvider = ({ children }) => {
-  const [selecao, setSelecao] = useState('conteudo'); // 'conteudo' ou 'exercicio'
+  const [selecao, setSelecao] = useState('conteudo'); 
   const selecionar = (opcao) => {
     setSelecao(opcao);
   };

@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ContextProvider from '../../services/context/ContextProvider';
 import Sidebar from "./SideBar";
-import Tela from "./Tela";
+import ConteudoOuExercicio from "./ConteudoOuExercicio";
 import { SelecaoProvider } from './ConteudoContext';
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
         <SelecaoProvider>
             <Flex w={"100%"} ml={aberto ?  "19.8rem" : "0"}  >
                 <Sidebar onSetAberto={setAberto} idSumario={id} onSetIdExercicioSelecionado={setIdExercicioSelecionado} />
-                <Tela idExercicioSelecionado={idExercicioSelecionado} />
+                <ConteudoOuExercicio idExercicioSelecionado={idExercicioSelecionado} />
             </Flex>
         </SelecaoProvider>
     </ContextProvider>
