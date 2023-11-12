@@ -9,7 +9,7 @@
   --background-form: #064469;
   --background-menu: #5790ab;
   --background-card: #82b0c5f5;
-
+  --background-buttom:#82b0c5f5;
   --primary-fontColor: #0c0c0c;
 
   --primary-color: #1b2021;
@@ -49,7 +49,7 @@ body {
     --background-form: #92b5be;
     --background-menu: #5790ab;
     --background-card: #b3d6df;
-
+    --background-buttom:blue;
     --primary-fontColor: #ffffff;
 
     --primary-color: #aed8e3;
