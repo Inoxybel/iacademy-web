@@ -45,7 +45,7 @@ const estilos = {
   },
 
   texto: {
-    color: 'white',
+    color: 'var(--primary-fontColor)',
     fontWeight: 'bold',
     flexWrap: 'wrap',
     maxWidth: '89%',

@@ -143,41 +143,44 @@ function Login({ setAuthenticated }) {
   };
 
   return (
-    <Container sx={styles.formFather}>
-      <Heading sx={styles.formTitle}>Login para Empresas</Heading>
-      <Box sx={styles.formLogin}>
-        {error && (
-          <Text sx={styles.formError}>
-            {error}
-          </Text>
-        )}
-        <FormControl id="cnpj" isRequired sx={styles.formControl}>
-          <FormLabel sx={styles.formLabel}>CNPJ</FormLabel>
-          <Input
-            sx={styles.input}
-            type="cnpj"
-            placeholder="CNPJ"
-            name="cnpj"
-            value={formData.cnpj}
-            onChange={handleInputChange}
-          />
-        </FormControl>
-        <FormControl id="password" isRequired sx={styles.formControl}>
-          <FormLabel sx={styles.formLabel}>Senha</FormLabel>
-          <Input
-            sx={styles.input}
-            type="password"
-            placeholder="Sua senha"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </FormControl>
-        <Button onClick={handleLogin} sx={styles.buttonEnviar}>
-          Entrar
-        </Button>
-      </Box>
-    </Container>
+    <>
+      <Container sx={styles.formFather}>
+        <Button position='fixed' left='1rem' top='1rem' padding='0 2rem' onClick={() => navigate('/')} colorScheme="blue">Voltar</Button >
+        <Heading sx={styles.formTitle}>Login para Empresas</Heading>
+        <Box sx={styles.formLogin}>
+          {error && (
+            <Text sx={styles.formError}>
+              {error}
+            </Text>
+          )}
+          <FormControl id="cnpj" isRequired sx={styles.formControl}>
+            <FormLabel sx={styles.formLabel}>CNPJ</FormLabel>
+            <Input
+              sx={styles.input}
+              type="cnpj"
+              placeholder="CNPJ"
+              name="cnpj"
+              value={formData.cnpj}
+              onChange={handleInputChange}
+            />
+          </FormControl>
+          <FormControl id="password" isRequired sx={styles.formControl}>
+            <FormLabel sx={styles.formLabel}>Senha</FormLabel>
+            <Input
+              sx={styles.input}
+              type="password"
+              placeholder="Sua senha"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </FormControl>
+          <Button onClick={handleLogin} sx={styles.buttonEnviar}>
+            Entrar
+          </Button>
+        </Box>
+      </Container>
+    </>
   );
 }
 
