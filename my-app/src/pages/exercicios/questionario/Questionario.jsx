@@ -78,7 +78,7 @@ const Questionario = ({ idExercicio }) => {
                             onOpen()
                             setExercicioEntregado(true)
                         }}>
-                        {exercicioConteudoSelecionado.status === "Finished" ? "Entregado" : "Entregar"}
+                        {exercicioConteudoSelecionado.status === "Finished" ? "Finalizado" : "Entregar"}
                     </Button>
 
                     <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} >

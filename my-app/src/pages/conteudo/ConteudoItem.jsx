@@ -93,7 +93,9 @@ return (
                                          duration: 10000,
                                          isClosable: true
                                      });
-                                     await SolicitarAtualizaçãoConteudoId(idConteudo, position);
+                                     console.log(idConteudo,position)
+                                     const response = await SolicitarAtualizaçãoConteudoId(idConteudo, position);
+                                     console.log(response)
                                      toast({
                                          title: "Seu conteúdo foi atualizado",
                                          status: "success",

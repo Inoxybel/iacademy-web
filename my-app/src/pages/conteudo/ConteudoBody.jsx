@@ -104,7 +104,7 @@ const ConteudoBody = () => {
           {conteudoRenderizadoAtual ? (
             <EstiloConteudoPrincipal>
               {conteudoRenderizadoAtual.map((obj, index) => {
-                return <ConteudoItem key={index} conteudo={obj} idConteudo={conteudoSelecionado.id} />;
+                return <ConteudoItem key={index} conteudo={obj} position={index} idConteudo={conteudoSelecionado.id} />;
               })}
             </EstiloConteudoPrincipal>
           ) : (

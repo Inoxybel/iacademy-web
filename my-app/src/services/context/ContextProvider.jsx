@@ -129,6 +129,7 @@ function ContextProvider({ children }) {
                 console.log(`Erro ao obter novo conteudo criado`);
             }
         } catch (error) {
+            console.log(error)
             if (error.response.status === 401) {
                 navigate("/login");
             } else if (error.response.status === 404) {
