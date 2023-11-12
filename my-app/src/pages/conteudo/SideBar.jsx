@@ -28,9 +28,11 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
     };
 
     const handleClickConteudo = () => {
+        cookies.set('conteudoOuExercicioAtual',"conteudo")
         selecionar('conteudo');
     };
     const handleClickExercicio = () => {
+        cookies.set('conteudoOuExercicioAtual',"exercicio")
         selecionar('exercicio');
     };
 
@@ -49,11 +51,11 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                 
                 const topicoSelecionadoSalvo = cookies.get("topico_selecionado");
                 const conteudoAtualSalvo = cookies.get("conteudo_atual");
-    
-                if (topicoSelecionadoSalvo && conteudoAtualSalvo) {
+                if (topicoSelecionadoSalvo && conteudoAtualSalvo)  {
                     setTopicoAtual(topicoSelecionadoSalvo);
                     await SolicitarConteudoPorId(conteudoAtualSalvo);
                 } else {
+                    cookies.set("topico_selecionado",listaSumarioResponse.topics[0])
                     setTopicoAtual(listaSumarioResponse.topics[0]);
                     await SolicitarConteudoPorId(listaSumarioResponse.topics[0].subtopics[0].contentId);
                 }
@@ -123,8 +125,8 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                                             onMouseLeave={(e) => {
                                                 e.target.style.backgroundColor = 'var(--background-form)';
                                             }}
-                                            onClick={() => {
-                                                cookies.set("topico_selecionado", JSON.stringify(obj));
+                                             onClick={() => {
+                                                cookies.set("topico_selecionado", obj);
                                                  setTopicoAtual(obj)
                                                  
                                                  }}>
@@ -161,6 +163,7 @@ const Sidebar = ({ idSumario, onSetIdExercicioSelecionado, onSetAberto }) => {
                                             <Box className='itemSelecionavelTopicosExercicios'
                                                 onClick={(e) => {
                                                     e.stopPropagation()
+                                                    cookies.set("exercicio_atual",obj.exerciseId);
                                                     onSetIdExercicioSelecionado(obj.exerciseId)
                                                     handleClickExercicio()
                                                 }} >

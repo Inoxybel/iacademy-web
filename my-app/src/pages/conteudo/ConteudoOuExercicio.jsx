@@ -6,7 +6,6 @@ import { Box } from '@chakra-ui/react';
 
  const Conteudo = ({idExercicioSelecionado}) => {
   const { selecao } = useSelecaoContext();
-
   return (
     <Box flex={3} >
       {selecao === 'conteudo' ? (

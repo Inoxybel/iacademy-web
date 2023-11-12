@@ -1,17 +1,26 @@
 import {
     Flex
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ContextProvider from '../../services/context/ContextProvider';
 import Sidebar from "./SideBar";
 import ConteudoOuExercicio from "./ConteudoOuExercicio";
 import { SelecaoProvider } from './ConteudoContext';
+import Cookies from "universal-cookie";
 
 const App = () => {
+    const cookies = new Cookies();
     const { id } = useParams();
     const [idExercicioSelecionado, setIdExercicioSelecionado] = useState();
     const [aberto, setAberto] = useState(true);
+    
+    useEffect(()=>{
+        var exercicio = cookies.get("exercicio_atual")
+        if(exercicio){
+            setIdExercicioSelecionado(exercicio)
+        }
+    },[])
 
     return (
         <ContextProvider>

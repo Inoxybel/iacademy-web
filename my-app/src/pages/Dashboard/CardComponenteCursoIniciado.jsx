@@ -23,8 +23,18 @@ function salvaIdMemoria(chave, valor) {
 
 function verificarTopicoAtualExibe (){
   var topicoAtual = cookies.get("topico_selecionado")
+  var conteudoOuExercicio = cookies.get("conteudoOuExercicioAtual")
   if(topicoAtual){
-    return "Você está vendo " + topicoAtual.title
+
+    if(conteudoOuExercicio==="conteudo" || undefined){
+      return "Você está vendo " + topicoAtual.title
+    }
+    if(conteudoOuExercicio==="exercicio"){
+      return "Você está vendo  exercício de " + topicoAtual.title
+    }
+    else{
+      return "Você está vendo " + topicoAtual.title
+    }
   }
   else{
     return " "
