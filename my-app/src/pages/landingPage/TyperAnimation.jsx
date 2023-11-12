@@ -4,21 +4,17 @@ import { Cursor, useTypewriter } from 'react-simple-typewriter';
 import { Text } from "@chakra-ui/react";
 import styles from "../styles";
 
-export default function TyperAnimation({frase}) {
-  
+export default function TyperAnimation({ frase }) {
+
   const [typeEffect] = useTypewriter({
     words: frase,
     loop: 1,
-    typeSpeed: 10,
+    typeSpeed: 30,
     deleteSpeed: 1,
   });
 
   return (
-    <div >
-      <h1>
-        <Text sx={styles.typeEffectFrase}>{typeEffect}</Text>
-      </h1>
-    </div>
+    <Text sx={styles.typeEffectFrase}>{typeEffect}</Text>
   )
 }
 

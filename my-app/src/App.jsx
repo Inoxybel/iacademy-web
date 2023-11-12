@@ -56,7 +56,7 @@ function App() {
 
       <ChakraProvider>
         <CSSReset />
-        <Flex minW='100vw' minH='100vh' bg='var(--background-color)'>
+        <Flex minH='100vh' bg='var(--background-color)'>
           <Router>
             <Routes>
               <Route

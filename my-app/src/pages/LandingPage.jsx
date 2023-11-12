@@ -83,10 +83,8 @@ export default function LandingPage() {
                         {breakpoint >= breakpoints.md && <> <Flex justifyContent={"flex-end"} top={["5%", "5%", "5%", "5%", "5%", "10%"]} right={[5, 5, 5, 20, 20, 20]} position={breakpoints <= "md" ? "absolute" : "relative"} >
                             <Image w={["45vw", "30vw", "28vw", "25vw", "25vw", "25vw"]} src={undraw_reading} position={"relative"} top={["15vw", "20vw", "10vw", "10vw", "3vw", "-8vw"]} right={["-5vw", "3vw", "10vw", "3vw", "3vw", "3vw"]} />
                         </Flex></>}
-
-
-                        <Box color="blue.900" maxH={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"}  position={breakpoint >= breakpoints.md ? "absolute" : "relative"} align={breakpoint <= breakpoints.md && "flex-start"} left={["0", "5%", "5%", "6%", "6%", "6%"]} top={["10%", "5%","5%", "5%","5%", "5%"]} maxW={["70%", "60%", "45%", "45%", "50%", "55%"]}>
-                            <Card align='center' p={[2,2,3,4,5,5]} boxShadow={"2xl"} bg={"blue.50"} borderWidth={1} borderColor={"blue.100"} h={[320,400,350,300,400,400]} w={[250,250,400,500,750,750]}>
+                        <Box color="blue.900" maxH={"100vh"} textShadow="2px 2px 2px white" fontWeight={"semibold"} position={breakpoint >= breakpoints.md ? "absolute" : "relative"} align={breakpoint <= breakpoints.md && "flex-start"} left={["0", "5%", "5%", "6%", "6%", "6%"]} top={["10%", "5%", "5%", "5%", "5%", "5%"]} maxW={["70%", "60%", "45%", "45%", "50%", "55%"]}>
+                            <Card align='center' p={[2, 2, 3, 4, 5, 5]} boxShadow={"2xl"} bg={"blue.50"} borderWidth={1} borderColor={"blue.100"} w={[250, 250, 400, 500, 750, 750]}>
                                 <CardHeader>
                                     <Heading fontSize={["14px", "14px", "18px", "28px", "36px", "36px"]} position={breakpoints <= "sm" ? "relative" : "absolute"} maxW={["100%", "100%", "100%", "100%", "100%", "100%"]}>Desenvolvendo o conhecimento da sua maneira</Heading>
                                 </CardHeader>
