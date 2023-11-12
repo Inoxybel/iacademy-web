@@ -27,13 +27,13 @@ function verificarTopicoAtualExibe (){
   if(topicoAtual){
 
     if(conteudoOuExercicio==="conteudo" || undefined){
-      return "Você está vendo " + topicoAtual.title
+      return "Você está em " + topicoAtual.title
     }
     if(conteudoOuExercicio==="exercicio"){
-      return "Você está vendo  exercício de " + topicoAtual.title
+      return "Você está em exercício de " + topicoAtual.title
     }
     else{
-      return "Você está vendo " + topicoAtual.title
+      return "Você está em " + topicoAtual.title
     }
   }
   else{
