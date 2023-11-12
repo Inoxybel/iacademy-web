@@ -62,7 +62,7 @@ function Login({ setAuthenticated }) {
       }
     } catch (error) {
       console.log(error);
-      setError('Credenciais inválidas. Tente novamente.');
+      setError(error.response.data);
     }
   };
 

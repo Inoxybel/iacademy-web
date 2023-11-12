@@ -9,7 +9,9 @@ import {
     Text
 } from '@chakra-ui/react';
 import React from 'react';
+import Cookies from "universal-cookie";
 
+const cookies = new Cookies();
 import useDasboard from './UseDasboard';
 
 function salvaIdMemoria(chave, valor) {
@@ -17,6 +19,27 @@ function salvaIdMemoria(chave, valor) {
     localStorage.removeItem(chave);
   }
   localStorage.setItem(chave, valor);
+}
+
+function verificarTopicoAtualExibe (){
+  var topicoAtual = cookies.get("topico_selecionado")
+  var conteudoOuExercicio = cookies.get("conteudoOuExercicioAtual")
+  if(topicoAtual){
+
+    if(conteudoOuExercicio==="conteudo" || undefined){
+      return "Você está vendo " + topicoAtual.title
+    }
+    if(conteudoOuExercicio==="exercicio"){
+      return "Você está vendo  exercício de " + topicoAtual.title
+    }
+    else{
+      return "Você está vendo " + topicoAtual.title
+    }
+  }
+  else{
+    return " "
+  }
+
 }
 
 
@@ -28,15 +51,14 @@ const CardComponentCursoIniciado = ({ curso }) => {
       <Card
         flexDirection="row"
         overflow="hidden"
-        bg="#262734"
         w='20rem'
-        color="white"
+        background="var(--background-card)"
+
         p={isSmOrMd ? 1 : 2}
       >
         <Image
           objectFit="cover"
           src={`data:image/svg+xml;utf8,${encodeURIComponent(curso.icon)}`}
-          bg="white"
           borderRadius="5"
           alignSelf={'center'}
           w="5rem"
@@ -65,8 +87,8 @@ const CardComponentCursoIniciado = ({ curso }) => {
               mr={isSmOrMd ? "10" : "0"}
               p={2}
               variant="solid"
-              colorScheme="#0880A2;"
               w='90%'
+              bg="#0880A2" color="white"
               size={isSmOrMd ? "sm" : "md"}
               fontSize={isSmOrMd ? 11 : 13}
               onClick={() => {
@@ -78,17 +100,7 @@ const CardComponentCursoIniciado = ({ curso }) => {
             </Button>
           </Flex>
           <Flex alignItems="center" gap="10px" justifyContent="space-between">
-            <Text fontSize="10px">{0}%</Text>
-  
-            <Progress
-              colorScheme="whiteAlpha"
-              size="md"
-              h="2px"
-              value={0}
-              flex="1"
-              mr={2}
-              bg="grey"
-            />
+            <Text fontSize="0.8rem" fontWeight='bold'>{verificarTopicoAtualExibe()}</Text>
           </Flex>
         </Stack>
       </Card>

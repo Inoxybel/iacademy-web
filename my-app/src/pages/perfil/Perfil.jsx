@@ -37,7 +37,7 @@ function Perfil() {
             <FormLabel sx={{ ...formStyles.formLabel }}>Nome Completo</FormLabel>
             <Input sx={{ ...formStyles.input }}
               type="text"
-              value={state.formulario.name===""?"Carregando...":state.formulario.name}
+              value={state.formulario.name}
               onChange={(e) => {
                 dispatch({
                   type: CAMPO_ALTERAR,
@@ -51,7 +51,7 @@ function Perfil() {
             <FormLabel sx={{ ...formStyles.formLabel }}>CNPJ da Empresa</FormLabel>
             <Input sx={{ ...formStyles.input }}
               type="text"
-              value={state.formulario.companyRef===""?"Carregando...":state.formulario.companyRef}
+              value={state.formulario.companyRef}
               onChange={(e) => {
                 dispatch({
                   type: CAMPO_ALTERAR,
@@ -66,7 +66,7 @@ function Perfil() {
             <FormLabel sx={{ ...formStyles.formLabel }}>Email</FormLabel>
             <Input sx={{ ...formStyles.input }}
               type="email"
-              value={state.formulario.email===""?"Carregando...":state.formulario.email}
+              value={state.formulario.email}
               onChange={(e) => {
                 dispatch({
                   type: CAMPO_ALTERAR,

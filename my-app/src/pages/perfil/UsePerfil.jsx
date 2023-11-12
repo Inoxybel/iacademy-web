@@ -13,6 +13,15 @@ const usePerfil = ()=>{
   useEffect(() => {
 
     const fetchUserData = async () => {
+
+      const obj = {
+        'id': "Carregando...",
+        'name': "Carregando...",
+        'companyRef': "Carregando...",
+        'cpf': "Carregando...",
+        'email':"Carregando..."
+    };
+    dispatch({type:LISTA_INICIAR,payload:{...obj}})
         const user = await pegarUsuarioPorIdController(userCoockie.id);
         try {
             const obj = {

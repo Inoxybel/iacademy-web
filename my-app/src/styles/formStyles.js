@@ -74,7 +74,8 @@ export default {
     h: '2rem',
     w: '10rem',
     mt: 4,
-    bg: 'var(--backgroud-button)',
+    border:'1px',
+    bg: 'var(--background-buttom)',
     color: 'var(--primary-white)',
     _hover: {
       color: 'var(--primary-black)',

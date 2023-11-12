@@ -25,7 +25,7 @@ const ModalConfirmacao = ({ isOpen, cancelRef, onClose, state, dispatch, LISTA_A
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent bg="#2F3142" color='white'>
+          <AlertDialogContent bg="var(--background-form)" color='white'>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
               Atualizar cadastro
             </AlertDialogHeader>

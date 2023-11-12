@@ -32,7 +32,7 @@ const FormularioSenha = ({ initialRef, finalRef, isOpen, onClose, state, dispatc
 
       >
         <ModalOverlay />
-        <ModalContent bg="#2F3142" color='white'>
+        <ModalContent bg="var(--background-form)" color='white'>
           <ModalHeader>Altere sua senha</ModalHeader>
           
           <ModalCloseButton onClick={() => {

@@ -15,7 +15,7 @@ const ExercicioDescritivo = ({ status, question, identification, exercicioEntreg
     }
 
     return (
-        <Box style={{ backgroundColor: "var(--background-color)", width: '100%', padding: '20px' }}>
+        <Box style={{backgroundColor:"var(--background-card)",width:'100%',padding:'20px'}}>
             <Text fontSize="sm" fontWeight="semibold" mb={'1rem'}>
                 {identification} - {question}
             </Text>
